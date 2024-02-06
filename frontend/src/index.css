@@ -1,5 +1,8 @@
+html,
 body {
   margin: 0;
+  color: black;
+  background-color: #061237;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -10,4 +13,331 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+:root {
+  --primary: #1aac83;
+  --error: #e7195a;
+}
+
+header {
+  background-color: aqua;
+}
+
+header .container {
+  text-align: center;
+  align-items: center;
+}
+
+.navbar {
+  border-bottom: rgb(141, 141, 141) solid 1px;
+}
+
+.banner {
+  margin-top: 0;
+}
+
+.welcome {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.page-contents {
+  padding: 57px 0 100px;
+  min-height: 100vh;
+  background-color: gainsboro;
+}
+
+.page-links {
+  display: flex;
+}
+
+.link-btn {
+  padding: 0 5px;
+  color: black;
+  text-decoration: none;
+}
+
+.logout-btn {
+  max-width: 50px;
+  padding: 3px 2px;
+  font-size: 8pt;
+  text-align: center;
+}
+
+.pname {
+  font-size: 9pt;
+}
+
+.rh-logo,
+.rh-topnav-logo {
+  max-width: 225px;
+  margin: 0;
+}
+
+.MNavi {
+  display: none;
+}
+
+.creds-btn {
+  margin: 0 5px;
+  padding: 0 6px;
+  background-color: goldenrod;
+  border: gainsboro solid 1px;
+}
+
+.creds-btn:hover {
+  background-color: gainsboro;
+  border: gainsboro solid 1px;
+  color: black;
+}
+
+.creds-btn:active {
+  background-color: gainsboro;
+  border: gainsboro solid 1px;
+  color: black;
+}
+
+.creds-btn:focus {
+  background-color: gainsboro !important;
+  border: gainsboro solid 1px !important;
+  color: black;
+}
+
+.dropdown-toggle::after {
+  content: none !important;
+}
+
+.landing-page {
+  padding-top: 57px;
+}
+
+.carousel-item,
+.showcase-img {
+  object-fit: cover;
+  object-position: center;
+  height: 60vh;
+  overflow: hidden;
+}
+
+.carousel-caption {
+  overflow: hidden;
+  object-position: center;
+  z-index: 5;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.349);
+}
+
+.landing-showcase,
+.carousel-item,
+.showcase-img {
+  max-height: 60vh;
+  border-bottom: rgb(141, 141, 141) solid 1px;
+}
+
+.showcase-img {
+  width: 100%;
+}
+
+.runner-what,
+.runner-mission,
+.runner-team,
+.runner-service,
+.runner-review,
+.runner-contact {
+  display: flex;
+  padding-top: 25px;
+  min-height: 50vh;
+}
+
+.runner-what-l {
+  text-align: justify;
+  padding: 25px;
+  width: 60%;
+}
+.runner-what-r {
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+
+.runner-mission {
+  background-color: #f8f9fa;
+  padding: 25px;
+}
+
+.runner-mission-l {
+  display: flex;
+  width: 40%;
+  align-items: center;
+}
+
+.runner-mission-r {
+  text-align: justify;
+  padding: 25px;
+  width: 60%;
+}
+
+.runner-team {
+  background-color: #061237;
+  display: flex;
+  flex-direction: column;
+  color: aliceblue;
+  padding: 10px;
+}
+
+.runner-team-box {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.runner-service {
+  background-color: #f8f9fa;
+  padding: 25px;
+}
+
+.runner-review {
+  background-color: goldenrod;
+  /*background: linear-gradient(#f8f9fa 75%, goldenrod);*/
+  padding: 25px;
+}
+
+.runner-contact {
+  background-color: gainsboro;
+  padding: 25px;
+}
+
+.runner-img {
+  width: 100%;
+  border-radius: 25px;
+}
+
+.team-img {
+  object-fit: cover;
+  object-position: center;
+  border-bottom: goldenrod 1px solid;
+  height: 75%;
+}
+
+.subsec-title {
+  text-align: center;
+}
+
+.team-member-card {
+  margin: 5px;
+  width: 20rem;
+  border: goldenrod 1px solid;
+}
+
+.team-member-name {
+  font-size: 13pt;
+}
+
+@media screen and (max-width: 710px) {
+  .top-navi {
+    display: none;
+  }
+
+  .topnav-contents {
+    justify-content: center !important;
+  }
+
+  .rh-logo {
+    max-width: 175px;
+  }
+
+  .MNavi {
+    color: black;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: center;
+    padding: 0;
+    min-height: 50px;
+    border-top: rgb(141, 141, 141) solid 1px;
+  }
+
+  .bott-navi {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  .nav-link {
+    height: 100%;
+  }
+
+  .bttm-link-btn {
+    display: flex;
+    width: 100%;
+    min-height: 40px;
+    color: #061237;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    font-size: 15pt;
+  }
+
+  .bttm-link-btn:hover {
+    color: goldenrod;
+  }
+
+  .profile-options-btn {
+    color: #061237;
+    background-color: #f8f9fa;
+    padding: 0;
+  }
+
+  .dd-profile-btn,
+  .dropdown-toggle {
+    background-color: #f8f9fa !important;
+    border: none;
+  }
+
+  .dropdown-menu[data-bs-popper] {
+    left: -70%;
+  }
+
+  .mnav-logout-btn {
+    max-height: 30px;
+    font-size: 9pt;
+    width: 100%;
+  }
+
+  .mnav-login {
+    border-right: rgb(141, 141, 141) solid 1px;
+  }
+
+  .mnav-join {
+    border-left: rgba(141, 141, 141, 0.329) solid 1px;
+  }
+
+  .carousel-item,
+  .showcase-img {
+    object-fit: cover;
+    object-position: center;
+    height: 50vh;
+    overflow: hidden;
+  }
+
+  .carousel-caption {
+    overflow: hidden;
+    object-position: center;
+    z-index: 5;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.349);
+  }
+
+  .landing-showcase,
+  .carousel-item,
+  .showcase-img {
+    max-height: 50vh;
+    border-bottom: rgb(141, 141, 141) solid 1px;
+  }
+
+  .showcase-img {
+    width: 100%;
+  }
 }
