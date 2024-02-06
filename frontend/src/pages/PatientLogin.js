@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import { useLogin } from '../hooks/useLogin';
+import { Link } from 'react-router-dom';
+import Logo from '../pages/imgs/rh_logo_shadow.png';
+import '../pages/styles/Signup.css';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -12,34 +15,53 @@ const Login = () => {
     await login(email, password);
   };
 
+  const invalidFields = !email || !password
+
   return (
-    <div className="page-contents">
-      <div className="container-fluid">
-        <form className="login" onSubmit={handleSubmit}>
-          <h3>Login</h3>
+    <div className="signup-container">
+      <div className="signup-form-container">
+        <form className="signup-form" onSubmit={handleSubmit}>
+        <Link to="/">
+            <img
+              alt="RH"
+              src={Logo}
+              className="logo"
+            />
+          </Link>   
+
+          <h3>Log in to your Runner Health Account</h3>
 
           <label>
-            Email:
             <input
               type="email"
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
+              required
             />
           </label>
 
           <label>
-            Password:
             <input
               type="password"
+              placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
+              required
             />
           </label>
-          <br></br>
-          <br></br>
-          <button disabled={isLoading}>Login</button>
+
+          <button className="signup-button" disabled={isLoading || invalidFields}>
+            {isLoading ? 'Logging in...' : 'Log in'}
+          </button>
+
           {error && <div className="error">{error}</div>}
         </form>
+      </div>
+      <div className="switch-section-container">
+        <div className="switch-section">
+          <p>Don't have an account? <Link to="/patient_signup" className="switch-link">Create an Account</Link></p>
+        </div>
       </div>
     </div>
   );
