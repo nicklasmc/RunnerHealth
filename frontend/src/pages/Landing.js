@@ -19,14 +19,14 @@ function Landing() {
         <Carousel.Item>
           <img src={first} className="showcase-img" alt="..." />
           <Carousel.Caption>
-            <h3>Better Healthcare</h3>
+            <h3 className="carousel-header">Better Healthcare</h3>
             <p>Runner Health helps to improve the quality of healthcare.</p>
           </Carousel.Caption>
         </Carousel.Item>
         <Carousel.Item>
           <img src={second} className="showcase-img" alt="..." />
           <Carousel.Caption>
-            <h3>Electronic Health Records</h3>
+            <h3 className="carousel-header">Electronic Health Records</h3>
             <p>
               Store medical records more efficiently by utilizing the cloud.
             </p>
@@ -35,7 +35,7 @@ function Landing() {
         <Carousel.Item>
           <img src={third} className="showcase-img" alt="..." />
           <Carousel.Caption>
-            <h3>Faster Response Times</h3>
+            <h3 className="carousel-header">Faster Response Times</h3>
             <p>
               Improve response times with EHRs and automating administrative
               tasks.

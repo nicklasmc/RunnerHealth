@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   margin: 0;
@@ -43,7 +47,7 @@ header .container {
 }
 
 .page-contents {
-  padding: 57px 0 100px;
+  padding: 67px 0 100px;
   min-height: 100vh;
   background-color: gainsboro;
 }
@@ -63,6 +67,7 @@ header .container {
   padding: 3px 2px;
   font-size: 8pt;
   text-align: center;
+  background-color: #6c757d;
 }
 
 .pname {
@@ -120,6 +125,11 @@ header .container {
   overflow: hidden;
 }
 
+.carousel-header {
+  font-size: 18pt;
+  color: whitesmoke;
+}
+
 .carousel-caption {
   overflow: hidden;
   object-position: center;
@@ -146,7 +156,7 @@ header .container {
 .runner-review,
 .runner-contact {
   display: flex;
-  padding-top: 25px;
+  padding: 50px 25px;
   min-height: 50vh;
 }
 
@@ -183,7 +193,6 @@ header .container {
   display: flex;
   flex-direction: column;
   color: aliceblue;
-  padding: 10px;
 }
 
 .runner-team-box {
@@ -222,16 +231,67 @@ header .container {
 
 .subsec-title {
   text-align: center;
+  font-weight: 500;
+  font-size: 30pt;
 }
 
 .team-member-card {
   margin: 5px;
   width: 20rem;
   border: goldenrod 1px solid;
+  background-color: gainsboro;
 }
 
 .team-member-name {
   font-size: 13pt;
+}
+
+.card-body {
+  background-color: gainsboro;
+  border-radius: 15px;
+}
+
+.footy-logo {
+  max-height: 100px;
+}
+
+.footy-border {
+  border-bottom: rgb(141, 141, 141) solid 1px;
+}
+
+.footy-links {
+  display: block;
+  color: #6c757d;
+}
+
+.cp-right-text {
+  font-size: 9pt;
+}
+
+.footy {
+  background-color: #f8f9fa;
+  min-height: 20vh;
+  width: 100%;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #061237;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: goldenrod;
 }
 
 @media screen and (max-width: 710px) {
@@ -339,5 +399,89 @@ header .container {
 
   .showcase-img {
     width: 100%;
+  }
+
+  .footy-logo {
+    max-height: 75px;
+  }
+
+  .footy-contents {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .footy-links {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rh-footer-can {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .footy {
+    padding-bottom: 60px;
+  }
+
+  .signup-form-container,
+  .switch-section-container {
+    width: 80% !important;
+    min-width: 280px;
+  }
+
+  .switch-section p {
+    text-align: center;
+    font-size: 11pt;
+  }
+
+  .logo {
+    margin: 15px auto !important;
+  }
+
+  .runner-overflow {
+    display: none;
+  }
+
+  .runner-what,
+  .runner-mission,
+  .runner-team,
+  .runner-service,
+  .runner-review,
+  .runner-contact {
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 25px;
+  }
+
+  .runner-what-l {
+    text-align: justify;
+    width: 100%;
+    padding: 0 0 50px;
+  }
+  .runner-what-r {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .runner-mission-l {
+    display: flex;
+    width: 100%;
+    align-items: center;
+  }
+
+  .runner-mission-r {
+    text-align: justify;
+    padding: 25px;
+    width: 100%;
+  }
+
+  .MNavi {
+    z-index: 500;
   }
 }

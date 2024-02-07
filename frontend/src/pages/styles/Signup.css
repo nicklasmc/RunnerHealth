@@ -51,7 +51,7 @@ input {
 }
 
 button.signup-button {
-  background-color: #061237;
+  background-color: #0a2061;
   color: #fff;
   padding: 10px;
   border: none;
@@ -61,7 +61,7 @@ button.signup-button {
 }
 
 button.signup-button:hover {
-  background-color: #0a2061;
+  background-color: #061237;
 }
 
 button.signup-button:disabled {

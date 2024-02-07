@@ -1,15 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { useAuthContext } from './hooks/useAuthContext.js';
+import { useAuthContext } from './hooks/useAuthContext';
 import { useMemo } from 'react';
 import { IconContext } from 'react-icons/lib';
 
 //pages and components
-import PatientHome from './pages/PatientHome.js';
-import PatientLogin from './pages/PatientLogin.js';
-import Landing from './pages/Landing.js';
-import PatientSignup from './pages/PatientSignup.js';
-import Navi from './components/navbar/Navi.js';
+import PatientHome from './pages/PatientHome';
+import PatientLogin from './pages/PatientLogin';
+import Landing from './pages/Landing';
+import PatientSignup from './pages/PatientSignup';
+import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
+import Footer from './components/footer/Footer.jsx';
 
 function App() {
   const { patient } = useAuthContext();
@@ -42,6 +43,7 @@ function App() {
                 }
               />
             </Routes>
+            <Footer />
             <MNavi />
           </div>
         </BrowserRouter>
