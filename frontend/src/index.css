@@ -155,6 +155,16 @@ header .container {
   width: 100%;
 }
 
+.team-member-info-can {
+  border-radius: 5px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .runner-what,
 .runner-mission,
 .runner-team,

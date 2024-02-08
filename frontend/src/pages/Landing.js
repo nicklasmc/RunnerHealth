@@ -2,6 +2,8 @@ import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import ListGroup from 'react-bootstrap/ListGroup';
+import { FaGithubSquare, FaLinkedin, FaPortrait } from 'react-icons/fa';
 
 /*images*/
 import first from './imgs/doctors-patient.jpg';
@@ -101,37 +103,85 @@ function Landing() {
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={seven} />
               <Card.Body>
-                <Card.Title className="team-member-name">
-                  Nicklas Chang
-                </Card.Title>
-                <Card.Text>Group Liaison | Front-end Development</Card.Text>
+                <ListGroup variant="flush" className="team-member-info-can">
+                  <ListGroup.Item>
+                    <Card.Title className="team-member-name">
+                      Nicklas Chang
+                    </Card.Title>
+                  </ListGroup.Item>
+                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>
+                    Group Liaison | Front-end Development
+                  </ListGroup.Item>
+                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                </ListGroup>
               </Card.Body>
             </Card>
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={sixth} />
               <Card.Body>
-                <Card.Title className="team-member-name">
-                  Chidi Okpara
-                </Card.Title>
-                <Card.Text>Full Stack Development</Card.Text>
+                <Card.Text></Card.Text>
+                <ListGroup variant="flush" className="team-member-info-can">
+                  <ListGroup.Item>
+                    <Card.Title className="team-member-name">
+                      Chidi Okpara
+                    </Card.Title>
+                  </ListGroup.Item>
+                  <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
+                  <ListGroup.Item>Full Stack Development</ListGroup.Item>
+                  <ListGroup.Item className="">
+                    <div className="flex items-center gap-2 social-links">
+                      <a
+                        title="LinkedIn"
+                        href="https://www.linkedin.com/in/chidi-okpara/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLinkedin color="goldenrod" />
+                      </a>
+                      <a
+                        title="GitHub"
+                        href="https://github.com/Chidoskii"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithubSquare color="goldenrod" />
+                      </a>
+                    </div>
+                  </ListGroup.Item>
+                </ListGroup>
               </Card.Body>
             </Card>
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={eight} />
               <Card.Body>
-                <Card.Title className="team-member-name">
-                  Nicholas Romasanta
-                </Card.Title>
-                <Card.Text>Back-end Development</Card.Text>
+                <Card.Title className="team-member-name"></Card.Title>
+                <Card.Text></Card.Text>
+                <ListGroup variant="flush" className="team-member-info-can">
+                  <ListGroup.Item>
+                    <Card.Title className="team-member-name">
+                      Nicholas Romasanta
+                    </Card.Title>
+                  </ListGroup.Item>
+                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Back-end Development</ListGroup.Item>
+                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                </ListGroup>
               </Card.Body>
             </Card>
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={nine} />
               <Card.Body>
-                <Card.Title className="team-member-name">
-                  Daniel Rivera
-                </Card.Title>
-                <Card.Text>Front-end Development</Card.Text>
+                <ListGroup variant="flush" className="team-member-info-can">
+                  <ListGroup.Item>
+                    <Card.Title className="team-member-name">
+                      Daniel Rivera
+                    </Card.Title>
+                  </ListGroup.Item>
+                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Front-end Development</ListGroup.Item>
+                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                </ListGroup>
               </Card.Body>
             </Card>
           </div>
