@@ -53,7 +53,7 @@ const Footer = () => {
             {/* media */}
             <div className="flex items-center gap-2">
               <a title="LinkedIn" href="#">
-                <FaLinkedin color="#6c757d" />
+                <FaLinkedin color="goldenrod" />
               </a>
               <a
                 title="X"
@@ -61,7 +61,7 @@ const Footer = () => {
                 target="_blank"
                 rel="noreferrer"
               >
-                <FaGithubSquare color="#6c757d" />
+                <FaGithubSquare color="goldenrod" />
               </a>
             </div>
           </div>
