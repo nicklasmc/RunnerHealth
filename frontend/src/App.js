@@ -6,11 +6,16 @@ import { IconContext } from 'react-icons/lib';
 //pages and components
 import PatientHome from './pages/PatientHome';
 import PatientLogin from './pages/PatientLogin';
+import AppointmentSelector from './pages/AppointmentSelector.js'
 import Landing from './pages/Landing';
 import PatientSignup from './pages/PatientSignup';
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
+import BookAppointments from './pages/BookAppointment.js';
+import AppointmnetConfirmation from './pages/AppointmentConfirmation.js';
+
+
 
 function App() {
   const { patient } = useAuthContext();
@@ -42,6 +47,32 @@ function App() {
                   !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
                 }
               />
+              <Route
+                path="/patient_signup"
+                element={
+                  !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
+                }
+              />
+              {/* Appointments */}
+              <Route
+                path="/appointment"
+                element={
+                patient ? <AppointmentSelector /> : <Navigate to="/patient_login" />
+                 }
+              />
+              <Route
+                path="/appointment/:id"
+                element={
+                patient ? <BookAppointments /> : <Navigate to="/patient_login" />
+                 }
+              />
+              <Route
+                path="/appointment/:id/:id"
+                element={
+                patient ? <AppointmnetConfirmation /> : <Navigate to="/patient_login" />
+                 }
+              />
+              
             </Routes>
             <Footer />
             <MNavi />
@@ -53,3 +84,4 @@ function App() {
 }
 
 export default App;
+

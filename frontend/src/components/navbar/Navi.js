@@ -37,7 +37,7 @@ const Navi = () => {
               <Link to="#features" className="link-btn">
                 Records
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/appointment" className="link-btn">
                 Schedule
               </Link>
               <Link to="#pricing" className="link-btn">
