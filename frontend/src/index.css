@@ -194,6 +194,10 @@ header .container {
   width: 50%;
 }
 
+.runner-mission-statement {
+  font-size: 15pt;
+}
+
 .runner-team {
   background-color: #061237;
   display: flex;
@@ -233,6 +237,7 @@ header .container {
 .service-img-can {
   height: 60%;
   min-height: 275px;
+  border-bottom: #061237 3px solid;
 }
 
 .service-img {
@@ -278,6 +283,7 @@ header .container {
 .case-img-can {
   height: 60%;
   min-height: 275px;
+  border-bottom: #061237 3px solid;
 }
 
 .case-img {

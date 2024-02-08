@@ -88,7 +88,7 @@ function Landing() {
           </div>
           <div className="runner-mission-r">
             <h1 className="subsec-title">Our Mission</h1>
-            <p>
+            <p className="runner-mission-statement">
               Runner Health is committed to assisting healthcare providers in
               the transition from paper-based records to electronic health
               record systems.
