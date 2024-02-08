@@ -84,6 +84,10 @@ header .container {
   display: none;
 }
 
+.mnav-logout-btn {
+  background-color: #061237;
+}
+
 .creds-btn {
   margin: 0 5px;
   padding: 0 6px;
@@ -136,6 +140,8 @@ header .container {
   z-index: 5;
   border-radius: 15px;
   background-color: rgba(0, 0, 0, 0.349);
+  max-width: 700px;
+  margin: 0 auto;
 }
 
 .landing-showcase,
@@ -156,7 +162,7 @@ header .container {
 .runner-review,
 .runner-contact {
   display: flex;
-  padding: 50px 25px;
+  padding: 100px 25px;
   min-height: 50vh;
 }
 
@@ -173,19 +179,19 @@ header .container {
 
 .runner-mission {
   background-color: #f8f9fa;
-  padding: 25px;
 }
 
 .runner-mission-l {
   display: flex;
-  width: 40%;
+  width: 45%;
+  margin: 0 auto;
   align-items: center;
 }
 
 .runner-mission-r {
   text-align: justify;
   padding: 25px;
-  width: 60%;
+  width: 50%;
 }
 
 .runner-team {
@@ -202,19 +208,105 @@ header .container {
 }
 
 .runner-service {
+  flex-direction: column;
+  align-items: center;
   background-color: #f8f9fa;
-  padding: 25px;
+}
+
+.all-services-can {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.services-can {
+  width: 32%;
+  border-radius: 30px;
+  background-color: gainsboro;
+  border: 1px solid #061237;
+  box-shadow: 3px 3px 3px #111;
+}
+
+.service-img-can {
+  height: 60%;
+  min-height: 275px;
+}
+
+.service-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 29px;
+  border-top-right-radius: 29px;
+}
+
+.service-divider {
+  min-width: 1%;
+}
+
+.service-desc {
+  min-height: 50px;
+  height: 40%;
+  margin: 25px;
+  font-size: 20pt;
+  font-weight: 600;
+  text-align: center;
+}
+
+.all-cases-can {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.cases-can {
+  width: 32%;
+  background-color: whitesmoke;
+  border-radius: 30px;
+  border: 1px solid #061237;
+  box-shadow: 3px 3px 3px #111;
+  min-height: 700px;
+}
+
+.case-img-can {
+  height: 60%;
+  min-height: 275px;
+}
+
+.case-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-top-left-radius: 29px;
+  border-top-right-radius: 29px;
+}
+
+.case-divider {
+  min-width: 1%;
+}
+
+.case-desc {
+  min-height: 50px;
+  margin: 25px;
+  font-size: 20pt;
 }
 
 .runner-review {
   background-color: goldenrod;
-  /*background: linear-gradient(#f8f9fa 75%, goldenrod);*/
-  padding: 25px;
+  display: flex;
+  flex-direction: column;
 }
 
 .runner-contact {
   background-color: gainsboro;
-  padding: 25px;
 }
 
 .runner-img {
@@ -231,15 +323,17 @@ header .container {
 
 .subsec-title {
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 30pt;
+  padding: 50px 0;
 }
 
 .team-member-card {
-  margin: 5px;
+  margin: 25px;
   width: 20rem;
   border: goldenrod 1px solid;
   background-color: gainsboro;
+  box-shadow: 5px 3px 3px #111;
 }
 
 .team-member-name {
@@ -262,10 +356,6 @@ header .container {
 .footy-links {
   display: block;
   color: #6c757d;
-}
-
-.cp-right-text {
-  font-size: 9pt;
 }
 
 .footy {
@@ -294,7 +384,7 @@ header .container {
   background: goldenrod;
 }
 
-@media screen and (max-width: 710px) {
+@media screen and (max-width: 800px) {
   .top-navi {
     display: none;
   }
@@ -314,6 +404,7 @@ header .container {
     justify-content: space-between;
     text-align: center;
     padding: 0;
+    z-index: 500;
     min-height: 50px;
     border-top: rgb(141, 141, 141) solid 1px;
   }
@@ -481,7 +572,58 @@ header .container {
     width: 100%;
   }
 
-  .MNavi {
-    z-index: 500;
+  .services-can {
+    width: 90%;
+    margin: 25px auto;
+    background-color: gainsboro;
+  }
+
+  .service-divider {
+    display: none;
+  }
+
+  .service-img-can {
+    height: 60%;
+    max-height: 285px;
+  }
+
+  .cases-can {
+    width: 90%;
+    margin: 25px auto;
+    background-color: whitesmoke;
+    min-height: 400px;
+  }
+
+  .case-divider {
+    display: none;
+  }
+
+  .case-img-can {
+    height: 60%;
+    max-height: 285px;
+  }
+
+  .service-desc {
+    min-height: 50px;
+    height: 40%;
+    margin: 25px;
+    font-size: 25pt;
+    text-align: center;
+  }
+}
+
+@media screen and (max-width: 1250px) {
+  .case-desc {
+    min-height: 50px;
+    margin: 50px;
+    font-size: 15pt;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .case-desc {
+    min-height: 50px;
+    margin: 30px;
+    font-size: 15pt;
   }
 }
