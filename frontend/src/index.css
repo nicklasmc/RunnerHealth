@@ -159,6 +159,10 @@ header .container {
   border-radius: 5px;
 }
 
+.team-member-name {
+  margin: 0 auto;
+}
+
 .social-links {
   display: flex;
   justify-content: center;
