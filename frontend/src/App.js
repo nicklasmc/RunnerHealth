@@ -47,12 +47,6 @@ function App() {
                   !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
                 }
               />
-              <Route
-                path="/patient_signup"
-                element={
-                  !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
-                }
-              />
               {/* Appointments */}
               <Route
                 path="/appointment"
