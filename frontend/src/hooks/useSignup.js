@@ -29,7 +29,7 @@ export const useSignup = () => {
       localStorage.setItem('patient', JSON.stringify(json));
 
       // update the auth context
-      dispatch({ type: 'LOGIN', payload: json });
+      dispatch({ type: 'PATIENT_LOGIN', payload: json });
 
       setIsLoading(false);
     }
