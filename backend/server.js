@@ -13,8 +13,7 @@ const { GridFsStorage } = require('multer-gridfs-storage');
 const Grid = require('gridfs-stream');
 const methodOverride = require('method-override');
 const bodyParser = require('body-parser');
-const morgan = require('morgan')
-const dotenv = require('dotenv')
+const morgan = require('morgan');
 
 const app = express();
 
@@ -25,7 +24,7 @@ app.use(bodyParser.json());
 app.use(methodOverride('_method'));
 app.use(cors());
 app.use(express.static('public'));
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use((req, res, next) => {
   console.log(
