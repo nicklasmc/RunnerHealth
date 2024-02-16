@@ -20,8 +20,8 @@ const Footer = () => {
             <a href="#" className="footy-links">Terms of Service</a>
             <a href="#" className="footy-links">Privacy Policy</a>
             <a href="#" className="footy-links">Documentation</a>
-            <a href="#" className="footy-links">Source Code</a>
-            <a href="#" className="footy-links">Contact Us</a>
+            <a href="https://github.com/nicklasmc/RunnerHealth" className="footy-links">Source Code</a>
+            <a href="/contact_us" className="footy-links">Contact Us</a>
           </nav>
         </div>
         {/* Socials and Copyright */}

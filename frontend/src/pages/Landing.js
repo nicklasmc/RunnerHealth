@@ -106,14 +106,32 @@ function Landing() {
                 <ListGroup variant="flush" className="team-member-info-can">
                   <ListGroup.Item>
                     <Card.Title className="team-member-name">
-                      Nicklas Chang
+                      Nicklas Chiang
                     </Card.Title>
                   </ListGroup.Item>
-                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
                   <ListGroup.Item>
-                    Group Liaison | Front-end Development
+                    Group Liaison | Front-end Dev.
                   </ListGroup.Item>
-                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                  <ListGroup.Item>
+                    <div className="flex items-center gap-2 social-links">
+                      <a
+                        title="LinkedIn"
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLinkedin color="goldenrod" />
+                      </a>
+                      <a
+                        title="GitHub"
+                        href="https://github.com/nicklasmc"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithubSquare color="goldenrod" />
+                      </a>
+                    </div></ListGroup.Item>
                 </ListGroup>
               </Card.Body>
             </Card>
@@ -210,46 +228,6 @@ function Landing() {
               <div className="service-desc">Make Payments</div>
             </div>
           </div>
-        </div>
-        <div className="runner-review container-fluid">
-          <h1 className="subsec-title">User Stories</h1>
-          <div className="all-cases-can">
-            <div className="cases-can">
-              <div className="case-img-can">
-                <img className="case-img" alt=".." src={thirteen} />
-              </div>
-              <div className="case-desc">
-                "As a physician, I need access to a patient's medical history so
-                I can provide the best care possible."
-              </div>
-            </div>
-            <div className="case-divider"></div>
-            <div className="cases-can">
-              <div className="case-img-can">
-                <img className="case-img" alt=".." src={fourteen} />
-              </div>
-              <div className="case-desc">
-                "As a healthcare worker, I want a healthcare management system
-                that will help schedule appointments and manage payments."
-              </div>
-            </div>
-            <div className="case-divider"></div>
-            <div className="cases-can">
-              <div className="case-img-can">
-                <img className="case-img" alt=".." src={fifteen} />
-              </div>
-              <div className="case-desc">
-                "As a patient, I want to be able to store my health records in
-                one place. That way, I won't worry about losing them."
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="runner-contact container-fluid">
-          <div className="runner-contact-l">
-            <h1 className="subsec-title">Contacts Us</h1>
-          </div>
-          <div className="runner-contact-r"></div>
         </div>
       </div>
     </div>

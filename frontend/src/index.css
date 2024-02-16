@@ -47,7 +47,7 @@ header .container {
 }
 
 .page-contents {
-  padding: 67px 0 100px;
+  padding: 67px 0 0px;
   min-height: 100vh;
   background-color: gainsboro;
 }
@@ -174,8 +174,7 @@ header .container {
 .runner-mission,
 .runner-team,
 .runner-service,
-.runner-review,
-.runner-contact {
+.runner-review {
   display: flex;
   padding: 100px 25px;
   min-height: 50vh;
@@ -326,10 +325,6 @@ header .container {
   flex-direction: column;
 }
 
-.runner-contact {
-  background-color: gainsboro;
-}
-
 .runner-img {
   width: 100%;
   border-radius: 25px;
@@ -342,11 +337,17 @@ header .container {
   height: 75%;
 }
 
+/*Headers for Landing Page*/
 .subsec-title {
   text-align: center;
-  font-weight: 600;
-  font-size: 30pt;
-  padding-bottom: 50px;
+  font-weight: bold;
+  font-size: 2.5rem; 
+  color: goldenrod; 
+  margin-bottom: 50px; 
+  text-transform: uppercase; 
+  letter-spacing: 2px; 
+  border-bottom: 2px solid #ccc; 
+  padding-bottom: 10px; 
 }
 
 .team-member-card {
