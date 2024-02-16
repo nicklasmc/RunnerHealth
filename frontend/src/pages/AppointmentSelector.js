@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import '../pages/styles/docProfile.css';
 // import axios from 'axios';
 // import {useParams} from 'react-router-dom';
 
@@ -28,7 +29,7 @@ const Appointment = () => {
   // - Languages
 
   return (
-    <div className="schedule page-contents">
+    <div className="schedule-page-contents">
       {/* Maps out all the doctors gathered in the doctors array, think of like for loop */}
       {doctors.map((doctors) => (
         <div
@@ -40,14 +41,18 @@ const Appointment = () => {
             margin: '90px 20px',
           }}
         >
-          <p> {doctors._id} </p>
-          <h1 style={{ fontSize: '20px' }}>
-            {doctors.fname} {doctors.lname}
-          </h1>
-          <p style={{ fontSize: '20px' }}> {doctors.email} </p>
-          <Link to={`/appointment/${doctors._id}`}>Book Appointment</Link>{' '}
-          <br />
-          <button>Profile</button>
+          {/*<p> {doctors._id} </p>*/}
+          <div className="provider-info">
+            <h1 className="doc-name" style={{ fontSize: '20px' }}>
+              {doctors.fname} {doctors.lname}
+            </h1>
+            <p className="doc-email" style={{ fontSize: '20px' }}> {doctors.email} </p>
+          </div>
+          <div className="provider-links">
+            <Link to={`/appointment/${doctors._id}`} className="appt-link">Book Appointment</Link>
+            <br />
+            <Link to={`/doc_profile/${doctors._id}`} className="provider-link">Profile</Link>
+          </div>
         </div>
       ))}
     </div>
