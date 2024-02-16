@@ -16,6 +16,7 @@ import Footer from './components/footer/Footer.jsx';
 import BookAppointments from './pages/BookAppointment.js';
 import AppointmentConfirmation from './pages/AppointmentConfirmation.js';
 import AppointmentDashboard from './pages/AppointmentDashboard.js';
+import DocProfile from './pages/DocProfile.js';
 
 function App() {
   const { patient } = useAuthContext();
@@ -54,6 +55,16 @@ function App() {
                 element={
                   patient ? (
                     <AppointmentSelector />
+                  ) : (
+                    <Navigate to="/patient_login" />
+                  )
+                }
+              />
+              <Route
+                path="/doc_profile/:id"
+                element={
+                  patient ? (
+                    <DocProfile />
                   ) : (
                     <Navigate to="/patient_login" />
                   )
