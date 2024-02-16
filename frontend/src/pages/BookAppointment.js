@@ -22,7 +22,7 @@ const BookAppointment = () => {
         e.stopPropagation();
         e.preventDefault();
         const formData = {
-            providerId: id,
+            doctorID: id,
             patientId: user[0]._id,
             facility: document.getElementById('facility').value,
             reasonForVisit: document.getElementById('appt-reason').value,
@@ -116,8 +116,8 @@ const BookAppointment = () => {
                                 <input type="tel" id="phone" name="phone" placeholder="e.g (123) 456-789" />
                                 <label htmlFor="languagePreference">Language Preference</label>
                                 <select name="languagePreference" id="languagePreference">
-                                    <option value="english">English</option>
-                                    <option value="spanish">Spanish</option>
+                                    <option value="English">English</option>
+                                    <option value="Spanish">Spanish</option>
                                 </select>
                             </div>
 

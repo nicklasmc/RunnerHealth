@@ -2,6 +2,8 @@ const express = require('express');
 const {
   createAppointment,
   getOneAppointment,
+  getAllAppointments,
+  getAppointmentAndDoctor
 } = require('../controllers/appointmentController');
 const cors = require('cors');
 const router = express.Router();
@@ -11,13 +13,14 @@ router.use(cors());
 
 
 // // grab all appointments
-// router.get('/', getAllAppointments);
+router.get('/', getAllAppointments);
 
 // create new appointment 
 router.post('/', createAppointment);
+ 
 
-// // grab appointment based on doctor ID
-// router.get('/doctor/:doctorId', getAppointmentForDoctor);
+// grab appointment based on doctor ID
+router.get('/appointmentAndDoctor', getAppointmentAndDoctor);
 
 // // grab appointment based on patient ID
 // router.get('/patient/:patientId', getAppointmentForPatient);
