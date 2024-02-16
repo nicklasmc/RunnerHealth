@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { Link } from 'react-router-dom'; // FLAGGED FOR REMOVAL 
 
 const Home = () => {
   const { patient } = useAuthContext();
@@ -28,9 +29,13 @@ const Home = () => {
               <span>{user.lname}</span>!
             </div>
           ))
+          
         ) : (
           <h1>Gathering Data...</h1>
         )}
+        {/* MARKED FOR REMOVAL */}
+        <Link to="/appointment/dashboard/" className="ml-10"> Appointment Dashboard (TEMP) </Link>
+        {/* MARKED FOR REMOVAL */}
       </h2>
     </div>
   );

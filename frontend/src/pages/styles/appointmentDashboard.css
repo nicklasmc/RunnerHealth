@@ -1,0 +1,45 @@
+.appt-main-container {
+    width: 95%;         
+    margin: 90px auto;     
+    box-sizing: border-box; 
+    padding: 30px;     
+    border-radius: 10px; 
+    background-color: white;
+    overflow:auto;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.appt-cells {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid gray;
+}
+
+.appt-cell-one {
+    margin: 10px;
+    min-width: 400px;
+    border-right: 1px solid gray;
+}
+
+.appt-cell-two {
+    margin: 10px;
+    min-width: 400px;
+    border-right: 1px solid gray;
+}
+
+.appt-cell-three {
+    margin: 10px;
+    min-width: 400px;
+    border-right: 1px solid gray;
+    word-break: break-word;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+
+.appt-cell-four {
+    margin: 10px;
+    min-width: 400px;
+}

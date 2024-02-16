@@ -5,7 +5,8 @@ const validator = require('validator');
 const doctorSchema = mongoose.Schema(
   {
     doctorID: {
-      type: Number,
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, 'Doctor ID required'],
     },
     fname: {
       type: String,

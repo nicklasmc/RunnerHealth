@@ -13,8 +13,8 @@ import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
 import BookAppointments from './pages/BookAppointment.js';
-import AppointmnetConfirmation from './pages/AppointmentConfirmation.js';
-
+import AppointmentConfirmation from './pages/AppointmentConfirmation.js';
+import AppointmentDashboard from './pages/AppointmentDashboard.js';
 
 
 function App() {
@@ -47,12 +47,6 @@ function App() {
                   !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
                 }
               />
-              <Route
-                path="/patient_signup"
-                element={
-                  !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
-                }
-              />
               {/* Appointments */}
               <Route
                 path="/appointment"
@@ -69,7 +63,13 @@ function App() {
               <Route
                 path="/appointment/:id/:id"
                 element={
-                patient ? <AppointmnetConfirmation /> : <Navigate to="/patient_login" />
+                patient ? <AppointmentConfirmation /> : <Navigate to="/patient_login" />
+                 }
+              />
+              <Route
+                path="/appointment/dashboard/" // NOTE: Consider adding an id paramter which will limit view
+                element={
+                patient ? <AppointmentDashboard /> : <Navigate to="/patient_login" />
                  }
               />
               

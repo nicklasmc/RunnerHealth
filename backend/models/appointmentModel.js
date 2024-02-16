@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = mongoose.Schema(
     {
-        providerId: {
-            type: String,
-            required: [true, 'Provider Id required'],
+        doctorID: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true
         },
         patientId: {
             type: String,

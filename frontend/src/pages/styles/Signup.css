@@ -99,3 +99,16 @@ button.signup-button:disabled {
 .switch-link:hover {
   color: darkgoldenrod;
 }
+
+/* Media query for mobile view */
+@media only screen and (max-width: 800px) {
+  .signup-form-container,
+  .switch-section-container {
+    max-width: 100%;
+  }
+
+  .logo {
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
