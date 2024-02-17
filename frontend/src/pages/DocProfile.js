@@ -7,10 +7,27 @@ const DocProfile = () => {
   // --- Retrieving from Database --- //
   const { id } = useParams(); // Gather id from URL
   const [doctors, setDoctors] = useState([]);
+
+  // Reference for the following, in case this is useful elsewhere: 
+  // https://stackoverflow.com/questions/53775936/import-image-dynamically-in-react-component
+  const [imgName, setImgName] = useState(null); 
+  const [docImage, setDocImage] = useState();
+
+
   const getDoctorsList = async () => {
     try {
       const res = await axios.get(`http://localhost:4000/doctors/${id}`);
       setDoctors(res.data);
+
+      const emailName = String(res.data.email);
+      if (typeof emailName == 'string') {
+        const extractedImgName = emailName.split('@')[0];
+        setImgName(extractedImgName); // images will be rendered based on the first part of the email
+        console.log(extractedImgName);
+      } else {
+        // console.log("Error fetching image");
+        setImgName("placeholder");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -20,9 +37,24 @@ const DocProfile = () => {
     getDoctorsList();
   }, []);
 
+  useEffect(() => {
+    const getImage = async () => {
+      try {
+        const img = await import (`./imgs/${imgName}.png`); // dynamically import 
+        setDocImage(img.default); 
+      } catch (error) {
+        // console.log("Error getting image: ", error);
+      }
+    };
+    
+    getImage();
+  }, [imgName]); // load if imgName has been updated 
+
+
   if (!doctors) {
     return <div className="loading">Loading...</div>;
   }
+
 
   return (
     <div className="doc-profile page-contents">
@@ -31,7 +63,7 @@ const DocProfile = () => {
           <h1 className="name">
             {doctors.fname} {doctors.lname}, {doctors.title}
           </h1>
-          <img src={doctors.image} className="doc-img" alt={`${doctors.fname} ${doctors.lname}`} />
+           <img src={docImage} className="doc-img" alt={`${doctors.fname} ${doctors.lname}`} />  
         </div>
         <div className="doc-info">
           <h2 className="doc-headers">Gender:</h2>
