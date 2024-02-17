@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const appointmentSchema = mongoose.Schema(
     {
         doctorID: {
-            type: mongoose.Schema.Types.ObjectId,
+            type: String,
             required: true
         },
         patientId: {
@@ -12,7 +12,7 @@ const appointmentSchema = mongoose.Schema(
         },
         facility: {
             type: String,
-            required: [true, 'Enter a facility'],
+            default: null, // Needs to be null for when a request is submitted, updated by staff
         },
         reasonForVisit: {
             type: String,
@@ -51,6 +51,10 @@ const appointmentSchema = mongoose.Schema(
             required: [true, 'Enter a preferred time'],
         },
         confirmed: {
+            type: Boolean,
+            required: false,
+        },
+        pending: {
             type: Boolean,
             required: false,
         }

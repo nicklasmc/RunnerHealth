@@ -17,14 +17,14 @@ const BookAppointment = () => {
     const { patient } = useAuthContext();
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
+    const [docID, setDocID] = useState();
     // ----------------------------------------------- 
     const handleSubmit = async (e) => {
         e.stopPropagation();
         e.preventDefault();
         const formData = {
-            doctorID: id,
+            doctorID: docID,
             patientId: user[0]._id,
-            facility: document.getElementById('facility').value,
             reasonForVisit: document.getElementById('appt-reason').value,
             patientFirstName: document.getElementById('patient-first-name').value,
             patientLastName: document.getElementById('patient-last-name').value,
@@ -35,6 +35,7 @@ const BookAppointment = () => {
             dateEnd: document.getElementById('appt-end').value,
             time: document.getElementById('appt-time').value,
             confirmed: false,
+            pending: true,
         };
 
 
@@ -55,6 +56,7 @@ const BookAppointment = () => {
                 // Will look at making them both be objects for consistency sake, but it works as is 
                 const patientResponse = await axios.get(`http://localhost:4000/patients/${patient.email}`);
                 const doctorResponse = await axios.get(`http://localhost:4000/doctors/${id}`);
+                setDocID(doctorResponse.data.doctorID);
                 setDoctors(doctorResponse.data);
                 setUser(patientResponse.data);
                 setLoading(false);
@@ -89,9 +91,6 @@ const BookAppointment = () => {
                     <div className="appt-form-wrapper">
                         <form className="appt-form" onSubmit={handleSubmit}>
                             <div className="appt-form-section-left">
-                                <h2>Appointment Details</h2>
-                                <label htmlFor="facility">Facility</label>
-                                <input type="text" id="facility" name="facility" />
                                 <label htmlFor="appt-reason">Reason for Visit:</label>
                                 <input type="text" id="appt-reason" name="appt-reason" />
                             </div>
@@ -122,7 +121,7 @@ const BookAppointment = () => {
                             </div>
 
                             <div className="appt-form-section-right">
-                                <h2>Preferred Date Range:</h2>
+                                <h2>Appointment Time</h2>
                                 <label htmlFor="appt-start">From:</label>
                                 <input type="date" id="appt-start" name="date-start" />
                                 <label htmlFor="appt-end">To:</label>
@@ -130,6 +129,8 @@ const BookAppointment = () => {
                                 <br />
                                 <h2>Preferred Time:</h2>
                                 <input type="time" id="appt-time" name="time" />
+                                <p className = "text-red-500">Note: A member of staff will be in contact to 
+                                confirm a final date and time based on availability.</p>
                                 <br />
                                 <br />
                                 <button type="submit" className="submit-button">Submit</button>

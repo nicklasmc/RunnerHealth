@@ -34,7 +34,7 @@ const ConfirmationPage = () => {
       <div className='appt-main-container'>
         <h1>Appointment Request Received!</h1>
         <h2>A member of our team will reach out soon</h2>
-        <p>{appt.facility}</p>
+        {/* <p>{appt.facility}</p> */}
         <p>{appt.patientFirstName}</p>
         <p>{appt.patientLastName}</p>
         <p>{appt.reasonForVisit}</p>

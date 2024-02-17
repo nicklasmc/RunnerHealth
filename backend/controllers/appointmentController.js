@@ -31,6 +31,7 @@ const createAppointment = async (req, res) => {
       dateEnd,
       time,
       confirmed,
+      pending,
     } = req.body;
 
     const newAppointmentDetails = { 
@@ -47,6 +48,7 @@ const createAppointment = async (req, res) => {
       dateEnd,
       time,
       confirmed,
+      pending,
     };
     // adding to db
     try {
@@ -82,7 +84,7 @@ const getAppointmentAndDoctor = async (req,res) => {
         $lookup: {
           from: "doctors",
           localField: "doctorID",
-          foreignField: "_id",
+          foreignField: "doctorID",
           as: "doctorAppointment"
         }
       }
