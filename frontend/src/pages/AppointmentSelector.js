@@ -51,7 +51,7 @@ const Appointment = () => {
           <div className="provider-links">
             <Link to={`/appointment/${doctors._id}`} className="appt-link">Book Appointment</Link>
             <br />
-            <Link to={`/doc_profile/${doctors._id}`} className="provider-link">Profile</Link>
+            <Link to={`/doc_profile/${doctors._id}`} className="appt-link">Profile</Link>
           </div>
         </div>
       ))}

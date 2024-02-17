@@ -27,12 +27,24 @@ const DocProfile = () => {
   return (
     <div className="doc-profile page-contents">
       <div className="profile-container">
-        <h1 className="name">
-          {doctors.fname} {doctors.lname}, {doctors.title}
-        </h1>
-        <p style={{ fontSize: '20px' }}> {doctors.email} </p>
-        <p style={{ fontSize: '20px' }}> {doctors.specialization} </p>
-        <p style={{ fontSize: '20px' }}> {doctors.education} </p>
+        <div className="doc-head">
+          <h1 className="name">
+            {doctors.fname} {doctors.lname}, {doctors.title}
+          </h1>
+          <img src={doctors.image} className="doc-img" alt={`${doctors.fname} ${doctors.lname}`} />
+        </div>
+        <div className="doc-info">
+          <h2 className="doc-headers">Gender:</h2>
+          <p className="doc-text"> {doctors.gender}</p>
+          <h2 className="doc-headers">Specialty:</h2>
+          <p className="doc-text"> {doctors.specialization}</p>
+          <h2 className="doc-headers">Education: </h2>
+          <p className="doc-text"> {doctors.education}</p>
+        </div>
+        <div className="doc-contact">
+          <h2 className="doc-headers">Email Contact: </h2>
+          <p className="doc-text"> {doctors.email} </p>
+        </div>
       </div>
     </div>
   );
