@@ -50,13 +50,10 @@ const appointmentSchema = mongoose.Schema(
             type: String,
             required: [true, 'Enter a preferred time'],
         },
-        confirmed: {
-            type: Boolean,
-            required: false,
-        },
-        pending: {
-            type: Boolean,
-            required: false,
+        status: {
+            type: String,
+            required: [true, 'Status required'],
+            default: "Pending",
         }
     }
 
