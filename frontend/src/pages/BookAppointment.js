@@ -34,8 +34,6 @@ const BookAppointment = () => {
             dateStart: document.getElementById('appt-start').value,
             dateEnd: document.getElementById('appt-end').value,
             time: document.getElementById('appt-time').value,
-            confirmed: false,
-            pending: true,
         };
 
 
