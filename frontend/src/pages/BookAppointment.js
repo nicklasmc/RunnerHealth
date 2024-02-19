@@ -3,8 +3,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useAuthContext } from '../hooks/useAuthContext';
 import './styles/bookAppointment.css';
-
-
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import { format } from 'date-fns';
 
 
 
@@ -18,6 +19,7 @@ const BookAppointment = () => {
     const [user, setUser] = useState({});
     const [loading, setLoading] = useState(true);
     const [docID, setDocID] = useState();
+    const [selectedDate, setSelectedDate] = useState();
     // ----------------------------------------------- 
     const handleSubmit = async (e) => {
         e.stopPropagation();
@@ -31,17 +33,20 @@ const BookAppointment = () => {
             patientEmail: document.getElementById('email').value,
             patientPhone: document.getElementById('phone').value,
             languagePreference: document.getElementById('languagePreference').value,
-            dateStart: document.getElementById('appt-start').value,
-            dateEnd: document.getElementById('appt-end').value,
+            preferredDate: selectedDate,
             time: document.getElementById('appt-time').value,
         };
 
-
+        try {
         const response = await axios.post('http://localhost:4000/appointments', formData);
-        // console.log("Appointment Creation Successful!");
-        // console.log("Appointment with ID : ", response.data._id); // get the ID of the doc just created by mognodb
         const appointmentId = response.data._id;
         navigate(`/appointment/${id}/${appointmentId}`);
+        } catch(error) {
+            console.error("error, missing input");
+        }
+        // console.log("Appointment Creation Successful!");
+        // console.log("Appointment with ID : ", response.data._id); // get the ID of the doc just created by mognodb
+
     }
     // ----------------------------------------------- 
     useEffect(() => {
@@ -69,9 +74,16 @@ const BookAppointment = () => {
         // add id, ensure the page changes once the id in the url changes or if the logged in patient's email (how we check who is logged in) changes
     }, [id, patient.email]);
 
+    useEffect( () => {
+        if (selectedDate) {
+            console.log(selectedDate);
+        }
+    }, [selectedDate]);
+
     if (loading) {
         return <div>Loading...</div>
     }
+;
     // console.log(user[0]._id);
     // console.log(doctors._id);
 
@@ -120,13 +132,15 @@ const BookAppointment = () => {
 
                             <div className="appt-form-section-right">
                                 <h2>Appointment Time</h2>
-                                <label htmlFor="appt-start">From:</label>
-                                <input type="date" id="appt-start" name="date-start" />
-                                <label htmlFor="appt-end">To:</label>
-                                <input type="date" id="appt-end" name="date-end" />
-                                <br />
+                                <DayPicker 
+                                    showOutsideDays // show days outside of the month for accessibility purposes 
+                                    fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling 
+                                    mode = "single" // single date selection only
+                                    onSelect={setSelectedDate} // useState, will convert all inputs to be of this type
+                                    disabled = {{dayOfWeek: [0,6]}} // gray out the weekends
+                                />
                                 <h2>Preferred Time:</h2>
-                                <input type="time" id="appt-time" name="time" />
+                                <input type="time" id="appt-time" name="time" />      
                                 <p className = "text-red-500">Note: A member of staff will be in contact to 
                                 confirm a final date and time based on availability.</p>
                                 <br />

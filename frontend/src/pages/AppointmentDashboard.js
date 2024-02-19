@@ -71,7 +71,7 @@ const AppointmentDashboard = () => {
                             <div className = "appt-cell-one">
                                 <p> <span className = "text-red-500">Appt ID:</span> {appointments._id} </p>
                                 <p> <span className = "text-red-500">Requested Time:</span> {appointments.time} </p>
-                                <p> <span className = "text-red-500">Requested Date:</span> {new Date(appointments.dateStart).toDateString()} - {new Date(appointments.dateEnd).toDateString()} </p>
+                                <p> <span className = "text-red-500">Requested Date:</span> {new Date(appointments.preferredDate).toDateString()} </p>
                                 <p> <span className = "text-red-500">Preferred Language:</span> {appointments.languagePreference}</p>
                             </div>
                             <div className = "appt-cell-two">
@@ -91,6 +91,20 @@ const AppointmentDashboard = () => {
                                 <div className="appt-edit">
                                     <form action="">
                                         <label htmlFor="facility" className="text-red-500 font-normal">Facility</label>
+                                        <select name="facility">
+                                            {appointments.doctorAppointment[0]?.facility.map((facilityName, index) => (
+                                                <option value={facilityName} key={index}>
+                                                    {facilityName.location}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </form>
+
+                                    <input type="date" id="appt-end" name="date-end" />
+                                    <input type="time" id="appt-time" name="time" />
+
+                                    <form action="">
+                                        <label htmlFor="facility" className="text-red-500 font-normal">Time</label>
                                         <select name="facility">
                                             {appointments.doctorAppointment[0]?.facility.map((facilityName, index) => (
                                                 <option value={facilityName} key={index}>

@@ -27,11 +27,9 @@ const createAppointment = async (req, res) => {
       patientEmail,
       patientPhone,
       languagePreference,
-      dateStart,
-      dateEnd,
+      preferredDate,
       time,
-      confirmed,
-      pending,
+      status,
     } = req.body;
 
     const newAppointmentDetails = { 
@@ -44,11 +42,9 @@ const createAppointment = async (req, res) => {
       patientEmail,
       patientPhone,
       languagePreference,
-      dateStart,
-      dateEnd,
+      preferredDate,
       time,
-      confirmed,
-      pending,
+      status,
     };
     // adding to db
     try {

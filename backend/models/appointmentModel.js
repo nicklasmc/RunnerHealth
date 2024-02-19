@@ -38,13 +38,9 @@ const appointmentSchema = mongoose.Schema(
             type: String,
             required: [true, 'Enter a language preference'],
         },
-        dateStart: {
+        preferredDate: {
             type: Date,
             required: [true, 'Enter a start date'],
-        },
-        dateEnd: {
-            type: Date,
-            required: [true, 'Enter an end date'],
         },
         time: {
             type: String,
