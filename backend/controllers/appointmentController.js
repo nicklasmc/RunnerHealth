@@ -28,6 +28,7 @@ const createAppointment = async (req, res) => {
       patientPhone,
       languagePreference,
       preferredDate,
+      confirmedDate,
       time,
       status,
     } = req.body;
@@ -43,6 +44,7 @@ const createAppointment = async (req, res) => {
       patientPhone,
       languagePreference,
       preferredDate,
+      confirmedDate,
       time,
       status,
     };
@@ -73,6 +75,9 @@ const getOneAppointment = async (req,res) => {
 
 
 // combine appointments and doctors fields based on the foreign key attributes using mongodb
+// https://www.w3schools.com/mongodb/mongodb_aggregations_lookup.php referencing for later use in 
+// appointment date model in progress
+// looking to switch to .populate() so we can use references, seems more standard
 const getAppointmentAndDoctor = async (req,res) => {
   try {
     const appointments = await Appointment.aggregate([

@@ -100,20 +100,8 @@ const AppointmentDashboard = () => {
                                         </select>
                                     </form>
 
-                                    <input type="date" id="appt-end" name="date-end" />
-                                    <input type="time" id="appt-time" name="time" />
 
-                                    <form action="">
-                                        <label htmlFor="facility" className="text-red-500 font-normal">Time</label>
-                                        <select name="facility">
-                                            {appointments.doctorAppointment[0]?.facility.map((facilityName, index) => (
-                                                <option value={facilityName} key={index}>
-                                                    {facilityName.location}
-                                                </option>
-                                            ))}
-                                        </select>
-                                    </form>
-
+                                  
                                     <form action="" className="ml-5">
                                         <label htmlFor="status" className="text-red-500 font-normal">Status</label>
                                         <select name="status">

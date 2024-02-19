@@ -42,6 +42,10 @@ const appointmentSchema = mongoose.Schema(
             type: Date,
             required: [true, 'Enter a start date'],
         },
+        confirmedDate: {
+            type: Date,
+            default: null,
+        },
         time: {
             type: String,
             required: [true, 'Enter a preferred time'],
