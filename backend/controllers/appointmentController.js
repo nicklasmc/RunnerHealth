@@ -102,7 +102,7 @@ const createConfirmedDate = async (req, res) => {
 };
 
 const getTakenDates = async (req, res) => {
-  const { id } = req.params;
+  const { id } = req.params; // id corresponds to doctor's mongoDB ID
   try {
 
     // significantly more complex query, deeper search

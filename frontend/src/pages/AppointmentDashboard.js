@@ -5,8 +5,8 @@ import './styles/appointmentDashboard.css';
 
 
 const AppointmentDashboard = () => {
-    // Variables
-    // ----------------------------------------------- 
+    
+    // Variables ------------------------------------- 
     //const { patient } = useAuthContext();  // !!! Switch to applicable user group. This is a placeholder not meant for deployment !!! //
     const [appointment, setAppointment] = useState([]);
     const [loading, setLoading] = useState(true);

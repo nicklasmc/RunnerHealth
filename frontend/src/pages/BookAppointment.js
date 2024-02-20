@@ -5,7 +5,6 @@ import { useAuthContext } from '../hooks/useAuthContext';
 import './styles/bookAppointment.css';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
-import { format } from 'date-fns';
 
 
 
@@ -20,11 +19,16 @@ const BookAppointment = () => {
     const [loading, setLoading] = useState(true);
     const [docID, setDocID] = useState();
     const [selectedDate, setSelectedDate] = useState();
+    const [takenDates, setTakenDates] = useState([]);
+    
     // ----------------------------------------------- 
     const handleSubmit = async (e) => {
         e.stopPropagation();
         e.preventDefault();
         
+        // will switch all to useState() variables, 
+        // just did this cause it was easy copy-and-past and
+        // knew values off the top of my head
         const formData = {
             doctor: docID,
             patientId: user[0]._id,
@@ -60,9 +64,13 @@ const BookAppointment = () => {
                 // Will look at making them both be objects for consistency sake, but it works as is 
                 const patientResponse = await axios.get(`http://localhost:4000/patients/${patient.email}`);
                 const doctorResponse = await axios.get(`http://localhost:4000/doctors/${id}`);
+                const dateResponse = await axios.get(`http://localhost:4000/appointments/getTakenDates/${id}`);
                 setDocID(doctorResponse.data._id);
                 setDoctors(doctorResponse.data);
                 setUser(patientResponse.data);
+
+                const tempArr = dateResponse.data.map(i => new Date(i.takenDate)); // grab from the takenDate field, go over all of the via map, store in tempArr
+                setTakenDates(tempArr); // set takenDates array to only be the values of each taken date, not worrying about field names 
                 setLoading(false);
 
             }
@@ -75,11 +83,24 @@ const BookAppointment = () => {
         // add id, ensure the page changes once the id in the url changes or if the logged in patient's email (how we check who is logged in) changes
     }, [id, patient.email]);
 
-    useEffect( () => {
-        if (selectedDate) {
-            console.log(selectedDate);
-        }
-    }, [selectedDate]);
+
+    // useful for debugging, remove upon push to main //
+    // useEffect( () => {
+    //     if (selectedDate) {
+    //         console.log(selectedDate);
+    //     }
+    // }, [selectedDate]);
+
+
+    // useful for debugging, remove upon push to main //
+    // useEffect ( () => {
+    //     if (takenDates) {
+    //         console.log("Taken dates post processing: ", takenDates);
+    //     }
+    // }, [takenDates]);
+
+
+
 
     if (loading) {
         return <div>Loading...</div>
@@ -104,6 +125,7 @@ const BookAppointment = () => {
                             <div className="appt-form-section-left">
                                 <label htmlFor="appt-reason">Reason for Visit:</label>
                                 <input type="text" id="appt-reason" name="appt-reason" />
+                                <p className = "text-red-500">If you believe you require immediate attention, visit the emergency room or contact 911</p>
                             </div>
 
                             <div className="appt-form-section-middle">
@@ -138,7 +160,7 @@ const BookAppointment = () => {
                                     fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling 
                                     mode = "single" // single date selection only
                                     onSelect={setSelectedDate} // useState, will convert all inputs to be of this type
-                                    disabled = {{dayOfWeek: [0,6]}} // gray out the weekends
+                                    disabled = {[{dayOfWeek: [0,6]}, ...takenDates]} // gray out the weekends and taken dates
                                 />
                                 <h2>Preferred Time:</h2>
                                 <input type="time" id="appt-time" name="time" />      
@@ -146,7 +168,10 @@ const BookAppointment = () => {
                                 confirm a final date and time based on availability.</p>
                                 <br />
                                 <br />
-                                <button type="submit" className="submit-button">Submit</button>
+                                <button type="submit" className="submit-button border-blue-500">Submit</button>
+
+                                         
+                                    
                             </div>
                         </form>
                     </div>
