@@ -33,7 +33,7 @@ router.get('/:id', getOneAppointment);
 // post date into the apptdates collection to keep track of reserved dates
 router.post('/confirmDate', createConfirmedDate);
 
-// get all dates in our apptdates 
+// get all dates in our apptdates via doctor's mongoDB ID
 router.get('/getTakenDates/:id', getTakenDates);
 
 module.exports = router;
