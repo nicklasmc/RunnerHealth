@@ -16,40 +16,40 @@ const getAllAppointments = async (req, res) => {
 
 // create single appointment
 const createAppointment = async (req, res) => {
-  
-    const {
-      doctor,
-      patientId,
-      facility,
-      reasonForVisit,
-      patientFirstName,
-      patientLastName,
-      patientEmail,
-      patientPhone,
-      languagePreference,
-      preferredDate,
-      confirmedDate,
-      time,
-      status,
-    } = req.body;
 
-    const newAppointmentDetails = { 
-      doctor,
-      patientId,
-      facility,
-      reasonForVisit,
-      patientFirstName,
-      patientLastName,
-      patientEmail,
-      patientPhone,
-      languagePreference,
-      preferredDate,
-      confirmedDate,
-      time,
-      status,
-    };
-    // adding to db
-    try {
+  const {
+    doctor,
+    patientId,
+    facility,
+    reasonForVisit,
+    patientFirstName,
+    patientLastName,
+    patientEmail,
+    patientPhone,
+    languagePreference,
+    preferredDate,
+    confirmedDate,
+    time,
+    status,
+  } = req.body;
+
+  const newAppointmentDetails = {
+    doctor,
+    patientId,
+    facility,
+    reasonForVisit,
+    patientFirstName,
+    patientLastName,
+    patientEmail,
+    patientPhone,
+    languagePreference,
+    preferredDate,
+    confirmedDate,
+    time,
+    status,
+  };
+  // adding to db
+  try {
     const newAppointment = await Appointment.create(newAppointmentDetails);
 
     res.status(200).json(newAppointment);
@@ -59,7 +59,7 @@ const createAppointment = async (req, res) => {
 };
 
 // grab appointment based on patient Id
-const getOneAppointment = async (req,res) => {
+const getOneAppointment = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
     return res.status(404).json({ error: 'No such appointmnet' });
@@ -73,7 +73,8 @@ const getOneAppointment = async (req,res) => {
   }
 };
 
-const getApptAndDoctor = async (req, res) => { 
+// get appointment populated with doctor's information as well
+const getApptAndDoctor = async (req, res) => {
   try {
     const appts = await Appointment.find({}).populate('doctor');
     res.status(200).json(appts);
@@ -83,10 +84,80 @@ const getApptAndDoctor = async (req, res) => {
 
 };
 
+// store the confirmed date inside of DB
+const createConfirmedDate = async (req, res) => {
+  const { takenDate, appointmentId } = req.body
+  try {
+    const newConfirmDate = {
+      takenDate: new Date(takenDate),
+      appointment: appointmentId,
+    };
+
+    const appts = await ApptDate.create(newConfirmDate);
+
+    res.status(200).json(appts);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const getTakenDates = async (req, res) => {
+  const { id } = req.params;
+  try {
+
+    // significantly more complex query, deeper search
+    // time to use mongodb functions... great..
+
+    // steps:
+    // 1. get appointments belonging to a doctor
+    // 2. cross-reference with the takenDates in apptDates collection
+    // 3. extract and return only the takenDates
+
+
+    const gatheredDates = await Appointment.aggregate([
+
+      // 1. get appointments belonging to a doctor, ensure of type mongoose id
+      { $match: { doctor: new mongoose.Types.ObjectId(id) } },
+
+
+      // 2. cross-reference with the takenDates in apptDates collection
+      { // still in appointments,
+        $lookup: {
+          from: 'apptdates', // inside apptdates
+          localField: '_id', // still in appointments, use the id's per doc
+          foreignField: 'appointment', // do not confuse for collection! this is a FIELD
+          as: 'apptDates' // store as apptdates
+        }
+      },
+
+      { $unwind: '$apptDates' },  // apptDates got from the 'as' field above
+
+
+      // 3. extract and return only the takenDates
+      {
+        $project: {
+          _id: 0, // 0 to disable, don't need this here
+          takenDate: '$apptDates.takenDate' // project all the takenDates
+        }
+      }
+
+      // reached the final stage, save into gatheredDates variable
+
+    ]);
+
+    const takenDates = gatheredDates;
+    console.log(takenDates);
+    res.status(200).json(takenDates);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
 module.exports = {
   // getAllAppointments,
+  createConfirmedDate,
   createAppointment,
   getOneAppointment,
   getAllAppointments,
-  getApptAndDoctor
+  getApptAndDoctor,
+  getTakenDates
 }

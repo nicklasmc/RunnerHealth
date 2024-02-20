@@ -3,9 +3,9 @@ const {
   createAppointment,
   getOneAppointment,
   getAllAppointments,
-  getAppointmentAndDoctor,
+  createConfirmedDate,
   getApptAndDoctor,
-  // getAppointmentById
+  getTakenDates,
 } = require('../controllers/appointmentController');
 
 const cors = require('cors');
@@ -20,14 +20,20 @@ router.get('/', getAllAppointments);
 
 // create new appointment 
 router.post('/', createAppointment);
- 
-// get single appointment
-
-// router.post('/confirmApptDate', createApptDate);
 
 // grab all appointments populated with doctors
 router.get('/getApptAndDoctor', getApptAndDoctor);
 
+// grab appointment by patient ID
 router.get('/:id', getOneAppointment);
+
+
+// --- ApptDate routes --- // 
+
+// post date into the apptdates collection to keep track of reserved dates
+router.post('/confirmDate', createConfirmedDate);
+
+// get all dates in our apptdates 
+router.get('/getTakenDates/:id', getTakenDates);
 
 module.exports = router;

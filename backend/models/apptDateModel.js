@@ -10,7 +10,7 @@ const apptDateSchema = mongoose.Schema(
         required: [true, 'Date required'],
      },
      appointment: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "Appointment"
      }
     }
