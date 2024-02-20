@@ -3,8 +3,11 @@ const {
   createAppointment,
   getOneAppointment,
   getAllAppointments,
-  getAppointmentAndDoctor
+  getAppointmentAndDoctor,
+  getApptAndDoctor,
+  // getAppointmentById
 } = require('../controllers/appointmentController');
+
 const cors = require('cors');
 const router = express.Router();
 router.use(express.json());
@@ -18,20 +21,13 @@ router.get('/', getAllAppointments);
 // create new appointment 
 router.post('/', createAppointment);
  
+// get single appointment
 
-// grab appointment based on doctor ID
-router.get('/appointmentAndDoctor', getAppointmentAndDoctor);
+// router.post('/confirmApptDate', createApptDate);
 
-// // grab appointment based on patient ID
-// router.get('/patient/:patientId', getAppointmentForPatient);
+// grab all appointments populated with doctors
+router.get('/getApptAndDoctor', getApptAndDoctor);
 
-// grab appointment based on appointment ID
 router.get('/:id', getOneAppointment);
-
-// // update an appointment
-// router.patch('/:id', updateAppointment);
-
-// // delete an appointment
-// router.delete('/:id', deleteAppointment);
 
 module.exports = router;

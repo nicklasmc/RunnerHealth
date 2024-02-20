@@ -40,7 +40,7 @@ const ConfirmationPage = () => {
         <p>{appt.reasonForVisit}</p>
         <p>{appt.patientEmail}</p>
         <p>{appt.patientPhone}</p>
-        <p>Requested Date Range: {appt.dateStart} - {appt.dateEnd}</p>
+        <p>Requested Date Range: {appt.preferredDate} </p>
         <p>Requested Time: {appt.time}</p>
       </div>
     </div>

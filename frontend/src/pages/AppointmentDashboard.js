@@ -14,7 +14,7 @@ const AppointmentDashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const appointmentResponse = await axios.get(`http://localhost:4000/appointments/appointmentAndDoctor`);
+                const appointmentResponse = await axios.get(`http://localhost:4000/appointments/getApptAndDoctor`);
                 for(var i = 0; i < appointmentResponse.data.length; i++){
                     appointmentResponse.data[i].formDropdown = false; // append an additional var for dropdown use
                 }
@@ -76,7 +76,7 @@ const AppointmentDashboard = () => {
                             </div>
                             <div className = "appt-cell-two">
                                 <p> <span className = "text-red-500">Patient:</span> {appointments.patientFirstName} {appointments.patientLastName} </p>
-                                <p> <span className = "text-red-500">Provider:</span> {appointments.doctorAppointment[0]?.fname} {appointments.doctorAppointment[0]?.lname}</p>
+                                <p> <span className = "text-red-500">Provider:</span> {appointments.doctor.fname} {appointments.doctor.lname}</p>
                             </div>
                             <div className = "appt-cell-three">
                                 <p><span className = "text-red-500">Reason for Visit:</span> {appointments.reasonForVisit} </p>
@@ -92,7 +92,7 @@ const AppointmentDashboard = () => {
                                     <form action="">
                                         <label htmlFor="facility" className="text-red-500 font-normal">Facility</label>
                                         <select name="facility">
-                                            {appointments.doctorAppointment[0]?.facility.map((facilityName, index) => (
+                                            {appointments.doctor.facility.map((facilityName, index) => (
                                                 <option value={facilityName} key={index}>
                                                     {facilityName.location}
                                                 </option>

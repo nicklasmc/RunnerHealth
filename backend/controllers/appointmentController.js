@@ -1,7 +1,7 @@
 const { default: mongoose } = require('mongoose');
 const Appointment = require('../models/appointmentModel');
 const Doctor = require('../models/doctorModel');
-
+const ApptDate = require('../models/apptDateModel');
 
 // get all appointments
 const getAllAppointments = async (req, res) => {
@@ -18,7 +18,7 @@ const getAllAppointments = async (req, res) => {
 const createAppointment = async (req, res) => {
   
     const {
-      doctorID,
+      doctor,
       patientId,
       facility,
       reasonForVisit,
@@ -34,7 +34,7 @@ const createAppointment = async (req, res) => {
     } = req.body;
 
     const newAppointmentDetails = { 
-      doctorID,
+      doctor,
       patientId,
       facility,
       reasonForVisit,
@@ -73,24 +73,10 @@ const getOneAppointment = async (req,res) => {
   }
 };
 
-
-// combine appointments and doctors fields based on the foreign key attributes using mongodb
-// https://www.w3schools.com/mongodb/mongodb_aggregations_lookup.php referencing for later use in 
-// appointment date model in progress
-// looking to switch to .populate() so we can use references, seems more standard
-const getAppointmentAndDoctor = async (req,res) => {
+const getApptAndDoctor = async (req, res) => { 
   try {
-    const appointments = await Appointment.aggregate([
-      {
-        $lookup: {
-          from: "doctors",
-          localField: "doctorID",
-          foreignField: "doctorID",
-          as: "doctorAppointment"
-        }
-      }
-    ]);
-    res.status(200).json(appointments);
+    const appts = await Appointment.find({}).populate('doctor');
+    res.status(200).json(appts);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -102,5 +88,5 @@ module.exports = {
   createAppointment,
   getOneAppointment,
   getAllAppointments,
-  getAppointmentAndDoctor
+  getApptAndDoctor
 }

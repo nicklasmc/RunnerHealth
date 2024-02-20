@@ -24,8 +24,9 @@ const BookAppointment = () => {
     const handleSubmit = async (e) => {
         e.stopPropagation();
         e.preventDefault();
+        
         const formData = {
-            doctorID: docID,
+            doctor: docID,
             patientId: user[0]._id,
             reasonForVisit: document.getElementById('appt-reason').value,
             patientFirstName: document.getElementById('patient-first-name').value,
@@ -59,7 +60,7 @@ const BookAppointment = () => {
                 // Will look at making them both be objects for consistency sake, but it works as is 
                 const patientResponse = await axios.get(`http://localhost:4000/patients/${patient.email}`);
                 const doctorResponse = await axios.get(`http://localhost:4000/doctors/${id}`);
-                setDocID(doctorResponse.data.doctorID);
+                setDocID(doctorResponse.data._id);
                 setDoctors(doctorResponse.data);
                 setUser(patientResponse.data);
                 setLoading(false);
