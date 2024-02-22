@@ -43,7 +43,8 @@ const DocProfile = () => {
         const img = await import (`./imgs/${imgName}.png`); // dynamically import 
         setDocImage(img.default); 
       } catch (error) {
-        // console.log("Error getting image: ", error);
+        const img = await import (`./imgs/placeholder.png`); // dynamically import 
+        setDocImage(img.default); 
       }
     };
     
