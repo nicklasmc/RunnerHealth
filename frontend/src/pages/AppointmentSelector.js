@@ -29,7 +29,7 @@ const Appointment = () => {
   // - Languages
 
   return (
-    <div className="schedule-page-contents">
+    <div className="page-contents schedule-page-contents">
       {/* Maps out all the doctors gathered in the doctors array, think of like for loop */}
       {doctors.map((doctors) => (
         <div
@@ -46,12 +46,19 @@ const Appointment = () => {
             <h1 className="doc-name" style={{ fontSize: '20px' }}>
               {doctors.fname} {doctors.lname}
             </h1>
-            <p className="doc-email" style={{ fontSize: '20px' }}> {doctors.email} </p>
+            <p className="doc-email" style={{ fontSize: '20px' }}>
+              {' '}
+              {doctors.email}{' '}
+            </p>
           </div>
           <div className="provider-links">
-            <Link to={`/appointment/${doctors._id}`} className="appt-link">Book Appointment</Link>
+            <Link to={`/appointment/${doctors._id}`} className="appt-link">
+              Book Appointment
+            </Link>
             <br />
-            <Link to={`/doc_profile/${doctors._id}`} className="appt-link">Profile</Link>
+            <Link to={`/doc_profile/${doctors._id}`} className="appt-link">
+              Profile
+            </Link>
           </div>
         </div>
       ))}
