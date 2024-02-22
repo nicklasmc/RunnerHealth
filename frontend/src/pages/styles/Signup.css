@@ -31,10 +31,18 @@
 
 h3 {
   text-align: center;
+  margin-bottom: 5px;
+  color: #333;
+  font-weight: bold;
+  font-size: 13pt;
+}
+
+h5 {
+  text-align: center;
   margin-bottom: 30px;
   color: #333;
   font-weight: bold;
-  font-size: 16px;
+  font-size: 10pt;
 }
 
 label {

@@ -1,9 +1,6 @@
 import { Link } from 'react-router-dom';
 import { UseLogout } from '../../hooks/useLogout.js';
 import { useAuthContext } from '../../hooks/useAuthContext.js';
-import Logo from '../imgs/rh_logo_shadow.png';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -64,10 +61,10 @@ const MNavi = () => {
       )}
       {!patient && (
         <div className="bott-navi">
-          <Link className="bttm-link-btn mnav-login" to="/patient_login">
+          <Link className="bttm-link-btn mnav-login" to="/login_selection">
             LOGIN
           </Link>
-          <Link className="bttm-link-btn mnav-join" to="/patient_signup">
+          <Link className="bttm-link-btn mnav-join" to="/signup_selection">
             JOIN
           </Link>
         </div>

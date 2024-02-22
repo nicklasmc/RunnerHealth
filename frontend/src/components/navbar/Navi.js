@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { UseLogout } from '../../hooks/useLogout';
+import { UseAdminLogout } from '../../hooks/useAdminLogout';
+import { UseDoctorLogout } from '../../hooks/useDoctorLogout';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Logo from '../imgs/rh_logo_shadow.png';
 import Container from 'react-bootstrap/Container';
@@ -9,10 +11,20 @@ import Button from 'react-bootstrap/Button';
 
 const Navi = () => {
   const { logout } = UseLogout();
-  const { patient } = useAuthContext();
+  const { adminLogout } = UseAdminLogout();
+  const { doctorLogout } = UseDoctorLogout();
+  const { patient, admin, doctor } = useAuthContext();
 
   const handleClick = () => {
     logout();
+  };
+
+  const handleAdminClick = () => {
+    adminLogout();
+  };
+
+  const handleDoctorClick = () => {
+    doctorLogout();
   };
 
   return (
@@ -37,7 +49,7 @@ const Navi = () => {
               <Link to="#features" className="link-btn">
                 Records
               </Link>
-              <Link to="/appointment" className="link-btn">
+              <Link to="#features" className="link-btn">
                 Schedule
               </Link>
               <Link to="#pricing" className="link-btn">
@@ -49,7 +61,7 @@ const Navi = () => {
                 </span>
                 <Button
                   onClick={handleClick}
-                  className="btn logout-btn"
+                  className="btn logout-btn bg-slate-500"
                   variant="secondary"
                 >
                   LOGOUT
@@ -57,12 +69,71 @@ const Navi = () => {
               </div>
             </div>
           )}
-          {!patient && (
+          {admin && (
+            <div className="page-links top-navi">
+              <Link to="/admin_home" className="link-btn">
+                Home
+              </Link>
+              <Link to="#features" className="link-btn">
+                Inventory
+              </Link>
+              <Link to="#features" className="link-btn">
+                Schedule
+              </Link>
+              <Link to="#pricing" className="link-btn">
+                Invoice
+              </Link>
+              <div>
+                <span style={{ padding: 10 }} className="pname">
+                  {admin.email}
+                </span>
+                <Button
+                  onClick={handleAdminClick}
+                  className="btn logout-btn bg-slate-500"
+                  variant="secondary"
+                >
+                  LOGOUT
+                </Button>
+              </div>
+            </div>
+          )}
+          {doctor && (
+            <div className="page-links top-navi">
+              <Link to="/doctor_home" className="link-btn">
+                Home
+              </Link>
+              <Link to="#features" className="link-btn">
+                Records
+              </Link>
+              <Link to="#features" className="link-btn">
+                Schedule
+              </Link>
+              <Link to="#features" className="link-btn">
+                Inventory
+              </Link>
+              <Link to="#pricing" className="link-btn">
+                Invoice
+              </Link>
+              <div>
+                <span style={{ padding: 10 }} className="pname">
+                  {doctor.email}
+                </span>
+                <Button
+                  onClick={handleDoctorClick}
+                  className="btn logout-btn bg-slate-500"
+                  variant="secondary"
+                >
+                  LOGOUT
+                </Button>
+              </div>
+            </div>
+          )}
+          {!patient && !admin && !doctor && (
             <div className="top-navi">
-              <Link to="/patient_login">
+              <Link to="/login_selection">
                 <Button className="creds-btn">LOGIN</Button>
               </Link>
-              <Link to="/patient_signup">
+              <Link to="/signup_selection">
                 <Button className="creds-btn">JOIN</Button>
               </Link>
             </div>

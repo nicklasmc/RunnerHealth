@@ -8,6 +8,14 @@ export const authReducer = (state, action) => {
       return { patient: action.payload };
     case 'PATIENT_LOGOUT':
       return { patient: null };
+    case 'ADMIN_LOGIN':
+      return { admin: action.payload };
+    case 'ADMIN_LOGOUT':
+      return { admin: null };
+    case 'DOCTOR_LOGIN':
+      return { doctor: action.payload };
+    case 'DOCTOR_LOGOUT':
+      return { doctor: null };
     default:
       return state;
   }
@@ -16,13 +24,23 @@ export const authReducer = (state, action) => {
 export const AuthContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(authReducer, {
     patient: null,
+    admin: null,
+    doctor: null,
   });
 
   useEffect(() => {
     const patient = JSON.parse(localStorage.getItem('patient'));
+    const admin = JSON.parse(localStorage.getItem('admin'));
+    const doctor = JSON.parse(localStorage.getItem('doctor'));
 
     if (patient) {
       dispatch({ type: 'PATIENT_LOGIN', payload: patient });
+    }
+    if (admin) {
+      dispatch({ type: 'ADMIN_LOGIN', payload: admin });
+    }
+    if (doctor) {
+      dispatch({ type: 'DOCTOR_LOGIN', payload: doctor });
     }
   }, [dispatch]);
 

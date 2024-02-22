@@ -15,21 +15,18 @@ const Login = () => {
     await login(email, password);
   };
 
-  const invalidFields = !email || !password
+  const invalidFields = !email || !password;
 
   return (
     <div className="signup-container">
       <div className="signup-form-container">
         <form className="signup-form" onSubmit={handleSubmit}>
-        <Link to="/">
-            <img
-              alt="RH"
-              src={Logo}
-              className="logo"
-            />
-          </Link>   
+          <Link to="/">
+            <img alt="RH" src={Logo} className="logo" />
+          </Link>
 
           <h3>Log in to your Runner Health Account</h3>
+          <h5>Patient Login</h5>
 
           <label>
             <input
@@ -51,7 +48,10 @@ const Login = () => {
             />
           </label>
 
-          <button className="signup-button" disabled={isLoading || invalidFields}>
+          <button
+            className="signup-button"
+            disabled={isLoading || invalidFields}
+          >
             {isLoading ? 'Logging in...' : 'Log in'}
           </button>
 
@@ -60,7 +60,12 @@ const Login = () => {
       </div>
       <div className="switch-section-container">
         <div className="switch-section">
-          <p>Don't have an account? <Link to="/patient_signup" className="switch-link">Create an Account</Link></p>
+          <p>
+            Don't have an account?{' '}
+            <Link to="/patient_signup" className="switch-link">
+              Create an Account
+            </Link>
+          </p>
         </div>
       </div>
     </div>

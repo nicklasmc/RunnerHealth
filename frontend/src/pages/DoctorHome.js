@@ -1,26 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../hooks/useAuthContext.js';
 
 const Home = () => {
-  const { patient } = useAuthContext();
+  const { doctor } = useAuthContext();
   const [user, setUser] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
+        `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
       );
       const data = await response.json();
       setUser(data);
     };
     document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [doctor.email]);
 
   return (
-    <div className="home page-contents">
-      <h2 className="welcome">
-        Welcome, &nbsp;
+    <div className="home page-contents container-fluid">
+      <h2 className="welcome container-fluid text-2xl">
+        Welcome,&nbsp;Dr.&nbsp;
         {user ? (
           user.map((user, index) => (
             <div key={index} className="uname">
