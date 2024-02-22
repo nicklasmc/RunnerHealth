@@ -1,7 +1,7 @@
-const { default: mongoose } = require('mongoose');
-const Appointment = require('../models/appointmentModel');
-const Doctor = require('../models/doctorModel');
-const ApptDate = require('../models/apptDateModel');
+const { default: mongoose } = require("mongoose");
+const Appointment = require("../models/appointmentModel");
+const Doctor = require("../models/doctorModel");
+const ApptDate = require("../models/apptDateModel");
 
 // get all appointments
 const getAllAppointments = async (req, res) => {
@@ -16,41 +16,9 @@ const getAllAppointments = async (req, res) => {
 
 // create single appointment
 const createAppointment = async (req, res) => {
-
-  const {
-    doctor,
-    patientId,
-    facility,
-    reasonForVisit,
-    patientFirstName,
-    patientLastName,
-    patientEmail,
-    patientPhone,
-    languagePreference,
-    preferredDate,
-    confirmedDate,
-    time,
-    status,
-  } = req.body;
-
-  const newAppointmentDetails = {
-    doctor,
-    patientId,
-    facility,
-    reasonForVisit,
-    patientFirstName,
-    patientLastName,
-    patientEmail,
-    patientPhone,
-    languagePreference,
-    preferredDate,
-    confirmedDate,
-    time,
-    status,
-  };
   // adding to db
   try {
-    const newAppointment = await Appointment.create(newAppointmentDetails);
+    const newAppointment = await Appointment.create(req.body);
 
     res.status(200).json(newAppointment);
   } catch (err) {
@@ -62,7 +30,7 @@ const createAppointment = async (req, res) => {
 const getOneAppointment = async (req, res) => {
   const { id } = req.params;
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such appointmnet' });
+    return res.status(404).json({ error: "No such appointmnet" });
   }
   try {
     const { id } = req.params;
@@ -76,17 +44,16 @@ const getOneAppointment = async (req, res) => {
 // get appointment populated with doctor's information as well
 const getApptAndDoctor = async (req, res) => {
   try {
-    const appts = await Appointment.find({}).populate('doctor');
+    const appts = await Appointment.find({}).populate("doctor");
     res.status(200).json(appts);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-
 };
 
 // store the confirmed date inside of DB
 const createConfirmedDate = async (req, res) => {
-  const { takenDate, appointmentId } = req.body
+  const { takenDate, appointmentId } = req.body;
   try {
     const newConfirmDate = {
       takenDate: new Date(takenDate),
@@ -104,7 +71,6 @@ const createConfirmedDate = async (req, res) => {
 const getTakenDates = async (req, res) => {
   const { id } = req.params; // id corresponds to doctor's mongoDB ID
   try {
-
     // significantly more complex query, deeper search
     // time to use mongodb functions... great..
 
@@ -113,36 +79,32 @@ const getTakenDates = async (req, res) => {
     // 2. cross-reference with the takenDates in apptDates collection
     // 3. extract and return only the takenDates
 
-
     const gatheredDates = await Appointment.aggregate([
-
       // 1. get appointments belonging to a doctor, ensure of type mongoose id
       { $match: { doctor: new mongoose.Types.ObjectId(id) } },
 
-
       // 2. cross-reference with the takenDates in apptDates collection
-      { // still in appointments,
+      {
+        // still in appointments,
         $lookup: {
-          from: 'apptdates', // inside apptdates
-          localField: '_id', // still in appointments, use the id's per doc
-          foreignField: 'appointment', // do not confuse for collection! this is a FIELD
-          as: 'apptDates' // store as apptdates
-        }
+          from: "apptdates", // inside apptdates
+          localField: "_id", // still in appointments, use the id's per doc
+          foreignField: "appointment", // do not confuse for collection! this is a FIELD
+          as: "apptDates", // store as apptdates
+        },
       },
 
-      { $unwind: '$apptDates' },  // apptDates got from the 'as' field above
-
+      { $unwind: "$apptDates" }, // apptDates got from the 'as' field above
 
       // 3. extract and return only the takenDates
       {
         $project: {
           _id: 0, // 0 to disable, don't need this here
-          takenDate: '$apptDates.takenDate' // project all the takenDates
-        }
-      }
+          takenDate: "$apptDates.takenDate", // project all the takenDates
+        },
+      },
 
       // reached the final stage, save into gatheredDates variable
-
     ]);
 
     const takenDates = gatheredDates;
@@ -152,12 +114,28 @@ const getTakenDates = async (req, res) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+const updateAppointment = async (req, res) => {
+  const { id } = req.params;
+  const updatedForm = req.body;
+
+  try {
+    const updatedAppt = await Appointment.findByIdAndUpdate(id, updatedForm);
+    if (!updatedAppt) {
+      return res.status(404).json({ error: "No such appointmnet" });
+    }
+    res.status(200).json(updatedAppt);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
 module.exports = {
-  // getAllAppointments,
+  updateAppointment,
   createConfirmedDate,
   createAppointment,
   getOneAppointment,
   getAllAppointments,
   getApptAndDoctor,
-  getTakenDates
-}
+  getTakenDates,
+};

@@ -11,7 +11,7 @@ const apptDateSchema = mongoose.Schema(
      },
      appointment: {
         type: mongoose.Types.ObjectId,
-        ref: "Appointment"
+        ref: 'Appointment',
      }
     }
 )
