@@ -4,10 +4,6 @@ const validator = require('validator');
 
 const doctorSchema = mongoose.Schema(
   {
-    doctorID: {
-      type: String,
-      required: [true, 'Doctor ID required'],
-    },
     fname: {
       type: String,
       required: [true, 'Enter a first name'],
@@ -18,11 +14,11 @@ const doctorSchema = mongoose.Schema(
     },
     mname: {
       type: String,
-      default: null
+      default: null,
     },
     sffx: {
       type: String,
-      default: null
+      default: null,
     },
     email: {
       type: String,
@@ -33,16 +29,16 @@ const doctorSchema = mongoose.Schema(
       {
         location: {
           type: String,
-          default: null
-        }
-      }
+          default: null,
+        },
+      },
     ],
     education: {
       type: String,
     },
     gender: {
       type: String,
-      default: "Unspecified",
+      default: 'Unspecified',
     },
     specialization: {
       type: String,

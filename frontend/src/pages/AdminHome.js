@@ -1,25 +1,26 @@
 import { useEffect, useState } from 'react';
-import { useAuthContext } from '../hooks/useAuthContext';
+import { useAuthContext } from '../hooks/useAuthContext.js';
+import { Link } from 'react-router-dom'; // FLAGGED FOR REMOVAL
 
 const Home = () => {
-  const { patient } = useAuthContext();
+  const { admin } = useAuthContext();
   const [user, setUser] = useState([]);
 
   useEffect(() => {
     const getUserInfo = async () => {
       const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
+        `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
       );
       const data = await response.json();
       setUser(data);
     };
     document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [admin.email]);
 
   return (
-    <div className="home page-contents">
-      <h2 className="welcome">
+    <div className="home page-contents container-fluid">
+      <h2 className="welcome container-fluid text-2xl">
         Welcome, &nbsp;
         {user ? (
           user.map((user, index) => (
@@ -32,6 +33,16 @@ const Home = () => {
           <h1>Gathering Data...</h1>
         )}
       </h2>
+      <br></br>
+      <br></br>
+      <div className="sched-link">
+        {/* MARKED FOR REMOVAL */}
+        <Link to="/appointment/dashboard/" className="ml-10">
+          {' '}
+          Appointment Dashboard (TEMP){' '}
+        </Link>
+        {/* MARKED FOR REMOVAL */}
+      </div>
     </div>
   );
 };

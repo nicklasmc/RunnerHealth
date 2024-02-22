@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuthContext } from './useAuthContext';
 
-export const useLogin = () => {
+export const useDoctorLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
   const { dispatch } = useAuthContext();
@@ -11,7 +11,7 @@ export const useLogin = () => {
     setError(null);
 
     const response = await fetch(
-      'http://localhost:4000/patients/patient_login',
+      `${process.env.REACT_APP_SERVER_URL}/doctors/doctor_login`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -22,14 +22,14 @@ export const useLogin = () => {
 
     if (!response.ok) {
       setIsLoading(false);
-      setError(json.message);
+      setError(json.error);
     }
     if (response.ok) {
-      // save the patient to local storage
-      localStorage.setItem('patient', JSON.stringify(json));
+      // save the doctor to local storage
+      localStorage.setItem('doctor', JSON.stringify(json));
 
       // update the auth context
-      dispatch({ type: 'PATIENT_LOGIN', payload: json });
+      dispatch({ type: 'DOCTOR_LOGIN', payload: json });
 
       setIsLoading(false);
     }

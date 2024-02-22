@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useAdminLogin } from '../hooks/useAdminLogin.js';
 import { Link } from 'react-router-dom';
-import { useSignup } from '../hooks/useSignup.js';
 import Logo from '../pages/imgs/rh_logo_shadow.png';
 import '../pages/styles/Signup.css';
 
-const Signup = () => {
-  const [fname, setFname] = useState('');
-  const [lname, setLname] = useState('');
+const AdminLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signup, error, isLoading } = useSignup();
-
-  const invalidFields = !fname || !lname || !email || !password;
+  const { login, error, isLoading } = useAdminLogin();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await signup(fname, lname, email, password);
+
+    await login(email, password);
   };
+
+  const invalidFields = !email || !password;
 
   return (
     <div className="signup-container">
@@ -26,28 +25,8 @@ const Signup = () => {
             <img alt="RH" src={Logo} className="logo" />
           </Link>
 
-          <h3>Sign up to Access Runner Health!</h3>
-          <h5>Patient Signup</h5>
-
-          <label>
-            <input
-              type="text"
-              placeholder="First Name"
-              onChange={(e) => setFname(e.target.value)}
-              value={fname}
-              required
-            />
-          </label>
-
-          <label>
-            <input
-              type="text"
-              placeholder="Last Name"
-              onChange={(e) => setLname(e.target.value)}
-              value={lname}
-              required
-            />
-          </label>
+          <h3>Log in to your Runner Health Account</h3>
+          <h5>Health Worker Login</h5>
 
           <label>
             <input
@@ -73,7 +52,7 @@ const Signup = () => {
             className="signup-button"
             disabled={isLoading || invalidFields}
           >
-            {isLoading ? 'Signing Up...' : 'Sign Up'}
+            {isLoading ? 'Logging in...' : 'Log in'}
           </button>
 
           {error && <div className="error">{error}</div>}
@@ -82,9 +61,9 @@ const Signup = () => {
       <div className="switch-section-container">
         <div className="switch-section">
           <p>
-            Already have an account?{' '}
-            <Link to="/patient_login" className="switch-link">
-              Log in
+            Don't have an account?{' '}
+            <Link to="/admin_signup" className="switch-link">
+              Create an Account
             </Link>
           </p>
         </div>
@@ -93,4 +72,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default AdminLogin;

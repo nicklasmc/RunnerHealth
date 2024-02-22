@@ -10,6 +10,14 @@ import PatientLogin from './pages/PatientLogin';
 import AppointmentSelector from './pages/AppointmentSelector.js';
 import Landing from './pages/Landing';
 import PatientSignup from './pages/PatientSignup';
+import AdminSignup from './pages/AdminSignup';
+import AdminHome from './pages/AdminHome';
+import AdminLogin from './pages/AdminLogin';
+import DoctorSignup from './pages/DoctorSignup';
+import DoctorHome from './pages/DoctorHome';
+import DoctorLogin from './pages/DoctorLogin';
+import SignupSelector from './pages/SignupSelector';
+import LoginSelector from './pages/LoginSelector';
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
@@ -19,7 +27,7 @@ import AppointmentDashboard from './pages/AppointmentDashboard.js';
 import DocProfile from './pages/DocProfile.js';
 
 function App() {
-  const { patient } = useAuthContext();
+  const { patient, admin, doctor } = useAuthContext();
   const foo = useMemo(() => ({ size: '2em' }), []);
 
   return (
@@ -31,6 +39,8 @@ function App() {
           <div className="pages">
             <Routes>
               <Route path="/" element={<Landing />} />
+              <Route path="/signup_selection" element={<SignupSelector />} />
+              <Route path="/login_selection" element={<LoginSelector />} />
               <Route
                 path="/patient_home"
                 element={
@@ -49,6 +59,40 @@ function App() {
                   !patient ? <PatientSignup /> : <Navigate to="/patient_home" />
                 }
               />
+              <Route
+                path="/admin_home"
+                element={admin ? <AdminHome /> : <Navigate to="/admin_login" />}
+              />
+              <Route
+                path="/admin_login"
+                element={
+                  !admin ? <AdminLogin /> : <Navigate to="/admin_home" />
+                }
+              />
+              <Route
+                path="/admin_signup"
+                element={
+                  !admin ? <AdminSignup /> : <Navigate to="/admin_home" />
+                }
+              />
+              <Route
+                path="/doctor_home"
+                element={
+                  doctor ? <DoctorHome /> : <Navigate to="/doctor_login" />
+                }
+              />
+              <Route
+                path="/doctor_login"
+                element={
+                  !doctor ? <DoctorLogin /> : <Navigate to="/doctor_home" />
+                }
+              />
+              <Route
+                path="/doctor_signup"
+                element={
+                  !doctor ? <DoctorSignup /> : <Navigate to="/doctor_home" />
+                }
+              />
               {/* Appointments */}
               <Route
                 path="/appointment"
@@ -63,11 +107,7 @@ function App() {
               <Route
                 path="/doc_profile/:id"
                 element={
-                  patient ? (
-                    <DocProfile />
-                  ) : (
-                    <Navigate to="/patient_login" />
-                  )
+                  patient ? <DocProfile /> : <Navigate to="/patient_login" />
                 }
               />
               <Route
