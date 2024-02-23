@@ -5,7 +5,6 @@ import { UseDoctorLogout } from '../../hooks/useDoctorLogout';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import Logo from '../imgs/rh_logo_shadow.png';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 
