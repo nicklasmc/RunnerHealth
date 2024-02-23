@@ -45,13 +45,13 @@ const Navi = () => {
               <Link to="/patient_home" className="link-btn">
                 Home
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/records" className="link-btn">
                 Records
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/schedule" className="link-btn">
                 Schedule
               </Link>
-              <Link to="#pricing" className="link-btn">
+              <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
               <div>
@@ -73,13 +73,13 @@ const Navi = () => {
               <Link to="/admin_home" className="link-btn">
                 Home
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/inventory" className="link-btn">
                 Inventory
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/schedule" className="link-btn">
                 Schedule
               </Link>
-              <Link to="#pricing" className="link-btn">
+              <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
               <div>
@@ -101,16 +101,13 @@ const Navi = () => {
               <Link to="/doctor_home" className="link-btn">
                 Home
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/records" className="link-btn">
                 Records
               </Link>
-              <Link to="#features" className="link-btn">
+              <Link to="/schedule" className="link-btn">
                 Schedule
               </Link>
-              <Link to="#features" className="link-btn">
-                Inventory
-              </Link>
-              <Link to="#pricing" className="link-btn">
+              <Link to="/invoice" className="link-btn">
                 Invoice
               </Link>
               <div>

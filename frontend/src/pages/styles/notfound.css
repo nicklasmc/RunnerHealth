@@ -1,0 +1,16 @@
+.space-can {
+  width: 50%;
+  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.nf-title {
+  text-align: center;
+  margin: 10px;
+}
+
+.nf-text {
+  text-align: justify;
+  padding: 5px;
+}
