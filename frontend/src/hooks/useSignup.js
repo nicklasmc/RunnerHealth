@@ -11,7 +11,7 @@ export const useSignup = () => {
     setError(null);
 
     const response = await fetch(
-      'http://localhost:4000/patients/patient_signup',
+      `${process.env.REACT_APP_SERVER_URL}/patients/patient_signup`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -22,7 +22,7 @@ export const useSignup = () => {
 
     if (!response.ok) {
       setIsLoading(false);
-      setError(json.error);
+      setError(json.message);
     }
     if (response.ok) {
       // save the patient to local storage

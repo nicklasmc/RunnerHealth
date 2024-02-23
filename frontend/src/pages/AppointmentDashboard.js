@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+// import { useParams, useNavigate } from "react-router-dom";
 // import { useAuthContext } from '../hooks/useAuthContext'; // SAVE FOR USER GROUPS
-import "./styles/appointmentDashboard.css";
+import './styles/appointmentDashboard.css';
 
 const AppointmentDashboard = () => {
   // Variables -------------------------------------
@@ -27,6 +28,7 @@ const AppointmentDashboard = () => {
 
     fetchData();
   }, []);
+
 
   const toggleFormDropdown = (index) => {
     const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
@@ -79,7 +81,6 @@ const AppointmentDashboard = () => {
 
   // ------------------------- //
   // NOTES FOR FUTURE REFERENCE:
-  // - https://stackoverflow.com/questions/65920645/how-to-add-a-field-to-each-object-in-array-and-push-that-result-array-to-another
   // - Variables via route `http://localhost:4000/appointments/appointmentAndDoctor` in controller file:
   // 1. 'appointment' object is good as is
   // 2. 'doctorAppointment' is an array belonging to 'appointment' obj, dereference with [0] and append a ? in case
