@@ -53,14 +53,15 @@ const getApptAndDoctor = async (req, res) => {
 
 // store the confirmed date inside of DB
 const createConfirmedDate = async (req, res) => {
-  const { takenDate, appointmentId } = req.body;
-  try {
-    const newConfirmDate = {
-      takenDate: new Date(takenDate),
-      appointment: appointmentId,
-    };
 
-    const appts = await ApptDate.create(newConfirmDate);
+  const apptObj = {
+    'takenDate' : req.body[0] ,
+    'appointment' : req.body[1]
+  };
+
+
+  try {
+   const appts = await ApptDate.create(apptObj);
 
     res.status(200).json(appts);
   } catch (error) {
@@ -116,6 +117,7 @@ const getTakenDates = async (req, res) => {
 };
 
 const updateAppointment = async (req, res) => {
+
   const { id } = req.params;
   const updatedForm = req.body;
 

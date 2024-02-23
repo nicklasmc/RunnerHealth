@@ -15,7 +15,6 @@ const BookAppointment = () => {
   const { patient } = useAuthContext();
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
-  const [docID, setDocID] = useState();
   const [selectedDate, setSelectedDate] = useState();
   const [takenDates, setTakenDates] = useState([]);
 
@@ -28,7 +27,7 @@ const BookAppointment = () => {
     // just did this cause it was easy copy-and-past and
     // knew values off the top of my head
     const formData = {
-      doctor: docID,
+      doctor: id,
       patientId: user[0]._id,
       reasonForVisit: document.getElementById("appt-reason").value,
       patientFirstName: document.getElementById("patient-first-name").value,
@@ -40,6 +39,7 @@ const BookAppointment = () => {
       time: document.getElementById("appt-time").value,
     };
 
+    console.log(formData);
     try {
       const response = await axios.post(
         "http://localhost:4000/appointments",
@@ -70,7 +70,6 @@ const BookAppointment = () => {
         const dateResponse = await axios.get(
           `http://localhost:4000/appointments/getTakenDates/${id}`
         );
-        setDocID(doctorResponse.data._id);
         setDoctors(doctorResponse.data);
         setUser(patientResponse.data);
 
@@ -88,17 +87,10 @@ const BookAppointment = () => {
 
   // useful for debugging, remove upon push to main //
   // useEffect( () => {
-  //     if (selectedDate) {
-  //         console.log(selectedDate);
+  //     if (docID) {
+  //         console.log(docID);
   //     }
-  // }, [selectedDate]);
-
-  // useful for debugging, remove upon push to main //
-  // useEffect ( () => {
-  //     if (takenDates) {
-  //         console.log("Taken dates post processing: ", takenDates);
-  //     }
-  // }, [takenDates]);
+  // }, [docID]);
 
   if (loading) {
     return <div>Loading...</div>;

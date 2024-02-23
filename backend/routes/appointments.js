@@ -6,6 +6,7 @@ const {
   createConfirmedDate,
   getApptAndDoctor,
   getTakenDates,
+  updateAppointment,
 } = require('../controllers/appointmentController');
 
 const cors = require('cors');
@@ -27,7 +28,6 @@ router.get('/getApptAndDoctor', getApptAndDoctor);
 // grab appointment by patient ID
 router.get('/:id', getOneAppointment);
 
-
 // --- ApptDate routes --- // 
 
 // post date into the apptdates collection to keep track of reserved dates
@@ -35,5 +35,8 @@ router.post('/confirmDate', createConfirmedDate);
 
 // get all dates in our apptdates via doctor's mongoDB ID
 router.get('/getTakenDates/:id', getTakenDates);
+
+// get all dates in our apptdates via doctor's mongoDB ID
+router.patch('/updateAppointment/:id', updateAppointment);
 
 module.exports = router;

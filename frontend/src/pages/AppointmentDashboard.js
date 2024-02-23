@@ -38,19 +38,34 @@ const AppointmentDashboard = () => {
   const handleValueChange = (index, value) => {
     const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
     tempAppointments[index].status = value;
+    console.log(tempAppointments[index]);
     setAppointment(tempAppointments); // adjust the appointments!
   };
 
-  const handleFormUpdate = async () => {
+  const handleFormUpdate = async (id, index) => {
+    const tempAppt = [...appointment];
+    delete tempAppt[index].formDropdown;
+
     try {
-      const appointmentResponse = await axios.get(
-        `http://localhost:4000/appointments/getApptAndDoctor`
+      const appointmentResponse = await axios.patch(
+        `http://localhost:4000/appointments/updateAppointment/${id}`,
+        tempAppt[index]
       );
-      for (var i = 0; i < appointmentResponse.data.length; i++) {
-        appointmentResponse.data[i].formDropdown = false; // append an additional var for dropdown use
+
+      if (tempAppt[index].status === "Confirmed") {
+        try {
+          const dateObj = [tempAppt[index].preferredDate, tempAppt[index]._id];
+          console.log(dateObj);
+          const updatedDateResponse = await axios.post(
+            `http://localhost:4000/appointments/confirmDate/`,
+            dateObj
+          );
+          console.log(updatedDateResponse);
+        } catch (error) {
+          console.log(error);
+        }
       }
-      setAppointment(appointmentResponse.data);
-      setLoading(false);
+
     } catch (error) {
       console.log(error);
     }
@@ -88,41 +103,41 @@ const AppointmentDashboard = () => {
             <div key={index} className="appt-cells">
               <div className="appt-cell-one">
                 <p>
-                  <span className="text-red-500">Appt ID:</span>
+                  <span className="text-red-500">Appt ID: </span>
                   {appointments._id}
                 </p>
                 <p>
-                  <span className="text-red-500">Requested Time:</span>
+                  <span className="text-red-500">Requested Time: </span>
                   {appointments.time}
                 </p>
                 <p>
-                  <span className="text-red-500">Requested Date:</span>
+                  <span className="text-red-500">Requested Date: </span>
                   {new Date(appointments.preferredDate).toDateString()}
                 </p>
                 <p>
-                  <span className="text-red-500">Preferred Language:</span>
+                  <span className="text-red-500">Preferred Language: </span>
                   {appointments.languagePreference}
                 </p>
               </div>
               <div className="appt-cell-two">
                 <p>
-                  <span className="text-red-500">Patient:</span>
+                  <span className="text-red-500">Patient: </span>
                   {appointments.patientFirstName} {appointments.patientLastName}
                 </p>
                 <p>
-                  <span className="text-red-500">Provider:</span>
+                  <span className="text-red-500">Provider: </span>
                   {appointments.doctor.fname} {appointments.doctor.lname}
                 </p>
               </div>
               <div className="appt-cell-three">
                 <p>
-                  <span className="text-red-500">Reason for Visit:</span>
+                  <span className="text-red-500">Reason for Visit: </span>
                   {appointments.reasonForVisit}
                 </p>
               </div>
               <div className="appt-cell-four">
                 <p>
-                  <span className="text-red-500">Status:</span>
+                  <span className="text-red-500">Status: </span>
                   {appointments.status}
                 </p>
                 <button
@@ -134,7 +149,7 @@ const AppointmentDashboard = () => {
 
                 <button
                   className="appt-update-btn"
-                  onClick={() => toggleFormDropdown(index)}
+                  onClick={() => handleFormUpdate(appointments._id, index)}
                 >
                   Confirm
                 </button>
@@ -167,8 +182,8 @@ const AppointmentDashboard = () => {
                     value={appointments.status}
                     onChange={(e) => handleValueChange(index, e.target.value)}
                   >
-                    <option value="Confirm">Confirm</option>
-                    <option value="Deny">Deny</option>
+                    <option value="Confirmed">Confirm</option>
+                    <option value="Denied">Deny</option>
                     <option value="Pending">Pending</option>
                   </select>
                 </form>
