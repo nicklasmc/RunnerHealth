@@ -76,13 +76,13 @@ const BookAppointment = () => {
         const tempArr = dateResponse.data.map((i) => new Date(i.takenDate)); // grab from the takenDate field, go over all of the via map, store in tempArr
         setTakenDates(tempArr); // set takenDates array to only be the values of each taken date, not worrying about field names
         setLoading(false);
+        console.log(dateResponse.data);
       } catch (error) {
         console.log(error);
       }
     };
 
     fetchData();
-    // add id, ensure the page changes once the id in the url changes or if the logged in patient's email (how we check who is logged in) changes
   }, [id, patient.email]);
 
   // useful for debugging, remove upon push to main //
@@ -95,8 +95,7 @@ const BookAppointment = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  // console.log(user[0]._id);
-  // console.log(doctors._id);
+
 
   return (
     <div>

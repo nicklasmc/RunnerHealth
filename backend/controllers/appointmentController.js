@@ -53,17 +53,26 @@ const getApptAndDoctor = async (req, res) => {
 
 // store the confirmed date inside of DB
 const createConfirmedDate = async (req, res) => {
-
   const apptObj = {
-    'takenDate' : req.body[0] ,
-    'appointment' : req.body[1]
+    takenDate: req.body[0],
+    appointment: req.body[1],
   };
 
-
   try {
-   const appts = await ApptDate.create(apptObj);
+    const appts = await ApptDate.create(apptObj);
 
     res.status(200).json(appts);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const removeDate = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const appts = await ApptDate.deleteOne({ appointment: id });
+    res.status(200).json(appts);
+  
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -117,7 +126,6 @@ const getTakenDates = async (req, res) => {
 };
 
 const updateAppointment = async (req, res) => {
-
   const { id } = req.params;
   const updatedForm = req.body;
 
@@ -140,4 +148,5 @@ module.exports = {
   getAllAppointments,
   getApptAndDoctor,
   getTakenDates,
+  removeDate,
 };

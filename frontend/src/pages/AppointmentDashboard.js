@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-// import { useParams, useNavigate } from "react-router-dom";
-// import { useAuthContext } from '../hooks/useAuthContext'; // SAVE FOR USER GROUPS
-import './styles/appointmentDashboard.css';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import "./styles/appointmentDashboard.css";
 
 const AppointmentDashboard = () => {
   // Variables -------------------------------------
-  //const { patient } = useAuthContext();  // !!! Switch to applicable user group. This is a placeholder not meant for deployment !!! //
   const [appointment, setAppointment] = useState([]);
   const [loading, setLoading] = useState(true);
   // -----------------------------------------------
@@ -28,7 +25,6 @@ const AppointmentDashboard = () => {
 
     fetchData();
   }, []);
-
 
   const toggleFormDropdown = (index) => {
     const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
@@ -57,7 +53,6 @@ const AppointmentDashboard = () => {
       if (tempAppt[index].status === "Confirmed") {
         try {
           const dateObj = [tempAppt[index].preferredDate, tempAppt[index]._id];
-          console.log(dateObj);
           const updatedDateResponse = await axios.post(
             `http://localhost:4000/appointments/confirmDate/`,
             dateObj
@@ -68,25 +63,23 @@ const AppointmentDashboard = () => {
         }
       }
 
+      if (tempAppt[index].status === "Denied") {
+        try {
+          const updatedDateResponse = await axios.delete(
+            `http://localhost:4000/appointments/removeDate/${tempAppt[index]._id}`
+          );
+          console.log(updatedDateResponse);
+        } catch (error) {}
+      }
+      console.log(appointmentResponse);
     } catch (error) {
       console.log(error);
     }
   };
 
-
-
   if (loading) {
     return <div>Loading...</div>;
   }
-
-  // ------------------------- //
-  // NOTES FOR FUTURE REFERENCE:
-  // - Variables via route `http://localhost:4000/appointments/appointmentAndDoctor` in controller file:
-  // 1. 'appointment' object is good as is
-  // 2. 'doctorAppointment' is an array belonging to 'appointment' obj, dereference with [0] and append a ? in case
-  // it has not rendered
-  // 3. Refer to MongoDB official documentation on $lookup, this gave us a combination of both doctors and appointments
-  // ------------------------- //
 
   // ----- Notes for Frontend Team ----- //
   // 1. Display uses flexboxes
@@ -96,6 +89,7 @@ const AppointmentDashboard = () => {
   //    combines two different documents. Refer to that for more information.
   // 5. Buttons are highlighted in blue, labels red
   // ----------------------------------- //
+
   return (
     <div>
       <div className="appt-main-container">
@@ -104,20 +98,12 @@ const AppointmentDashboard = () => {
             <div key={index} className="appt-cells">
               <div className="appt-cell-one">
                 <p>
-                  <span className="text-red-500">Appt ID: </span>
-                  {appointments._id}
-                </p>
-                <p>
                   <span className="text-red-500">Requested Time: </span>
                   {appointments.time}
                 </p>
                 <p>
                   <span className="text-red-500">Requested Date: </span>
                   {new Date(appointments.preferredDate).toDateString()}
-                </p>
-                <p>
-                  <span className="text-red-500">Preferred Language: </span>
-                  {appointments.languagePreference}
                 </p>
               </div>
               <div className="appt-cell-two">
@@ -145,7 +131,7 @@ const AppointmentDashboard = () => {
                   className="appt-update-btn"
                   onClick={() => toggleFormDropdown(index)}
                 >
-                  Edit
+                  Expand
                 </button>
 
                 <button
@@ -154,40 +140,83 @@ const AppointmentDashboard = () => {
                 >
                   Confirm
                 </button>
+                <button
+                  className="appt-update-btn"
+                  onClick={() => handleFormUpdate(appointments._id, index)}
+                >
+                  Edit
+                </button>
               </div>
             </div>
             {appointments.formDropdown && (
-              <div className="appt-edit">
-                <form action="">
-                  <label
-                    htmlFor="facility"
-                    className="text-red-500 font-normal"
-                  >
-                    Facility
-                  </label>
-                  <select name="facility">
-                    {appointments.doctor.facility.map((facilityName, index) => (
-                      <option value={facilityName} key={index}>
-                        {facilityName.location}
-                      </option>
-                    ))}
-                  </select>
-                </form>
+              <div className="appt-edit-container">
+                {/* ---------- */}
+                <p className="text-green-600 text-center">
+                  Temporary usage notes, remove upon on pull request:
+                </p>
 
-                <form action="" className="ml-5">
-                  <label htmlFor="status" className="text-red-500 font-normal">
-                    Status
-                  </label>
-                  <select
-                    name="status"
-                    value={appointments.status}
-                    onChange={(e) => handleValueChange(index, e.target.value)}
-                  >
-                    <option value="Confirmed">Confirm</option>
-                    <option value="Denied">Deny</option>
-                    <option value="Pending">Pending</option>
-                  </select>
-                </form>
+                <p className="text-green-600 text-center">
+                  Change status, then hit confirm button. Depending on your
+                  entry, it will either insert or delete the date in the db,
+                  which affects the calendar in the appt booking page
+                </p>
+                {/* ---------- */}
+                <div className="appt-edit">
+                  <p>
+                    <span className="text-red-500">Appt ID: </span>
+                    {appointments._id}
+                  </p>
+                  <p>
+                    <span className="text-red-500">Patient Phone: </span>
+                    {appointments.patientPhone}
+                  </p>
+
+                  <p>
+                    <span className="text-red-500"> Patient Email: </span>
+                    {appointments.patientEmail}
+                  </p>
+
+                  <p>
+                    <span className="text-red-500"> Preferred Language: </span>
+                    {appointments.languagePreference}
+                  </p>
+
+                  <form action="">
+                    <label
+                      htmlFor="facility"
+                      className="text-red-500 font-normal"
+                    >
+                      Facility
+                    </label>
+                    <select name="facility">
+                      {appointments.doctor.facility.map(
+                        (facilityName, index) => (
+                          <option value={facilityName} key={index}>
+                            {facilityName.location}
+                          </option>
+                        )
+                      )}
+                    </select>
+                  </form>
+
+                  <form action="" className="ml-5">
+                    <label
+                      htmlFor="status"
+                      className="text-red-500 font-normal"
+                    >
+                      Status
+                    </label>
+                    <select
+                      name="status"
+                      value={appointments.status}
+                      onChange={(e) => handleValueChange(index, e.target.value)}
+                    >
+                      <option value="Confirmed">Confirm</option>
+                      <option value="Denied">Deny</option>
+                      <option value="Pending">Pending</option>
+                    </select>
+                  </form>
+                </div>
               </div>
             )}
           </div>

@@ -56,9 +56,19 @@
     padding: 5px;
 }
 
+.appt-edit-container {
+    border: 1px solid gray;
+    padding: 5px;
+}
 .appt-edit {
     display: flex;
     align-items: center;
-    border: 1px solid gray;
-    padding: 5px;
+}
+
+.appt-edit > p {
+    padding-left: 10px;
+}
+
+.appt-edit > form {
+    padding-left: 10px;
 }
