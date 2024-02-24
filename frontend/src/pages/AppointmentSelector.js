@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import '../pages/styles/docProfile.css';
-// import axios from 'axios';
-// import {useParams} from 'react-router-dom';
+import '../pages/styles/appointments.css';
+import first from './imgs/placeholder.png';
 
 const Appointment = () => {
-  // --- Retrieving from Database --- //
   const [doctors, setDoctors] = useState([]);
+
   const getDoctorsList = async () => {
     try {
       const res = await axios.get(`http://localhost:4000/doctors/`);
@@ -21,48 +20,31 @@ const Appointment = () => {
     getDoctorsList();
   }, []);
 
-  // Things we can potentially add to this:
-  // - School
-  // - Bio
-  // - Residency Program
-  // - Certifications
-  // - Languages
-
   return (
-    <div className="page-contents schedule-page-contents">
-      {/* Maps out all the doctors gathered in the doctors array, think of like for loop */}
-      {doctors.map((doctors) => (
-        <div
-          key={doctors.email}
-          style={{
-            backgroundColor: 'white',
-            padding: '20px',
-            borderRadius: '10px',
-            margin: '90px 20px',
-          }}
-        >
-          {/*<p> {doctors._id} </p>*/}
-          <div className="provider-info">
-            <h1 className="doc-name" style={{ fontSize: '20px' }}>
-              {doctors.fname} {doctors.lname}
-            </h1>
-            <p className="doc-email" style={{ fontSize: '20px' }}>
-              {' '}
-              {doctors.email}{' '}
-            </p>
+    <div className="page-contents grid grid-cols-2 mobile:grid-cols-1 gap-4 m-auto w-full">
+      {doctors.map((doctor) => (
+        <div key={doctor.email} className="doctor-card bg-white text-black rounded-xl border-2 border-black border-solid m-5">
+          <div className="flex flex-col items-center p-3">
+            <img src={first} alt="Doctor" className="h-44 w-44 rounded-full border-2 border-black border-solid"/>
+            <h1 className="text-xl font-semibold mt-2">{doctor.fname} {doctor.lname}</h1>
           </div>
-          <div className="provider-links">
-            <Link to={`/appointment/${doctors._id}`} className="appt-link">
-              Book Appointment
-            </Link>
-            <br />
-            <Link to={`/doc_profile/${doctors._id}`} className="appt-link">
-              Profile
-            </Link>
+
+          <div className="flex flex-col justify-center items-center pr-4 pl-4">
+            <p className="text-xl">Gender: {doctor.gender}</p>
+            <p className="text-xl">Specialty: {doctor.specialization}</p>
+            <p className="text-xl">Education: {doctor.education}</p>
+          </div>
+
+          <div className="flex flex-col justify-center items-center pt-3 pl-4 pr-4 pb-4">
+            <p className="text-center text-xl mb-2">{doctor.email}</p>
+            <button>
+              <Link to={`/appointment/${doctor._id}`} className="bg-[goldenrod] text-white text-xl px-7 py-1 rounded-xl">Book Appointment</Link>
+            </button>
           </div>
         </div>
       ))}
     </div>
   );
 };
+
 export default Appointment;
