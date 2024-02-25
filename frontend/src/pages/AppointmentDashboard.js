@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./styles/appointmentDashboard.css";
+import AppointmentDashForm from "../components/AppointmentDashForm";
+import Select from "react-select";
 
 const AppointmentDashboard = () => {
   // Variables -------------------------------------
@@ -15,6 +17,7 @@ const AppointmentDashboard = () => {
         );
         for (var i = 0; i < appointmentResponse.data.length; i++) {
           appointmentResponse.data[i].formDropdown = false; // append an additional var for dropdown use
+          appointmentResponse.data[i].editMode = false;
         }
         setAppointment(appointmentResponse.data);
         setLoading(false);
@@ -33,49 +36,13 @@ const AppointmentDashboard = () => {
     setAppointment(tempAppointments); // adjust the appointments!
   };
 
-  const handleValueChange = (index, value) => {
-    const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
-    tempAppointments[index].status = value;
-    console.log(tempAppointments[index]);
-    setAppointment(tempAppointments); // adjust the appointments!
+  const toggleEditMode = (index) => {
+    const tempAppointments = [...appointment];
+    tempAppointments[index].editMode = !tempAppointments[index].editMode;
+    tempAppointments[index].formDropdown = true;
+    setAppointment(tempAppointments);
   };
 
-  const handleFormUpdate = async (id, index) => {
-    const tempAppt = [...appointment];
-    delete tempAppt[index].formDropdown;
-
-    try {
-      const appointmentResponse = await axios.patch(
-        `http://localhost:4000/appointments/updateAppointment/${id}`,
-        tempAppt[index]
-      );
-
-      if (tempAppt[index].status === "Confirmed") {
-        try {
-          const dateObj = [tempAppt[index].preferredDate, tempAppt[index]._id];
-          const updatedDateResponse = await axios.post(
-            `http://localhost:4000/appointments/confirmDate/`,
-            dateObj
-          );
-          console.log(updatedDateResponse);
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-      if (tempAppt[index].status === "Denied") {
-        try {
-          const updatedDateResponse = await axios.delete(
-            `http://localhost:4000/appointments/removeDate/${tempAppt[index]._id}`
-          );
-          console.log(updatedDateResponse);
-        } catch (error) {}
-      }
-      console.log(appointmentResponse);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -98,7 +65,9 @@ const AppointmentDashboard = () => {
             <div key={index} className="appt-cells">
               <div className="appt-cell-one">
                 <p>
-                  <span className="text-red-500">Requested Time: </span>
+                  <span className="text-red-500" id={`${index}`}>
+                    Requested Time:{" "}
+                  </span>
                   {appointments.time}
                 </p>
                 <p>
@@ -118,8 +87,8 @@ const AppointmentDashboard = () => {
               </div>
               <div className="appt-cell-three">
                 <p>
-                  <span className="text-red-500">Reason for Visit: </span>
-                  {appointments.reasonForVisit}
+                  <span className="text-red-500">Appointment Type: </span>
+                  placeholder
                 </p>
               </div>
               <div className="appt-cell-four">
@@ -127,97 +96,38 @@ const AppointmentDashboard = () => {
                   <span className="text-red-500">Status: </span>
                   {appointments.status}
                 </p>
-                <button
-                  className="appt-update-btn"
-                  onClick={() => toggleFormDropdown(index)}
-                >
-                  Expand
-                </button>
 
-                <button
-                  className="appt-update-btn"
-                  onClick={() => handleFormUpdate(appointments._id, index)}
-                >
-                  Confirm
-                </button>
-                <button
-                  className="appt-update-btn"
-                  onClick={() => handleFormUpdate(appointments._id, index)}
-                >
-                  Edit
-                </button>
+                {appointments.editMode ? (
+                  <div> </div>
+                ) : (
+                  <div className="ml-5">
+                    <button
+                      className="appt-update-btn"
+                      onClick={() => toggleFormDropdown(index)}
+                    >
+                      {appointments.formDropdown ? "Collapse" : "Expand"}
+                    </button>
+                    <button
+                      className="appt-update-btn"
+                      onClick={() => toggleEditMode(index)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-            {appointments.formDropdown && (
-              <div className="appt-edit-container">
-                {/* ---------- */}
-                <p className="text-green-600 text-center">
-                  Temporary usage notes, remove upon on pull request:
-                </p>
-
-                <p className="text-green-600 text-center">
-                  Change status, then hit confirm button. Depending on your
-                  entry, it will either insert or delete the date in the db,
-                  which affects the calendar in the appt booking page
-                </p>
-                {/* ---------- */}
-                <div className="appt-edit">
-                  <p>
-                    <span className="text-red-500">Appt ID: </span>
-                    {appointments._id}
-                  </p>
-                  <p>
-                    <span className="text-red-500">Patient Phone: </span>
-                    {appointments.patientPhone}
-                  </p>
-
-                  <p>
-                    <span className="text-red-500"> Patient Email: </span>
-                    {appointments.patientEmail}
-                  </p>
-
-                  <p>
-                    <span className="text-red-500"> Preferred Language: </span>
-                    {appointments.languagePreference}
-                  </p>
-
-                  <form action="">
-                    <label
-                      htmlFor="facility"
-                      className="text-red-500 font-normal"
-                    >
-                      Facility
-                    </label>
-                    <select name="facility">
-                      {appointments.doctor.facility.map(
-                        (facilityName, index) => (
-                          <option value={facilityName} key={index}>
-                            {facilityName.location}
-                          </option>
-                        )
-                      )}
-                    </select>
-                  </form>
-
-                  <form action="" className="ml-5">
-                    <label
-                      htmlFor="status"
-                      className="text-red-500 font-normal"
-                    >
-                      Status
-                    </label>
-                    <select
-                      name="status"
-                      value={appointments.status}
-                      onChange={(e) => handleValueChange(index, e.target.value)}
-                    >
-                      <option value="Confirmed">Confirm</option>
-                      <option value="Denied">Deny</option>
-                      <option value="Pending">Pending</option>
-                    </select>
-                  </form>
-                </div>
-              </div>
+            {appointments.editMode || appointments.formDropdown ? (
+              <AppointmentDashForm
+              appointment = {appointment} 
+                appointments={appointments}
+                index={index}
+                toggleFormDropdown={toggleFormDropdown}
+                toggleEditMode={toggleEditMode}
+                setAppointment={setAppointment}
+              />
+            ) : (
+              <div></div>
             )}
           </div>
         ))}
