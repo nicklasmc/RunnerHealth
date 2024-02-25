@@ -176,17 +176,6 @@ const AppointmentDashForm = ({
             >
               Save
             </button>
-            <button
-              className="appt-update-btn"
-              onClick={() => {
-                {
-                  toggleEditMode(index);
-                  toggleFormDropdown(index);
-                }
-              }}
-            >
-              Cancel
-            </button>
           </div>
         </div>
       ) : (

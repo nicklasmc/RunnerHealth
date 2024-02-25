@@ -42,7 +42,13 @@
 
 .appt-cell-four {
     margin: 10px;
-    min-width: 500px;
+    padding: 10px;
+    min-width: 400px;
+    /* border-right: 1px solid gray; */
+    word-break: break-word;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
     display: flex;
 }
 

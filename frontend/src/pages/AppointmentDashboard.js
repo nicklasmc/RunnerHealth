@@ -98,7 +98,17 @@ const AppointmentDashboard = () => {
                 </p>
 
                 {appointments.editMode ? (
-                  <div> </div>
+                  <div className="ml-5">
+                  <button
+                    className="appt-update-btn"
+                    onClick={() => {
+                      toggleEditMode(index);
+                      toggleFormDropdown(index);
+                    }}
+                  >
+                    Cancel
+                  </button>
+                  </div>
                 ) : (
                   <div className="ml-5">
                     <button
@@ -119,7 +129,7 @@ const AppointmentDashboard = () => {
             </div>
             {appointments.editMode || appointments.formDropdown ? (
               <AppointmentDashForm
-              appointment = {appointment} 
+                appointment={appointment}
                 appointments={appointments}
                 index={index}
                 toggleFormDropdown={toggleFormDropdown}
