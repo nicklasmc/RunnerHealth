@@ -121,7 +121,7 @@ function Landing() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FaLinkedin color="goldenrod" />
+                        <FaLinkedin/>
                       </a>
                       <a
                         title="GitHub"
@@ -129,7 +129,7 @@ function Landing() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FaGithubSquare color="goldenrod" />
+                        <FaGithubSquare/>
                       </a>
                     </div></ListGroup.Item>
                 </ListGroup>
@@ -148,14 +148,14 @@ function Landing() {
                   <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
                   <ListGroup.Item>Full Stack Development</ListGroup.Item>
                   <ListGroup.Item className="">
-                    <div className="flex items-center gap-2 social-links">
+                    <div className="social-links flex items-center gap-2">
                       <a
                         title="LinkedIn"
                         href="https://www.linkedin.com/in/chidi-okpara/"
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FaLinkedin color="goldenrod" />
+                        <FaLinkedin/>
                       </a>
                       <a
                         title="GitHub"
@@ -163,7 +163,7 @@ function Landing() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <FaGithubSquare color="goldenrod" />
+                        <FaGithubSquare/>
                       </a>
                     </div>
                   </ListGroup.Item>
@@ -181,9 +181,27 @@ function Landing() {
                       Nicholas Romasanta
                     </Card.Title>
                   </ListGroup.Item>
-                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
                   <ListGroup.Item>Back-end Development</ListGroup.Item>
-                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                  <ListGroup.Item>                    
+                    <div className="flex items-center gap-2 social-links">
+                      <a
+                        title="LinkedIn"
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLinkedin/>
+                      </a>
+                      <a
+                        title="GitHub"
+                        href="https://github.com/nromasanta"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithubSquare/>
+                      </a>
+                    </div></ListGroup.Item>
                 </ListGroup>
               </Card.Body>
             </Card>
@@ -198,7 +216,25 @@ function Landing() {
                   </ListGroup.Item>
                   <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
                   <ListGroup.Item>Front-end Development</ListGroup.Item>
-                  <ListGroup.Item>~Your Links Here~</ListGroup.Item>
+                  <ListGroup.Item>                    
+                    <div className="flex items-center gap-2 social-links">
+                      <a
+                        title="LinkedIn"
+                        href="https://www.linkedin.com/"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaLinkedin/>
+                      </a>
+                      <a
+                        title="GitHub"
+                        href="https://github.com/ChaDaniel"
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <FaGithubSquare/>
+                      </a>
+                    </div></ListGroup.Item>
                 </ListGroup>
               </Card.Body>
             </Card>

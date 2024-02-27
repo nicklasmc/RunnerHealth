@@ -47,7 +47,7 @@ header .container {
 }
 
 .page-contents {
-  padding: 67px 0 0px;
+  padding: 0px 0 0px;
   min-height: 100vh;
   background-color: gainsboro;
 }
@@ -58,7 +58,7 @@ header .container {
 
 .link-btn {
   padding: 0 5px;
-  color: black;
+  color: white;
   text-decoration: none;
 }
 
@@ -118,7 +118,6 @@ header .container {
 }
 
 .landing-page {
-  padding-top: 57px;
 }
 
 .carousel-item,
