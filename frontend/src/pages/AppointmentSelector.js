@@ -21,28 +21,30 @@ const Appointment = () => {
   }, []);
 
   return (
-    <div className="page-contents grid grid-cols-2 mobile:grid-cols-1 gap-4 m-auto w-full">
-      {doctors.map((doctor) => (
-        <div key={doctor.email} className="doctor-card bg-white text-black rounded-xl border-2 border-black border-solid m-5">
-          <div className="flex flex-col items-center p-3">
-            <img src={first} alt="Doctor" className="h-44 w-44 rounded-full border-2 border-black border-solid"/>
-            <h1 className="text-xl font-semibold mt-2">{doctor.fname} {doctor.lname}</h1>
+    <div className ="min-h-screen">
+      <div className="doc-cards grid lg:grid-cols-3 md:grid-cols-2 mobile:grid-cols-1 gap-5 p-5">
+        {doctors.map((doctor) => (
+          <div key={doctor.email} className="doctor-card bg-white text-black rounded-xl border-2 border-black border-solid">
+            <div className="flex justify-evenly items-center p-3">
+              <div className="flex flex-col items-center">
+                <img src={first} alt="Doctor" className="h-44 w-44 rounded-full border-2 border-black border-solid"/>
+                <h1 className="text-xl font-semibold">{doctor.fname} {doctor.lname}, {doctor.title}</h1>
+              </div>
+              <div className="ml-4">
+                <div className="flex flex-col items-center mb-4">
+                  <p className="text-lg">Gender: {doctor.gender}</p>
+                  <p className="text-lg">Specialty: {doctor.specialization}</p>
+                  <p className="text-lg">Education: {doctor.education}</p>
+                </div>
+                <div className="flex flex-col items-center">
+                  <p className="text-lg">{doctor.email}</p>
+                  <Link to={`/appointment/${doctor._id}`} className="bg-[goldenrod] text-white text-lg px-4 py-1 rounded-xl inline-block mt-2">Book Appointment</Link>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div className="flex flex-col justify-center items-center pr-4 pl-4">
-            <p className="text-xl">Gender: {doctor.gender}</p>
-            <p className="text-xl">Specialty: {doctor.specialization}</p>
-            <p className="text-xl">Education: {doctor.education}</p>
-          </div>
-
-          <div className="flex flex-col justify-center items-center pt-3 pl-4 pr-4 pb-4">
-            <p className="text-center text-xl mb-2">{doctor.email}</p>
-            <button>
-              <Link to={`/appointment/${doctor._id}`} className="bg-[goldenrod] text-white text-xl px-7 py-1 rounded-xl">Book Appointment</Link>
-            </button>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   );
 };
