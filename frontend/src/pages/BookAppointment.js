@@ -190,7 +190,7 @@ const BookAppointment = () => {
                 </p>
                 <br />
                 <br />
-                <button type="submit" className="submit-button border-blue-500">
+                <button type="submit" className="submit-button bg-[goldenrod] text-white text-lg px-4 py-1 rounded-xl inline-block">
                   Submit
                 </button>
               </div>
