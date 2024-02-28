@@ -31,8 +31,8 @@ const Navi = () => {
   };
 
   return (
-    <Navbar className="bg-body-tertiary" fixed="top">
-      <Container fluid className="topnav-contents">
+    <Navbar className="bg-body-tertiary" sticky="top">
+      <Container className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
           <Link to="/">
             <img
