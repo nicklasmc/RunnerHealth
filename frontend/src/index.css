@@ -54,13 +54,21 @@ header .container {
 
 .page-links {
   display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .link-btn {
-  padding: 0 5px;
-  color: white;
+  padding: 0 20px;
+  color: black;
   text-decoration: none;
+  font-weight: bold;
 }
+
+.link-btn:hover {
+  text-decoration: underline;
+}
+
 
 .logout-btn {
   max-width: 50px;
