@@ -52,6 +52,16 @@
     display: flex;
 }
 
+.appt-cell-five {
+    min-width: 400px;
+    /* border-right: 1px solid gray; */
+    word-break: break-word;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+}
+
 .appt-dropform {
     display: inline;
 }
@@ -61,15 +71,16 @@
 }
 
 .appt-update-btn {
-    background-color: blue;
+    background-color: black;
     border-radius: 5px;
     color:white;
-    padding: 6px;
+    padding: 10px;
     font-size:15px;
-    margin: 4px;
+    height: 50%;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
+    min-width: 80px;
 }
 
 .appt-edit-container {
@@ -89,6 +100,10 @@
 
 .appt-edit-container > form {
     padding-left: 10px;
+}
+
+.appt-edit-subcontainer {
+    min-width: 400px;
 }
 
 .inputLabel {

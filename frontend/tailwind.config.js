@@ -11,6 +11,15 @@ module.exports = {
         'mobile': {'max': '800px'},
         'medium': {'max': '1151px'},
       },
+      minWidth: {
+        '150': '150px',
+      },
+      minHeight: {
+        '150':'150px',
+        '300':'300px',
+        '400':'400px',
+        '500':'500px',
+      },
     },
   },
   plugins: [],

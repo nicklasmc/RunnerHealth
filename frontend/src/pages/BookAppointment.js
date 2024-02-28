@@ -115,7 +115,15 @@ const BookAppointment = () => {
             <form className="appt-form" onSubmit={handleSubmit}>
               <div className="appt-form-section-left">
                 <label htmlFor="appt-reason">Reason for Visit:</label>
-                <input type="text" id="appt-reason" name="appt-reason" />
+                <textarea
+                  type='text'
+                  id='appt-reason'
+                  name = 'appt-reason'
+                  maxLength={300}
+                  rows='4'
+                  cols='50' 
+                  placeholder="Enter comments here..."
+                />
                 <p className="text-red-500">
                   If you believe you require immediate attention, visit the
                   emergency room or contact 911
@@ -190,7 +198,10 @@ const BookAppointment = () => {
                 </p>
                 <br />
                 <br />
-                <button type="submit" className="submit-button bg-[goldenrod] text-white text-lg px-4 py-1 rounded-xl inline-block">
+                <button
+                  type="submit"
+                  className="submit-button bg-[goldenrod] text-white text-lg px-4 py-1 rounded-xl inline-block"
+                >
                   Submit
                 </button>
               </div>

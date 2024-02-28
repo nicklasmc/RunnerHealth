@@ -7,6 +7,7 @@ import Select from "react-select";
 const AppointmentDashboard = () => {
   // Variables -------------------------------------
   const [appointment, setAppointment] = useState([]);
+  const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
   // -----------------------------------------------
   useEffect(() => {
@@ -19,6 +20,16 @@ const AppointmentDashboard = () => {
           appointmentResponse.data[i].formDropdown = false; // append an additional var for dropdown use
           appointmentResponse.data[i].editMode = false;
         }
+
+        const doctorResponse = await axios.get(`http://localhost:4000/doctors`);
+        const doctors = doctorResponse.data;
+
+        const mappedDoctors = doctors.map((doctor) => ({
+          value: doctor._id,
+          label: `${doctor.fname} ${doctor.lname}`,
+        }));
+
+        setProviders(mappedDoctors);
         setAppointment(appointmentResponse.data);
         setLoading(false);
       } catch (error) {
@@ -43,7 +54,6 @@ const AppointmentDashboard = () => {
     setAppointment(tempAppointments);
   };
 
-
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -62,7 +72,7 @@ const AppointmentDashboard = () => {
       <div className="appt-main-container">
         {appointment.map((appointments, index) => (
           <div>
-            <div key={index} className="appt-cells">
+            <div key={index} className="appt-cells min-h-150">
               <div className="appt-cell-one">
                 <p>
                   <span className="text-red-500" id={`${index}`}>
@@ -91,26 +101,18 @@ const AppointmentDashboard = () => {
                   placeholder
                 </p>
               </div>
-              <div className="appt-cell-four">
+              <div className="appt-cell-four flex-col">
                 <p>
                   <span className="text-red-500">Status: </span>
                   {appointments.status}
                 </p>
 
                 {appointments.editMode ? (
-                  <div className="ml-5">
-                  <button
-                    className="appt-update-btn"
-                    onClick={() => {
-                      toggleEditMode(index);
-                      toggleFormDropdown(index);
-                    }}
-                  >
-                    Cancel
-                  </button>
-                  </div>
+                    <div>
+                      Editting Form...
+                    </div>
                 ) : (
-                  <div className="ml-5">
+                  <div className="appt-cell-five mt-2">
                     <button
                       className="appt-update-btn"
                       onClick={() => toggleFormDropdown(index)}
@@ -118,7 +120,7 @@ const AppointmentDashboard = () => {
                       {appointments.formDropdown ? "Collapse" : "Expand"}
                     </button>
                     <button
-                      className="appt-update-btn"
+                      className="appt-update-btn ml-5"
                       onClick={() => toggleEditMode(index)}
                     >
                       Edit
@@ -131,6 +133,7 @@ const AppointmentDashboard = () => {
               <AppointmentDashForm
                 appointment={appointment}
                 appointments={appointments}
+                providers = {providers}
                 index={index}
                 toggleFormDropdown={toggleFormDropdown}
                 toggleEditMode={toggleEditMode}

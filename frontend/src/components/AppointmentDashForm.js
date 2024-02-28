@@ -2,61 +2,85 @@ import React from "react";
 import Select from "react-select";
 import "../pages/styles/appointmentDashboard.css";
 import axios from "axios";
+import { useState } from "react";
 const AppointmentDashForm = ({
-  appointment,
   appointments,
+  providers,
   index,
   toggleEditMode,
   toggleFormDropdown,
-  setAppointment,
 }) => {
-    const handleStatusChange = (index, value) => {
-        const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
-        tempAppointments[index].status = value;
-        console.log(tempAppointments[index]);
-        setAppointment(tempAppointments); // adjust the appointments!
-      };
+  const [selectedAppointment, setSelectedAppointment] = useState(appointments);
+  const handleFormChange = (e) => {
+    console.log(e);
+    setSelectedAppointment((values) => ({
+      ...values,
+      [e.target.name]: e.target.value,
+    }));
+    console.log(selectedAppointment);
+  };
 
-    const onChange = (val) => { 
-        handleStatusChange(index, val.value);
-    }
-    
+  const handleDoctorChange = (e) => {
+    const doctorMatch = providers.find(
+      (provider) => provider.label === e.label
+    );
+ 
+
+    setSelectedAppointment((values) => ({
+      ...values,
+      ["doctor"]: doctorMatch.value,
+    }));
+    console.log("Done setting");
+  
+  };
+
+  const handleSelectChange = (name, e) => {
+    setSelectedAppointment((values) => ({ ...values, [name]: e.value }));
+  };
   const handleFormUpdate = async (id, index) => {
-    const tempAppt = [...appointment];
-    delete tempAppt[index].formDropdown;
+    const tempAppt = { ...selectedAppointment };
+    delete tempAppt.formDropdown;
+    delete tempAppt.editMode;
+    console.log(tempAppt);
 
     try {
       const appointmentResponse = await axios.patch(
         `http://localhost:4000/appointments/updateAppointment/${id}`,
-        tempAppt[index]
+        tempAppt
       );
 
-      if (tempAppt[index].status === "Approved") {
-        try {
-          const dateObj = [tempAppt[index].preferredDate, tempAppt[index]._id];
-          const updatedDateResponse = await axios.post(
+      if (tempAppt.status === "Approved") {
+        try { 
+          // delete existing apptDate doc
+          await axios.delete(
+            `http://localhost:4000/appointments/removeDate/${tempAppt._id}`
+          );
+          const dateObj = [tempAppt.preferredDate, tempAppt._id];
+          await axios.post(
             `http://localhost:4000/appointments/confirmDate/`,
             dateObj
           );
-          console.log(updatedDateResponse);
+
         } catch (error) {
           console.log(error);
         }
       }
 
-      if (tempAppt[index].status === "Denied") {
+      if (tempAppt.status === "Denied" || tempAppt.status === "Pending") {
         try {
           const updatedDateResponse = await axios.delete(
-            `http://localhost:4000/appointments/removeDate/${tempAppt[index]._id}`
+            `http://localhost:4000/appointments/removeDate/${tempAppt._id}`
           );
           console.log(updatedDateResponse);
         } catch (error) {}
       }
+
       console.log(appointmentResponse);
     } catch (error) {
       console.log(error);
     }
   };
+
   // The following is for use in the <Select/> tag from react-select
   // react documentation at https://react-select.com/home
   const facilityOptions = appointments.doctor.facility.map((facility) => ({
@@ -74,21 +98,20 @@ const AppointmentDashForm = ({
     { value: "Approved", label: "Approve" },
     { value: "Pending", label: "Set Pending" },
   ];
+  const providerOptions = providers;
 
   const fieldStyle = {
-    option: (provided, state) => ({
-      ...provided,
-      color: state.isSelected ? "white" : "black",
-      fontSize: "18px",
-    }),
     control: (baseStyles) => ({
       ...baseStyles,
-      width: 200,
-      height: 30,
-      display: "flex",
-      borderColor: "gray",
+    }),
+    input: (styles) => ({
+      ...styles,
+    }),
+    valueContainer: (baseStyles) => ({
+      ...baseStyles,
     }),
   };
+
   // end of react-select defintions
 
   return (
@@ -105,77 +128,126 @@ const AppointmentDashForm = ({
             </p>
           </div>
 
-          <div className="mx-5 my-2">
-            <div className="field">
-              <span className="block">Patient Phone #</span>
+          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Patient Phone #{" "}
+              </label>
               <input
-                className="inputField"
+                name="patientPhone"
+                className="inputField flex-auto"
                 type="text"
                 id="inputPhone"
-                value={appointments.patientPhone}
-                onChange={(e) => {}}
-                disabled={!appointments.editMode}
+                value={selectedAppointment.patientPhone}
+                onChange={handleFormChange}
+                // disabled={!appointments.editMode}
               />
             </div>
-            <div className="field">
-              <span className="block">Patient Email</span>
+
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Patient Email
+              </label>
               <input
-                className="inputField"
+                name="patientEmail"
+                className="inputField flex-auto"
                 type="text"
                 id="inputEmail"
-                value={appointments.patientEmail}
-                onChange={(e) => {}}
+                value={selectedAppointment.patientEmail}
+                onChange={(e) => handleFormChange(e)}
+                disabled={!appointments.editMode}
+              />
+            </div>
+
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Preferred Language
+              </label>
+              <input
+                name="languagePreference"
+                className="inputField flex-auto"
+                type="text"
+                id="inputLangauge"
+                value={selectedAppointment.languagePreference}
+                onChange={(e) => handleFormChange(e)}
                 disabled={!appointments.editMode}
               />
             </div>
           </div>
-          <div className="mx-5">
-            <div className="field">
-              <span className="block">Preferred Language</span>
-              <Select
-                name="facility"
-                options={languageOptions}
-                placeholder={
-                  appointments.languagePreference || "Select Language..."
-                }
-                isDisabled={!appointments.editMode}
-                styles={fieldStyle}
-              />
+
+          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Facility
+              </label>
+              <div className="w-72">
+                <Select
+                  name="facility"
+                  options={facilityOptions}
+                  placeholder={appointments.facility || "Select Facility..."}
+                  isDisabled={!appointments.editMode}
+                  onChange={(e) => handleSelectChange("facility", e)}
+                />
+              </div>
             </div>
-            <form action="">
-              <span className="block">Facility</span>
-              <Select
-                name="facility"
-                options={facilityOptions}
-                placeholder={appointments.facility || "Select Facility..."}
-                isDisabled={!appointments.editMode}
-                styles={fieldStyle}
-              />
-            </form>
+
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Provider
+              </label>
+              <div className="w-72">
+                <Select
+                  name="provider"
+                  options={providerOptions}
+                  placeholder={appointments.provider}
+                  isDisabled={!appointments.editMode}
+                  onChange={(e) => handleDoctorChange(e)}
+                />
+              </div>
+            </div>
+            <div className="field flex w-full">
+              <label className="field mr-2 min-w-150 font-normal text-red-500">
+                Update Status
+              </label>
+              <div className="w-72">
+                <Select
+                  name="status"
+                  options={processOptions}
+                  placeholder={"Status..."}
+                  isDisabled={!appointments.editMode}
+                  onChange={(e) => handleSelectChange("status", e)}
+                />
+              </div>
+            </div>
           </div>
 
-          <div>
-            <form action="" className="ml-5">
-              <Select
-                name="processForm"
-                options={processOptions}
-                placeholder={"Update Status"}
-                isDisabled={!appointments.editMode}
-                styles={fieldStyle}
-                onChange = {onChange}
-              />
-            </form>
-          </div>
-          <div>
-            <button
-              className="appt-update-btn"
-              onClick={() => {
-                handleFormUpdate(appointments._id, index);
-                toggleEditMode(index);
-              }}
-            >
-              Save
-            </button>
+          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
+            <p>
+              <span className="text-red-500">Patient Comments: </span>
+              <br></br>
+              {appointments.reasonForVisit}
+            </p>
+            <div>
+              <button
+                className="appt-update-btn"
+                onClick={() => {
+                  toggleEditMode(index);
+                  toggleFormDropdown(index);
+                }}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="appt-update-btn"
+                onClick={() => {
+                  handleFormUpdate(appointments._id, index);
+                  toggleEditMode(index);
+                }}
+              >
+                Save
+              </button>
+            </div>
           </div>
         </div>
       ) : (
@@ -198,22 +270,30 @@ const AppointmentDashForm = ({
               <span className="text-red-500">Patient Email: </span>
               {appointments.patientEmail}
             </p>
-          </div>
-          <div className="appt-cell-three appt-dropform">
             <p>
-              <span className="text-red-500">Patient Comments: </span>
-              <br></br>
-              {appointments.reasonForVisit}
+              <span className="text-red-500">Preferred Language: </span>
+              {appointments.languagePreference}
             </p>
           </div>
-          <div className="appt-cell-four appt-dropform">
+          <div className="appt-cell-three appt-dropform">
             <p>
               <span className="text-red-500">Facility: </span>
               {appointments.facility}
             </p>
             <p>
-              <span className="text-red-500">Preferred Language: </span>
-              {appointments.languagePreference}
+              <span className="text-red-500">Provider: </span>
+              {appointments.doctor.fname} {appointments.doctor.lname}
+            </p>
+            <p>
+              <span className="text-red-500">Status: </span>
+              {appointments.status}
+            </p>
+          </div>
+          <div className="appt-cell-four appt-dropform">
+            <p>
+              <span className="text-red-500">Patient Comments: </span>
+              <br></br>
+              {appointments.reasonForVisit}
             </p>
           </div>
         </div>

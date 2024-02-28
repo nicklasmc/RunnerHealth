@@ -27,7 +27,7 @@ const Navi = () => {
   };
 
   return (
-    <Navbar className="bg-body-tertiary" fixed="top">
+    <Navbar className="bg-body-tertiary" sticky="top">
       <Container fluid className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
           <Link to="/">
