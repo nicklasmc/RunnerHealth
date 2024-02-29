@@ -42,6 +42,7 @@ const ConfirmationPage = () => {
         <p>{appt.patientPhone}</p>
         <p>Requested Date Range: {appt.preferredDate} </p>
         <p>Requested Time: {appt.time}</p>
+        <p>Newline testing linux line endings</p>
       </div>
     </div>
   );
