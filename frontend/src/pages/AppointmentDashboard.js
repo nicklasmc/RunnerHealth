@@ -1,14 +1,33 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./styles/appointmentDashboard.css";
-import AppointmentDashForm from "../components/AppointmentDashForm";
-import Select from "react-select";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './styles/appointmentDashboard.css';
+import AppointmentDashForm from '../components/AppointmentDashForm';
+import { useAuthContext } from '../hooks/useAuthContext.js';
 
 const AppointmentDashboard = () => {
   // Variables -------------------------------------
+  const [updated, setUpdated] = useState(false);
   const [appointment, setAppointment] = useState([]);
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { admin } = useAuthContext();
+  const [user, setUser] = useState();
+  useEffect(() => {
+    if (admin) {
+      const getUserInfo = async () => {
+        const response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
+        const data = await response.json();
+        setUser(data);
+      };
+      getUserInfo();
+
+    } else {
+      console.log("User is a doctor");
+    }
+  }, [admin]);
+
   // -----------------------------------------------
   useEffect(() => {
     const fetchData = async () => {
@@ -16,8 +35,9 @@ const AppointmentDashboard = () => {
         const appointmentResponse = await axios.get(
           `http://localhost:4000/appointments/getApptAndDoctor`
         );
+        // append variables to each appointment
         for (var i = 0; i < appointmentResponse.data.length; i++) {
-          appointmentResponse.data[i].formDropdown = false; // append an additional var for dropdown use
+          appointmentResponse.data[i].formDropdown = false;
           appointmentResponse.data[i].editMode = false;
         }
 
@@ -38,19 +58,19 @@ const AppointmentDashboard = () => {
     };
 
     fetchData();
-  }, []);
+  }, [updated]);
 
   const toggleFormDropdown = (index) => {
     const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
     tempAppointments[index].formDropdown =
       !tempAppointments[index].formDropdown;
-    setAppointment(tempAppointments); // adjust the appointments!
+    setAppointment(tempAppointments);
   };
 
   const toggleEditMode = (index) => {
     const tempAppointments = [...appointment];
-    tempAppointments[index].editMode = !tempAppointments[index].editMode;
-    tempAppointments[index].formDropdown = true;
+    tempAppointments[index].editMode = !tempAppointments[index].editMode; // reverse value of editmode
+    tempAppointments[index].formDropdown = true; // formDropdown should always be true in formDropdown
     setAppointment(tempAppointments);
   };
 
@@ -60,12 +80,12 @@ const AppointmentDashboard = () => {
 
   // ----- Notes for Frontend Team ----- //
   // 1. Display uses flexboxes
-  // 2. appt-cell-one, appt-cell-two, and appt-cell-three have identical styling
-  // 3. If necessary, redo the entire structure. Do whatever you need to do
-  // 4. Referencing data is a little different than any of our other documents since it
-  //    combines two different documents. Refer to that for more information.
-  // 5. Buttons are highlighted in blue, labels red
+  // 2. If necessary, redo the entire structure. Do whatever you need to do
+  // 3. Referencing data is a little different than any of our other documents since it
+  //    combines two different documents. 
+  // 4. Buttons are highlighted in blue, labels red
   // ----------------------------------- //
+
 
   return (
     <div>
@@ -76,7 +96,7 @@ const AppointmentDashboard = () => {
               <div className="appt-cell-one">
                 <p>
                   <span className="text-red-500" id={`${index}`}>
-                    Requested Time:{" "}
+                    Requested Time:
                   </span>
                   {appointments.time}
                 </p>
@@ -98,7 +118,7 @@ const AppointmentDashboard = () => {
               <div className="appt-cell-three">
                 <p>
                   <span className="text-red-500">Appointment Type: </span>
-                  placeholder
+                  {appointments.apptReason}
                 </p>
               </div>
               <div className="appt-cell-four flex-col">
@@ -108,9 +128,9 @@ const AppointmentDashboard = () => {
                 </p>
 
                 {appointments.editMode ? (
-                    <div>
-                      Editting Form...
-                    </div>
+                  <div>
+                    Editting Form...
+                  </div>
                 ) : (
                   <div className="appt-cell-five mt-2">
                     <button
@@ -133,11 +153,14 @@ const AppointmentDashboard = () => {
               <AppointmentDashForm
                 appointment={appointment}
                 appointments={appointments}
-                providers = {providers}
+                providers={providers}
                 index={index}
                 toggleFormDropdown={toggleFormDropdown}
                 toggleEditMode={toggleEditMode}
                 setAppointment={setAppointment}
+                admin={user}
+                updated={updated}
+                setUpdated={setUpdated}
               />
             ) : (
               <div></div>

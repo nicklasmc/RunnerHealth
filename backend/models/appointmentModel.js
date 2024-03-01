@@ -13,9 +13,13 @@ const appointmentSchema = mongoose.Schema(
         },
         facility: {
             type: String,
-            default: null, // Needs to be null for when a request is submitted, updated by staff
+            default: null, 
         },
-        reasonForVisit: {
+        apptComments: {
+            type: String,
+            default: null,
+        },
+        apptReason: {
             type: String,
             required: [true, 'Enter a reason for visit'],
         },
@@ -55,6 +59,12 @@ const appointmentSchema = mongoose.Schema(
             type: String,
             required: [true, 'Status required'],
             default: "Pending",
+        },
+        lastEditted: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Admin',
+            required: false,
+            default: null,
         }
     }
 

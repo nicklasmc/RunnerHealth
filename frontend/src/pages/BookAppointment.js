@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
-import "./styles/bookAppointment.css";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuthContext } from '../hooks/useAuthContext';
+import './styles/bookAppointment.css';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import Select from 'react-select';
 
 const BookAppointment = () => {
   // -----------------------------------------------
@@ -17,50 +18,54 @@ const BookAppointment = () => {
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState();
   const [takenDates, setTakenDates] = useState([]);
+  const [visitReason, setVisitReason] = useState(); // needed for react-select
+
+  const apptOptions = [
+    { value: 'Followup', label: 'Follow Up' },
+    { value: 'Physical', label: 'Physical' },
+    { value: 'Labwork', label: 'Lab Work' },
+    { value: 'Other', label: 'Other (Please explain below)' },
+  ];
 
   // -----------------------------------------------
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
 
-    // will switch all to useState() variables,
-    // just did this cause it was easy copy-and-past and
-    // knew values off the top of my head
-    const formData = {
-      doctor: id,
-      patientId: user[0]._id,
-      reasonForVisit: document.getElementById("appt-reason").value,
-      patientFirstName: document.getElementById("patient-first-name").value,
-      patientLastName: document.getElementById("patient-last-name").value,
-      patientEmail: document.getElementById("email").value,
-      patientPhone: document.getElementById("phone").value,
-      languagePreference: document.getElementById("languagePreference").value,
-      preferredDate: selectedDate,
-      time: document.getElementById("appt-time").value,
-    };
-
-    console.log(formData);
     try {
+      console.log(visitReason);
+      const formData = {
+        doctor: id,
+        patientId: user[0]._id,
+        apptComments: document.getElementById('appt-comments').value,
+        apptReason: visitReason,
+        patientFirstName: document.getElementById('patient-first-name').value,
+        patientLastName: document.getElementById('patient-last-name').value,
+        patientEmail: document.getElementById('email').value,
+        patientPhone: document.getElementById('phone').value,
+        languagePreference: document.getElementById('languagePreference').value,
+        preferredDate: selectedDate,
+        time: document.getElementById('appt-time').value,
+      };
+
+      console.log(formData);
+
       const response = await axios.post(
-        "http://localhost:4000/appointments",
+        'http://localhost:4000/appointments',
         formData
       );
       const appointmentId = response.data._id;
       navigate(`/appointment/${id}/${appointmentId}`);
     } catch (error) {
-      console.error("error, missing input");
+      console.error(error, 'error, missing input');
     }
-    // console.log("Appointment Creation Successful!");
-    // console.log("Appointment with ID : ", response.data._id); // get the ID of the doc just created by mognodb
   };
   // -----------------------------------------------
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Notes on the following:
-        // Patient is being stored as an array
-        // Doctor is being stored as an object
-        // Will look at making them both be objects for consistency sake, but it works as is
         const patientResponse = await axios.get(
           `http://localhost:4000/patients/${patient.email}`
         );
@@ -73,8 +78,9 @@ const BookAppointment = () => {
         setDoctors(doctorResponse.data);
         setUser(patientResponse.data);
 
-        const tempArr = dateResponse.data.map((i) => new Date(i.takenDate)); // grab from the takenDate field, go over all of the via map, store in tempArr
-        setTakenDates(tempArr); // set takenDates array to only be the values of each taken date, not worrying about field names
+        // grab from the takenDate field, go over all of the via map, store in tempArr
+        const tempArr = dateResponse.data.map((i) => new Date(i.takenDate));
+        setTakenDates(tempArr);
         setLoading(false);
         console.log(dateResponse.data);
       } catch (error) {
@@ -84,13 +90,6 @@ const BookAppointment = () => {
 
     fetchData();
   }, [id, patient.email]);
-
-  // useful for debugging, remove upon push to main //
-  // useEffect( () => {
-  //     if (docID) {
-  //         console.log(docID);
-  //     }
-  // }, [docID]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -115,18 +114,26 @@ const BookAppointment = () => {
             <form className="appt-form" onSubmit={handleSubmit}>
               <div className="appt-form-section-left">
                 <label htmlFor="appt-reason">Reason for Visit:</label>
+                <div>
+                  <Select
+                    id='appt-reason'
+                    name='appt-reason'
+                    options={apptOptions}
+                    placeholder={'Reason for visit...'}
+                    onChange={(e) => setVisitReason(e.value)}
+                  />
+                </div>
                 <textarea
                   type='text'
-                  id='appt-reason'
-                  name = 'appt-reason'
+                  id='appt-comments'
+                  name='appt-comments'
                   maxLength={300}
                   rows='4'
-                  cols='50' 
-                  placeholder="Enter comments here..."
+                  cols='50'
+                  placeholder='Enter additional information here...'
                 />
                 <p className="text-red-500">
-                  If you believe you require immediate attention, visit the
-                  emergency room or contact 911
+                  If this is an emergency, please dial 911 immediately
                 </p>
               </div>
 
@@ -138,21 +145,21 @@ const BookAppointment = () => {
                     <div>
                       <label htmlFor="fname">Patient's First Name</label>
                       <input
-                        type="text"
-                        id="patient-first-name"
-                        name="fname"
+                        type='text'
+                        id='patient-first-name'
+                        name='fname'
                         value={user[0].fname}
                         disabled
-                        className="disabled-input"
+                        className='disabled-input'
                       />
                       <label htmlFor="lname">Patient's Last Name</label>
                       <input
-                        type="text"
-                        id="patient-last-name"
-                        name="lname"
+                        type='text'
+                        id='patient-last-name'
+                        name='lname'
                         value={user[0].lname}
                         disabled
-                        className="disabled-input"
+                        className='disabled-input'
                       />
                     </div>
                   ) : (
@@ -162,17 +169,17 @@ const BookAppointment = () => {
 
                 <label htmlFor="email">Email</label>
                 <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  placeholder="e.g email@domain.com"
+                  type='email'
+                  id='email'
+                  name='email'
+                  placeholder='e.g email@domain.com'
                 />
                 <label htmlFor="phone">Phone Number</label>
                 <input
-                  type="tel"
-                  id="phone"
-                  name="phone"
-                  placeholder="e.g (123) 456-789"
+                  type='tel'
+                  id='phone'
+                  name='phone'
+                  placeholder='e.g (123) 456-7890'
                 />
                 <label htmlFor="languagePreference">Language Preference</label>
                 <select name="languagePreference" id="languagePreference">
@@ -186,7 +193,7 @@ const BookAppointment = () => {
                 <DayPicker
                   showOutsideDays // show days outside of the month for accessibility purposes
                   fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling
-                  mode="single" // single date selection only
+                  mode='single' // single date selection only
                   onSelect={setSelectedDate}
                   disabled={[{ dayOfWeek: [0, 6] }, ...takenDates]} // gray out the weekends and taken dates
                 />

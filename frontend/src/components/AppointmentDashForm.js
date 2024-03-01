@@ -1,14 +1,17 @@
-import React from "react";
-import Select from "react-select";
-import "../pages/styles/appointmentDashboard.css";
-import axios from "axios";
-import { useState } from "react";
+import React from 'react';
+import Select from 'react-select';
+import '../pages/styles/appointmentDashboard.css';
+import axios from 'axios';
+import { useState } from 'react';
 const AppointmentDashForm = ({
   appointments,
   providers,
   index,
   toggleEditMode,
   toggleFormDropdown,
+  admin,
+  setUpdated,
+  updated,
 }) => {
   const [selectedAppointment, setSelectedAppointment] = useState(appointments);
   const handleFormChange = (e) => {
@@ -23,25 +26,25 @@ const AppointmentDashForm = ({
   const handleDoctorChange = (e) => {
     const doctorMatch = providers.find(
       (provider) => provider.label === e.label
-    );
- 
+    ); // find doctor based on name, store the id & name in doctorMatch
+
 
     setSelectedAppointment((values) => ({
-      ...values,
-      ["doctor"]: doctorMatch.value,
-    }));
-    console.log("Done setting");
-  
+      ...values, doctor: doctorMatch.value,
+    })); // .value contains the id, .label contains the name, we only want the id
+    console.log(selectedAppointment);
+
   };
 
-  const handleSelectChange = (name, e) => {
+  const handleSelectChange = (name, e) => { // specific to react-select
     setSelectedAppointment((values) => ({ ...values, [name]: e.value }));
   };
-  const handleFormUpdate = async (id, index) => {
-    const tempAppt = { ...selectedAppointment };
+
+  const handleFormUpdate = async (id) => {
+    const tempAppt = { ...selectedAppointment, lastEditted: admin[0]._id };
     delete tempAppt.formDropdown;
     delete tempAppt.editMode;
-    console.log(tempAppt);
+    console.log('temp: ', tempAppt);
 
     try {
       const appointmentResponse = await axios.patch(
@@ -49,13 +52,14 @@ const AppointmentDashForm = ({
         tempAppt
       );
 
-      if (tempAppt.status === "Approved") {
-        try { 
+      if (tempAppt.status === 'Approved') {
+        try {
           // delete existing apptDate doc
           await axios.delete(
             `http://localhost:4000/appointments/removeDate/${tempAppt._id}`
           );
           const dateObj = [tempAppt.preferredDate, tempAppt._id];
+          // create new apptDate doc
           await axios.post(
             `http://localhost:4000/appointments/confirmDate/`,
             dateObj
@@ -66,16 +70,17 @@ const AppointmentDashForm = ({
         }
       }
 
-      if (tempAppt.status === "Denied" || tempAppt.status === "Pending") {
+      if (tempAppt.status === 'Denied' || tempAppt.status === 'Pending') {
         try {
           const updatedDateResponse = await axios.delete(
             `http://localhost:4000/appointments/removeDate/${tempAppt._id}`
           );
           console.log(updatedDateResponse);
-        } catch (error) {}
+        } catch (error) { }
       }
 
       console.log(appointmentResponse);
+      setUpdated(!updated);
     } catch (error) {
       console.log(error);
     }
@@ -88,31 +93,33 @@ const AppointmentDashForm = ({
     label: facility,
   }));
 
-  const languageOptions = [
-    { value: "spanish", label: "Spanish" },
-    { value: "english", label: "English" },
-  ];
+  // const languageOptions = [
+  //   { value: 'spanish', label: 'Spanish' },
+  //   { value: 'english', label: 'English' },
+  // ];
 
   const processOptions = [
-    { value: "Denied", label: "Deny" },
-    { value: "Approved", label: "Approve" },
-    { value: "Pending", label: "Set Pending" },
+    { value: 'Denied', label: 'Deny' },
+    { value: 'Approved', label: 'Approve' },
+    { value: 'Pending', label: 'Set Pending' },
   ];
+
   const providerOptions = providers;
 
-  const fieldStyle = {
-    control: (baseStyles) => ({
-      ...baseStyles,
-    }),
-    input: (styles) => ({
-      ...styles,
-    }),
-    valueContainer: (baseStyles) => ({
-      ...baseStyles,
-    }),
-  };
+  // custom css for react-select: 
+  //------------------------------
+  // const fieldStyle = {
+  //   control: (baseStyles) => ({
+  //     ...baseStyles,
+  //   }),
+  //   input: (styles) => ({
+  //     ...styles,
+  //   }),
+  //   valueContainer: (baseStyles) => ({
+  //     ...baseStyles,
+  //   }),
+  // };
 
-  // end of react-select defintions
 
   return (
     <div>
@@ -124,23 +131,23 @@ const AppointmentDashForm = ({
               {appointments._id}
             </p>
             <p>
-              <span className="text-red-500">Proccessed By: </span>
+              <span className="text-red-500">Last Proccessed By: </span>
+              {appointments.lastEditted}
             </p>
           </div>
 
           <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
             <div className="field flex w-full">
               <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Patient Phone #{" "}
+                Patient Phone #
               </label>
               <input
-                name="patientPhone"
-                className="inputField flex-auto"
-                type="text"
-                id="inputPhone"
+                name='patientPhone'
+                className='inputField flex-auto'
+                type='text'
+                id='inputPhone'
                 value={selectedAppointment.patientPhone}
                 onChange={handleFormChange}
-                // disabled={!appointments.editMode}
               />
             </div>
 
@@ -149,10 +156,10 @@ const AppointmentDashForm = ({
                 Patient Email
               </label>
               <input
-                name="patientEmail"
-                className="inputField flex-auto"
-                type="text"
-                id="inputEmail"
+                name='patientEmail'
+                className='inputField flex-auto'
+                type='text'
+                id='inputEmail'
                 value={selectedAppointment.patientEmail}
                 onChange={(e) => handleFormChange(e)}
                 disabled={!appointments.editMode}
@@ -164,10 +171,10 @@ const AppointmentDashForm = ({
                 Preferred Language
               </label>
               <input
-                name="languagePreference"
-                className="inputField flex-auto"
-                type="text"
-                id="inputLangauge"
+                name='languagePreference'
+                className='inputField flex-auto'
+                type='text'
+                id='inputLangauge'
                 value={selectedAppointment.languagePreference}
                 onChange={(e) => handleFormChange(e)}
                 disabled={!appointments.editMode}
@@ -182,11 +189,11 @@ const AppointmentDashForm = ({
               </label>
               <div className="w-72">
                 <Select
-                  name="facility"
+                  name='facility'
                   options={facilityOptions}
-                  placeholder={appointments.facility || "Select Facility..."}
+                  placeholder={appointments.facility || 'Select Facility...'}
                   isDisabled={!appointments.editMode}
-                  onChange={(e) => handleSelectChange("facility", e)}
+                  onChange={(e) => handleSelectChange('facility', e)}
                 />
               </div>
             </div>
@@ -197,7 +204,7 @@ const AppointmentDashForm = ({
               </label>
               <div className="w-72">
                 <Select
-                  name="provider"
+                  name='provider'
                   options={providerOptions}
                   placeholder={appointments.provider}
                   isDisabled={!appointments.editMode}
@@ -211,11 +218,11 @@ const AppointmentDashForm = ({
               </label>
               <div className="w-72">
                 <Select
-                  name="status"
+                  name='status'
                   options={processOptions}
-                  placeholder={"Status..."}
+                  placeholder={'Status...'}
                   isDisabled={!appointments.editMode}
-                  onChange={(e) => handleSelectChange("status", e)}
+                  onChange={(e) => handleSelectChange('status', e)}
                 />
               </div>
             </div>
@@ -225,7 +232,7 @@ const AppointmentDashForm = ({
             <p>
               <span className="text-red-500">Patient Comments: </span>
               <br></br>
-              {appointments.reasonForVisit}
+              {appointments.apptComments}
             </p>
             <div>
               <button
@@ -241,7 +248,7 @@ const AppointmentDashForm = ({
               <button
                 className="appt-update-btn"
                 onClick={() => {
-                  handleFormUpdate(appointments._id, index);
+                  handleFormUpdate(appointments._id);
                   toggleEditMode(index);
                 }}
               >
@@ -259,6 +266,7 @@ const AppointmentDashForm = ({
             </p>
             <p>
               <span className="text-red-500">Proccessed By: </span>
+              {appointments.lastEditted}
             </p>
           </div>
           <div className="appt-cell-two appt-dropform">
@@ -293,7 +301,7 @@ const AppointmentDashForm = ({
             <p>
               <span className="text-red-500">Patient Comments: </span>
               <br></br>
-              {appointments.reasonForVisit}
+              {appointments.apptComments}
             </p>
           </div>
         </div>

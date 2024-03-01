@@ -14,35 +14,19 @@ const ConfirmationPage = () => {
     getAppointmentInfo();
   }, [id]);
 
-
-  // For reference: 
-  // ---------------
-  // providerId: '',
-  // facility: '', 
-  // reasonForVisit: '',
-  // patientFirstName: '',
-  // patientLastName: '',
-  // patientEmail: '',
-  // patientPhone: '',
-  // languagePreference: '',
-  // dateStart: '',
-  // dateEnd: '',
-  // time: '',
-
   return (
     <div>
       <div className='appt-main-container'>
         <h1>Appointment Request Received!</h1>
         <h2>A member of our team will reach out soon</h2>
-        {/* <p>{appt.facility}</p> */}
         <p>{appt.patientFirstName}</p>
         <p>{appt.patientLastName}</p>
-        <p>{appt.reasonForVisit}</p>
+        <p>{appt.apptReason}</p>
         <p>{appt.patientEmail}</p>
         <p>{appt.patientPhone}</p>
+        <p>Additional comments: {appt.apptComments}</p>
         <p>Requested Date Range: {appt.preferredDate} </p>
         <p>Requested Time: {appt.time}</p>
-        <p>Newline testing linux line endings</p>
       </div>
     </div>
   );
