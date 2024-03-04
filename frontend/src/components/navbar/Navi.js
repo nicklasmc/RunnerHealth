@@ -10,13 +10,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 import { VscAccount } from 'react-icons/vsc';
+import { IconButton } from '@mui/material';
+
 
 const Navi = () => {
+  
   const { logout } = UseLogout();
   const { adminLogout } = UseAdminLogout();
   const { doctorLogout } = UseDoctorLogout();
   const { patient, admin, doctor } = useAuthContext();
-  const navDropdownTitle = (<span className="bg-gray"><VscAccount /></span>);
+  const navDropdownTitle = (<span className="bg-gray"><IconButton size="small"><VscAccount color="white"/></IconButton></span>);
 
   const handleClick = () => {
     logout();
@@ -31,7 +34,7 @@ const Navi = () => {
   };
 
   return (
-    <Navbar className="bg-body-tertiary" sticky="top">
+    <Navbar className="bg-[#003594]" sticky="top">
       <Container className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
           <Link to="/">

@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         'goldenrod': '#daa520 ',
-        'runnerblue': '#061237',
+        'runnerblue': '#003594',
       },
       screens: {
         'mobile': {'max': '800px'},

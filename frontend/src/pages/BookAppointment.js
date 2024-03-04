@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useAuthContext } from '../hooks/useAuthContext';
-import './styles/bookAppointment.css';
+import '../pages/styles/appointments.css';
 import { DayPicker } from 'react-day-picker';
 import 'react-day-picker/dist/style.css';
 import Select from 'react-select';
@@ -130,10 +130,10 @@ const BookAppointment = () => {
                   maxLength={300}
                   rows='4'
                   cols='50'
-                  placeholder='Enter additional information here...'
+                  placeholder=' Enter additional information here...'
                 />
                 <p className="text-red-500">
-                  If this is an emergency, please dial 911 immediately
+                  In the case of emergency, please dial 911
                 </p>
               </div>
 
@@ -203,7 +203,6 @@ const BookAppointment = () => {
                   Note: A member of staff will be in contact to confirm a final
                   date and time based on availability.
                 </p>
-                <br />
                 <br />
                 <button
                   type="submit"

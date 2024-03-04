@@ -35,6 +35,7 @@ header .container {
 
 .navbar {
   border-bottom: rgb(141, 141, 141) solid 1px;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
 }
 
 .banner {
@@ -60,7 +61,7 @@ header .container {
 
 .link-btn {
   padding: 0 20px;
-  color: black;
+  color: white;
   text-decoration: none;
   font-weight: bold;
 }
@@ -372,10 +373,11 @@ header .container {
 
 /* Footer container */
 .footy {
-  background-color: #f8f8f8;
+  background-color: #003594;
   padding-top: 20px;
   padding-bottom: 20px;
-  border-top: 1px solid #e5e5e5;
+  border-top: rgb(141, 141, 141) solid 1px;
+  box-shadow: 0 -5px 6px rgba(0,0,0,0.25);
 }
 
 /* Footer contents */
@@ -391,7 +393,7 @@ header .container {
 
 /* Footer links */
 .footy-links {
-  color: #000;
+  color: white;
   text-decoration: none;
   margin-right: 20px;
   margin-top: 30px;

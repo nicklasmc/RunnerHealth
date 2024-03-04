@@ -2,7 +2,7 @@ import { FaGithubSquare, FaLinkedin } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="footy bg-white py-8">
+    <footer className="footy bg-[#003594] py-8">
       <div className="footy-container container mx-auto px-4">
         {/* Footer top */}
         <div className="logo-text flex flex-col md:flex-row justify-between gap-y-6">
@@ -13,7 +13,7 @@ const Footer = () => {
               alt="Runner Health"
               className="footy-logo w-16 h-16 mr-3 text-goldenrod"
             />
-            <span className="text-2xl font-bold text-black">Runner Health</span>
+            <span className="text-2xl font-bold text-white">Runner Health</span>
           </div>
           {/* Navigation */}
           <nav className="footy-nav flex flex-wrap gap-x-6">
@@ -36,7 +36,7 @@ const Footer = () => {
             </a>
           </div>
           {/* Copyright */}
-          <p className="footy-copyright text-gray-600 mt-2 md:mt-0">© 2024 Runner Health. All rights reserved.</p>
+          <p className="footy-copyright text-white mt-2 md:mt-0">© 2024 Runner Health. All rights reserved.</p>
         </div>
       </div>
     </footer>
