@@ -15,6 +15,12 @@ const DoctorLogin = () => {
     await login(email, password);
   };
 
+  const handlePresetLogin = async (e) => {
+    e.preventDefault();
+    await login('msue@smail.com', 'ABCabc123!');
+  }
+
+
   const invalidFields = !email || !password;
 
   return (
@@ -68,6 +74,9 @@ const DoctorLogin = () => {
           </p>
         </div>
       </div>
+      <button onClick={handlePresetLogin}>
+        Preset Login
+      </button>
     </div>
   );
 };
