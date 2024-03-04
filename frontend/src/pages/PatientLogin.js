@@ -15,6 +15,12 @@ const Login = () => {
     await login(email, password);
   };
 
+  const handlePresetLogin = async (e) => {
+    e.preventDefault();
+    await login('Dbo@snailmail.com', 'ABCabc123!');
+  }
+
+
   const invalidFields = !email || !password;
 
   return (
@@ -68,6 +74,9 @@ const Login = () => {
           </p>
         </div>
       </div>
+      <button onClick={handlePresetLogin}>
+        Preset Login
+      </button>
     </div>
   );
 };
