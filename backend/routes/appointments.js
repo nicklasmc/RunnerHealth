@@ -3,8 +3,13 @@ const {
   createAppointment,
   getOneAppointment,
   getAllAppointments,
-  getAppointmentAndDoctor
+  createConfirmedDate,
+  getApptAndDoctor,
+  getTakenDates,
+  updateAppointment,
+  removeDate,
 } = require('../controllers/appointmentController');
+
 const cors = require('cors');
 const router = express.Router();
 router.use(express.json());
@@ -17,21 +22,24 @@ router.get('/', getAllAppointments);
 
 // create new appointment 
 router.post('/', createAppointment);
- 
 
-// grab appointment based on doctor ID
-router.get('/appointmentAndDoctor', getAppointmentAndDoctor);
+// grab all appointments populated with doctors
+router.get('/getApptAndDoctor', getApptAndDoctor);
 
-// // grab appointment based on patient ID
-// router.get('/patient/:patientId', getAppointmentForPatient);
-
-// grab appointment based on appointment ID
+// grab appointment by patient ID
 router.get('/:id', getOneAppointment);
 
-// // update an appointment
-// router.patch('/:id', updateAppointment);
+// --- ApptDate routes --- // 
 
-// // delete an appointment
-// router.delete('/:id', deleteAppointment);
+// post date into the apptdates collection to keep track of reserved dates
+router.post('/confirmDate', createConfirmedDate);
+
+// get all dates in our apptdates via doctor's mongoDB ID
+router.get('/getTakenDates/:id', getTakenDates);
+
+// get all dates in our apptdates via doctor's mongoDB ID
+router.patch('/updateAppointment/:id', updateAppointment);
+
+router.delete('/removeDate/:id', removeDate);
 
 module.exports = router;

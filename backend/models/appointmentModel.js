@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = mongoose.Schema(
     {
-        doctorID: {
+        doctor: {
             type: mongoose.Schema.Types.ObjectId,
+            ref: 'Doctor',
             required: true
         },
         patientId: {
@@ -12,9 +13,13 @@ const appointmentSchema = mongoose.Schema(
         },
         facility: {
             type: String,
-            required: [true, 'Enter a facility'],
+            default: null, 
         },
-        reasonForVisit: {
+        apptComments: {
+            type: String,
+            default: null,
+        },
+        apptReason: {
             type: String,
             required: [true, 'Enter a reason for visit'],
         },
@@ -38,21 +43,28 @@ const appointmentSchema = mongoose.Schema(
             type: String,
             required: [true, 'Enter a language preference'],
         },
-        dateStart: {
+        preferredDate: {
             type: Date,
             required: [true, 'Enter a start date'],
         },
-        dateEnd: {
+        confirmedDate: {
             type: Date,
-            required: [true, 'Enter an end date'],
+            default: null,
         },
         time: {
             type: String,
             required: [true, 'Enter a preferred time'],
         },
-        confirmed: {
-            type: Boolean,
+        status: {
+            type: String,
+            required: [true, 'Status required'],
+            default: "Pending",
+        },
+        lastEditted: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Admin',
             required: false,
+            default: null,
         }
     }
 

@@ -14,25 +14,26 @@
 .appt-cells {
     display: flex;
     flex-direction: row;
-    border-bottom: 1px solid gray;
+    border-top: 1px solid gray;
 }
 
 .appt-cell-one {
     margin: 10px;
     min-width: 400px;
-    border-right: 1px solid gray;
+    /* border-right: 1px solid gray; */
 }
 
 .appt-cell-two {
     margin: 10px;
     min-width: 400px;
-    border-right: 1px solid gray;
+    /* border-right: 1px solid gray; */
 }
 
 .appt-cell-three {
     margin: 10px;
+    padding: 10px;
     min-width: 400px;
-    border-right: 1px solid gray;
+    /* border-right: 1px solid gray; */
     word-break: break-word;
     flex-basis: 0;
     flex-grow: 1;
@@ -41,5 +42,78 @@
 
 .appt-cell-four {
     margin: 10px;
+    padding: 10px;
     min-width: 400px;
+    /* border-right: 1px solid gray; */
+    word-break: break-word;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+}
+
+.appt-cell-five {
+    min-width: 400px;
+    /* border-right: 1px solid gray; */
+    word-break: break-word;
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+    display: flex;
+}
+
+.appt-dropform {
+    display: inline;
+}
+
+.facility-label {
+    color: red,
+}
+
+.appt-update-btn {
+    background-color: black;
+    border-radius: 5px;
+    color:white;
+    padding: 10px;
+    font-size:15px;
+    height: 50%;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    min-width: 80px;
+}
+
+.appt-edit-container {
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border-top: 3px dotted gray;
+}
+.appt-edit {
+    display: flex;
+    align-items: center;
+}
+
+.appt-edit-container > p {
+    padding-left: 10px;
+}
+
+.appt-edit-container > form {
+    padding-left: 10px;
+}
+
+.appt-edit-subcontainer {
+    min-width: 400px;
+}
+
+.inputLabel {
+    text-align: center;
+    font-size: 15px; 
+}
+
+.inputField {
+    font-size: 15px;
+    width: 150px;
+    height: 30px;
+    
 }

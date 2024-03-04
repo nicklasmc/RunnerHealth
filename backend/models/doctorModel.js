@@ -25,14 +25,7 @@ const doctorSchema = mongoose.Schema(
       required: [true, 'Enter email'],
       unique: true,
     },
-    facility: [
-      {
-        location: {
-          type: String,
-          default: null,
-        },
-      },
-    ],
+    facility: [String],
     education: {
       type: String,
     },

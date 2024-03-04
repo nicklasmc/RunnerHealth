@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const { patient } = useAuthContext();
@@ -32,6 +33,7 @@ const Home = () => {
           <h1>Gathering Data...</h1>
         )}
       </h2>
+
     </div>
   );
 };
