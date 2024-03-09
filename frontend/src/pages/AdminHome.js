@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext.js';
-
+import { Link } from 'react-router-dom'; 
 const Home = () => {
   const { admin } = useAuthContext();
   const [user, setUser] = useState([]);
@@ -11,6 +11,7 @@ const Home = () => {
         `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
       );
       const data = await response.json();
+      console.log(data);
       setUser(data);
     };
     document.title = 'Home | RunnerHealth';
@@ -26,6 +27,9 @@ const Home = () => {
             <div key={index} className="uname">
               <span>{user.fname}</span>&nbsp;
               <span>{user.lname}</span>!
+              <Link to={`/user_settings/${user._id}`} className="home-button">
+                <h3>User Settings</h3>
+              </Link>
             </div>
           ))
         ) : (

@@ -23,6 +23,7 @@ import Invoice from './pages/Invoice';
 import Inventory from './pages/Inventory';
 import Schedule from './pages/Schedule';
 import NotFoundPage from './pages/NotFoundPage';
+import UserSettings from './pages/UserSettings.js'
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
@@ -66,6 +67,16 @@ function App() {
                     <Schedule />
                   ) : (
                     <Navigate to="/" />
+                  )
+                }
+              />
+              <Route
+                path="/user_settings/:id"
+                element={
+                  patient || doctor || admin ? (
+                    <UserSettings />
+                  ) : (
+                    <Navigate to="/patient_login" />
                   )
                 }
               />

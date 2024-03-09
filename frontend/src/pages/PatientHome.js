@@ -27,6 +27,9 @@ const Home = () => {
             <div key={index} className="uname">
               <span>{user.fname}</span>&nbsp;
               <span>{user.lname}</span>!
+              <Link to={`/user_settings/${user._id}`} className="home-button">
+                <h3>User Settings</h3>
+              </Link>
             </div>
           ))
         ) : (
