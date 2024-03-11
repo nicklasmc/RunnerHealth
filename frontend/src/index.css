@@ -6,7 +6,7 @@ html,
 body {
   margin: 0;
   color: black;
-  background-color: #061237;
+  background-color: #003594;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -35,7 +35,7 @@ header .container {
 
 .navbar {
   border-bottom: rgb(141, 141, 141) solid 1px;
-  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
 }
 
 .banner {
@@ -70,7 +70,6 @@ header .container {
   text-decoration: underline;
 }
 
-
 .logout-btn {
   max-width: 50px;
   padding: 3px 2px;
@@ -94,7 +93,7 @@ header .container {
 }
 
 .mnav-logout-btn {
-  background-color: #061237;
+  background-color: #003594;
 }
 
 .creds-btn {
@@ -252,14 +251,14 @@ header .container {
   width: 32%;
   border-radius: 30px;
   background-color: gainsboro;
-  border: 1px solid #061237;
+  border: 1px solid #003594;
   box-shadow: 3px 3px 3px #111;
 }
 
 .service-img-can {
   height: 60%;
   min-height: 275px;
-  border-bottom: #061237 3px solid;
+  border-bottom: #003594 3px solid;
 }
 
 .service-img {
@@ -297,7 +296,7 @@ header .container {
   width: 32%;
   background-color: whitesmoke;
   border-radius: 30px;
-  border: 1px solid #061237;
+  border: 1px solid #003594;
   box-shadow: 3px 3px 3px #111;
   min-height: 700px;
 }
@@ -305,7 +304,7 @@ header .container {
 .case-img-can {
   height: 60%;
   min-height: 275px;
-  border-bottom: #061237 3px solid;
+  border-bottom: #003594 3px solid;
 }
 
 .case-img {
@@ -377,7 +376,7 @@ header .container {
   padding-top: 20px;
   padding-bottom: 20px;
   border-top: rgb(141, 141, 141) solid 1px;
-  box-shadow: 0 -5px 6px rgba(0,0,0,0.25);
+  box-shadow: 0 -5px 6px rgba(0, 0, 0, 0.25);
 }
 
 /* Footer contents */
@@ -431,7 +430,7 @@ header .container {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #061237;
+  background: #003594;
 }
 
 /* Handle on hover */
@@ -479,7 +478,7 @@ header .container {
     display: flex;
     width: 100%;
     min-height: 40px;
-    color: #061237;
+    color: #003594;
     text-decoration: none;
     align-items: center;
     justify-content: center;
@@ -491,7 +490,7 @@ header .container {
   }
 
   .profile-options-btn {
-    color: #061237;
+    color: #003594;
     background-color: #f8f9fa;
     padding: 0 12px;
   }
