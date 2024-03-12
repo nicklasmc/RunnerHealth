@@ -4,7 +4,7 @@ import axios from 'axios';
 import '../pages/styles/appointments.css';
 import first from './imgs/placeholder.png';
 
-const Appointment = () => {
+const ApptDocList = () => {
   const [doctors, setDoctors] = useState([]);
 
   const getDoctorsList = async () => {
@@ -49,4 +49,4 @@ const Appointment = () => {
   );
 };
 
-export default Appointment;
+export default ApptDocList;

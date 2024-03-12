@@ -30,6 +30,9 @@ const Home = () => {
               <Link to={`/user_settings/${user._id}`} className="home-button">
                 <h3>User Settings</h3>
               </Link>
+              <Link to={`/myappointments/${user._id}`} className="home-button">
+                <h3>My Appointments</h3>
+              </Link>
             </div>
           ))
         ) : (

@@ -102,6 +102,9 @@ const AppointmentDashForm = ({
     { value: 'Denied', label: 'Deny' },
     { value: 'Approved', label: 'Approve' },
     { value: 'Pending', label: 'Set Pending' },
+    { value: 'Cancelled', label: 'Cancel' },
+    { value: 'Complete', label: 'Complete' },
+    { value: 'NO-SHOW', label: 'NO-SHOW' },
   ];
 
   const providerOptions = providers;

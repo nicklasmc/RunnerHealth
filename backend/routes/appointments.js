@@ -2,12 +2,14 @@ const express = require('express');
 const {
   createAppointment,
   getOneAppointment,
+  getPatientAppointment,
   getAllAppointments,
   createConfirmedDate,
   getApptAndDoctor,
   getTakenDates,
   updateAppointment,
   removeDate,
+  updateApptStatus
 } = require('../controllers/appointmentController');
 
 const cors = require('cors');
@@ -26,8 +28,13 @@ router.post('/', createAppointment);
 // grab all appointments populated with doctors
 router.get('/getApptAndDoctor', getApptAndDoctor);
 
-// grab appointment by patient ID
+// grab appointment by appt ID
 router.get('/:id', getOneAppointment);
+
+// grab all appointments by patient id
+router.get('/patient/:id', getPatientAppointment);
+
+
 
 // --- ApptDate routes --- // 
 
@@ -39,6 +46,9 @@ router.get('/getTakenDates/:id', getTakenDates);
 
 // get all dates in our apptdates via doctor's mongoDB ID
 router.patch('/updateAppointment/:id', updateAppointment);
+
+// update specifically the status 
+router.patch('/updateApptStatus/:id', updateApptStatus);
 
 router.delete('/removeDate/:id', removeDate);
 

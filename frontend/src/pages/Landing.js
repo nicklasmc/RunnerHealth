@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { FaGithubSquare, FaLinkedin, FaPortrait } from 'react-icons/fa';
+import { FaGithubSquare, FaLinkedin } from 'react-icons/fa';
 
 /*images*/
 import first from './imgs/doctors-patient.jpg';
@@ -18,9 +18,9 @@ import nine from './imgs/dr.jpg';
 import ten from './imgs/records.jpg';
 import elle from './imgs/appointments.jpg';
 import twelve from './imgs/payment.jpg';
-import thirteen from './imgs/doc.jpg';
-import fourteen from './imgs/healthcare-worker.jpg';
-import fifteen from './imgs/patient.jpg';
+// import thirteen from './imgs/doc.jpg';
+// import fourteen from './imgs/healthcare-worker.jpg';
+// import fifteen from './imgs/patient.jpg';
 
 function Landing() {
   return (

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom'; // FLAGGED FOR REMOVAL
+import { Link } from 'react-router-dom'; 
 import { useAuthContext } from '../hooks/useAuthContext';
 
 const Schedule = () => {

@@ -1,0 +1,65 @@
+.appt-main-container {
+    width: 95%;         
+    margin: 90px auto;     
+    box-sizing: border-box; 
+    padding: 30px;     
+    border-radius: 10px; 
+    background-color: white;
+    height: 80vh; 
+}
+
+.appt-backbtn {
+    background: none;
+    border:none;
+    padding:0;
+    padding: 10px;
+    font-weight: bold;
+    text-align: left;
+}
+
+.appt-subtext {
+    font-size: 20px;
+}
+
+
+.appt-greeting {
+    border: solid; 
+    border-width: 0px 0px 3px 0px;
+    width: 50%;
+    padding: 0px 0px 10px 0px;
+    border-color: gray;
+}
+
+.appt-static {
+    font-size: 20px;
+}
+
+.appt-form {
+    width: 50%;
+}
+
+.appt-disabled {
+    background-color: #e0e0e0;
+}
+
+#languagePreference {
+    margin-left: 10px;
+    padding: 2px;
+    border-radius: 10px;
+}
+
+.appt-form {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 2fr 2fr;
+    gap: 60px;
+}
+
+textarea {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f8;
+    font-size: 16px;
+    resize: none;
+}
+

@@ -7,7 +7,7 @@ import ToTop from './helpers/ScrollToTop.jsx';
 //pages and components
 import PatientHome from './pages/PatientHome';
 import PatientLogin from './pages/PatientLogin';
-import AppointmentSelector from './pages/AppointmentSelector.js';
+import ApptDocList from './pages/ApptDocList.js';
 import Landing from './pages/Landing';
 import PatientSignup from './pages/PatientSignup';
 import AdminSignup from './pages/AdminSignup';
@@ -27,9 +27,10 @@ import UserSettings from './pages/UserSettings.js'
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
-import BookAppointments from './pages/BookAppointment.js';
-import AppointmentConfirmation from './pages/AppointmentConfirmation.js';
+import ApptCreation from './pages/ApptCreation.js';
+import ApptConfirmation from './pages/ApptConfirmation.js';
 import AppointmentDashboard from './pages/AppointmentDashboard.js';
+import ApptPatient from './pages/ApptPatient.js';
 
 function App() {
   const { patient, admin, doctor } = useAuthContext();
@@ -133,7 +134,17 @@ function App() {
                 path="/appointment"
                 element={
                   patient ? (
-                    <AppointmentSelector />
+                    <ApptDocList />
+                  ) : (
+                    <Navigate to="/patient_login" />
+                  )
+                }
+              />
+                <Route
+                path="/myappointments/:id" 
+                element={
+                  patient ? (
+                    <ApptPatient />
                   ) : (
                     <Navigate to="/patient_login" />
                   )
@@ -143,17 +154,17 @@ function App() {
                 path="/appointment/:id"
                 element={
                   patient ? (
-                    <BookAppointments />
+                    <ApptCreation />
                   ) : (
                     <Navigate to="/patient_login" />
                   )
                 }
               />
               <Route
-                path="/appointment/:id/:id"
+                path="/appointment/:id/:id" // read: 'appointment/patientID/apptId'
                 element={
                   patient ? (
-                    <AppointmentConfirmation />
+                    <ApptConfirmation />
                   ) : (
                     <Navigate to="/patient_login" />
                   )
