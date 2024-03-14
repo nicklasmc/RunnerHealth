@@ -8,6 +8,14 @@
     height: 100vh; 
 }
 
+.appt-main-container .appt-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}   
+
 #appt-comments {
     margin-top: 10px;
 }
@@ -19,6 +27,7 @@
     padding: 10px;
     font-weight: bold;
     text-align: left;
+    width: 10%;
 }
 
 .appt-subtext {
@@ -70,26 +79,43 @@ textarea {
 /* appointment confirmation */
 .confirm-appt-msg {
     text-align: center;
-    padding-top: 30px;
+    padding-top: 20px;
     padding-bottom: 30px;
 }
 
 .notice{
-    padding: 40px;
+    padding: 30px;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
+.confirm-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: goldenrod;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #ccc;
+    padding-top: 25px;
+}
+
 .confirm-appt-msg-cont{
-    display: inline-block;
+    display: inline;
+    justify-content: center;
     font-size: 15pt;
     text-align: left;
     max-width: 525px;
     padding-bottom: 25px;
 }
 
-.confirm-appt-msg-cont em {
+.confirm-appt-msg-notice {
+    padding-top: 30px;
+}
+
+.confirm-appt-msg-notice em {
     color: red;
     font-style: normal;
     padding-top: 10px;
@@ -115,11 +141,43 @@ th {
 }
     
 .appt-main-container-btn {
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
     background-color: #003594;
-    border-radius: 15px;
-    margin: auto;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #003594;
     text-align: center;
-    max-width: 200px;
+}
+
+.appt-main-container-btn:hover {
+    background-color: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+
+.submit-button {
+    color: #FFF;
+    background-color: #003594;
+    border-color: #003594;
+    padding: 4px 20px 4px 20px;
+    display: inline-block;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+    font-weight: bold;
+    border-radius: 0.75rem; /* 12px */
+}
+
+.submit-button:hover{
+    background-color: goldenrod;
+    color: #003594;
 }
 
 .appointments-page {
@@ -151,6 +209,7 @@ th {
     width: 500px;
     border-radius: 25px;
     background-color: #FFF;
+    border: 2px solid goldenrod;
 }
 
 .image-content,
@@ -207,12 +266,12 @@ th {
     width: 100%;
     object-fit: cover;
     border-radius: 50%;
-    border: 4px solid #003594;
+    border: 4px solid goldenrod;
 }
 
 .name {
     font-size: 18px;
-    font-weight: 500;
+    font-weight: bolder;
     color: #333;
 }
 
@@ -222,7 +281,7 @@ th {
     text-align: center;
 }
 
-.button {
+.book-button {
     display: flex;
     justify-content: space-evenly;
     gap: 5px;
@@ -238,8 +297,10 @@ th {
     transition: all 0.3s ease;
 }
 
-.button:hover {
-    background: #001A70;
+.book-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
 }
 
   @media screen and (max-width: 1250px) {
