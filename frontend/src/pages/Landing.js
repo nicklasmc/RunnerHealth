@@ -107,7 +107,7 @@ function Landing() {
         </div>
         <div className="runner-team container-fluid">
           <h1 className="subsec-title">Team Members</h1>
-          <div className="runner-team-box">
+          <div className="runner-team-box container-fluid">
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={seven} />
               <Card.Body>
@@ -154,7 +154,7 @@ function Landing() {
                     </Card.Title>
                   </ListGroup.Item>
                   <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
-                  <ListGroup.Item>Full Stack Development</ListGroup.Item>
+                  <ListGroup.Item>Back-end Development</ListGroup.Item>
                   <ListGroup.Item className="">
                     <div className="social-links flex items-center gap-2">
                       <a

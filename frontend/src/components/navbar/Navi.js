@@ -68,7 +68,7 @@ const Navi = () => {
                   <NavDropdown.ItemText className="">{patient.email}</NavDropdown.ItemText>
                   <NavDropdown.Divider />
                   <NavDropdown.Item className="text-center"> 
-                    PROFILE
+                    SETTINGS
                   </NavDropdown.Item>
                   <NavDropdown.Item className="text-center" onClick={handleClick}> 
                     LOGOUT

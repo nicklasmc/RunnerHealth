@@ -181,6 +181,15 @@ header .container {
   align-items: center;
 }
 
+.social-links a {
+  color: goldenrod;
+  font-size: 20px;
+}
+
+.social-links a:hover {
+  color: #003594;
+}
+
 .runner-overflow {
   display: flex;
   font-family: "Heebo";
@@ -195,8 +204,14 @@ header .container {
 .runner-service,
 .runner-review {
   display: flex;
-  padding: 100px 25px;
+  padding: 80px 25px;
   min-height: 50vh;
+}
+
+.runner-what {
+  background-color: #e6e7e8;
+  color: #001a70;
+  font-weight: bold;
 }
 
 .runner-what-l {
@@ -422,7 +437,7 @@ header .container {
 }
 
 .social-icons a:hover {
-  color: #4f4f4f;
+  color: #003594;
 }
 
 .footy-copyright {

@@ -39,7 +39,8 @@ const ApptDocList = () => {
                   <h2 className="name">{doctor.fname} {doctor.lname}, {doctor.title}</h2>
                   <p className="description">Specialty: </p>
 
-                  <Link to={`/appointment/${doctor._id}`}><button className="button"><VscCalendar color="#daa520"/>Book Appointment</button></Link>
+                  
+                  <Link to={`/appointment/${doctor._id}`}><button className="book-button"><VscCalendar className="calendar-icon"/>Book Appointment</button></Link>
                 </div>
 
               </div>

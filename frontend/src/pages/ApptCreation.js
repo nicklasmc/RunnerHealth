@@ -216,7 +216,7 @@ const ApptCreation = () => {
                 <br />
                 <button
                   type="submit"
-                  className="submit-button bg-[goldenrod] text-white text-lg px-4 py-1 rounded-xl inline-block"
+                  className="submit-button"
                 >
                   Submit
                 </button>
