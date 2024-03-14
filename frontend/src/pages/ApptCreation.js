@@ -27,6 +27,16 @@ const ApptCreation = () => {
     { value: 'Other', label: 'Other (Please explain below)' },
   ];
 
+
+
+  const processOptions = [
+    { value: '7:00', label: 'Deny' },
+    { value: 'Approved', label: 'Approve' },
+    { value: 'Pending', label: 'Set Pending' },
+    { value: 'Cancelled', label: 'Cancel' },
+    { value: 'Complete', label: 'Complete' },
+    { value: 'NO-SHOW', label: 'NO-SHOW' },
+  ];
   // -----------------------------------------------
   const handleSubmit = async (e) => {
     e.stopPropagation();

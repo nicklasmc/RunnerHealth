@@ -1,5 +1,26 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
+// PI : 
+// - Name (restricted)
+// - Pronouns
+// - Sex 
+// - DoB (restricted)
+// - marital status
+// - Address info (subcontainer)
+// - - Address
+// - - City
+// - - ZIP
+// - - State
+
+// CI : 
+// - Phone
+// - Phone 2
+// - Work phone
+// - email
+
+// other:
+// - preferred facility
+// - pcp
 
 const UserSettings = () => {
   const { patient } = useAuthContext();

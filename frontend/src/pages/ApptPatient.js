@@ -6,24 +6,15 @@ import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-
-import {
-  format,
-  formatDistance,
-  formatRelative,
-  subDays,
-  endOfDay,
-} from "date-fns";
+import { format } from "date-fns";
 import axios from "axios";
 import "./styles/apptCreation.css";
 
 const ApptPatient = () => {
   const { id } = useParams();
-  const [appt, setAppt] = useState([]);
+  const [apptList, setApptList] = useState([]); // represents ALL appts
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
-  const [apptId, setApptId] = useState();
-  const [apptStatus, setApptStatus] = useState();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -53,9 +44,8 @@ const ApptPatient = () => {
     );
     const data = await response.json();
     console.log(data);
-    setAppt(data);
-    setApptId(data[0]._id);
-    setApptStatus(data[0].status);
+    setApptList(data);
+
   };
 
   useEffect(() => {
@@ -72,29 +62,17 @@ const ApptPatient = () => {
     }
   };
 
-  const ApptLink = () => {
-    if (apptId) {
-      return (
-        <Link to={`/appointment/${id}/${apptId}`}>
-          View Confirmation Receipt
-        </Link>
-      );
-    } else {
-      return <p>Loading...</p>;
-    }
-  };
-
-  const RenderStatus = () => {
-    if (apptStatus === "Pending") {
-      return <p> Status: Pending Approval</p>;
-    } else if (!apptStatus) {
+  const RenderStatus = (status) => {
+    if (status === "Pending") {
+      return <p>Status: Pending Approval</p>;
+    } else if (!status) {
       return <p>Status: Loading...</p>;
     } else {
-      return <p> Status: {apptStatus} </p>;
+      return <p>Status: {status}</p>;
     }
   };
 
-  const handleCancelAppt = async () => {
+  const handleCancelAppt = async (apptId) => {
     const response = await axios.patch(
       `http://localhost:4000/appointments/updateApptStatus/${apptId}`,
       {
@@ -108,43 +86,53 @@ const ApptPatient = () => {
   return (
     <div>
       <div className="appt-main-container">
-        <h1 className="text-center">My Appointments</h1>
-        <div className="border-t-8">
-          {appt.map((appts, index) => (
-            <div className="min-h-50 border-b-8 border-t-0 flex justify-around max-w-full">
-              <div className="cell-1">
-                <p>Requested on: {formatDate(appts.createdAt)}</p>
-                <p>For: {formatDate(appts.preferredDate)}</p>
+        <h1 className="text-center mb-4">My Appointments</h1>
+        <div className="border-t-4">
+          {apptList.map((appts) => (
+            <div className="min-h-50 border-b-4 border-t-0 flex-col my-2">
+              <div className="justify-around flex min-w-full my-2">
+                <div className="cell-1 flex-1">
+                  <p>Date Received: {formatDate(appts.createdAt)}</p>
+                  <p>Date Requested: {formatDate(appts.preferredDate)}</p>
+                  <p>Provider: {appts.doctor}</p>
+                </div>
+                <div className="cell-2 flex-1">
+                  <p>Reason: {appts.apptReason} </p>
+                  <Link to={`/appointment/${id}/${appts._id}`}>
+                    View Confirmation Receipt
+                  </Link>
+                </div>
+                <div className="cell-3 flex-1">
+                  {RenderStatus(appts.status)}
+                  <Button onClick={handleOpen}>Cancel</Button>
+                  <Modal
+                    open={open}
+                    onClose={handleClose}
+                    aria-labelledby="appointment-cancel-confirmation"
+                    aria-describedby="cancel-appointment"
+                  >
+                    <Box sx={style}>
+                      <Typography
+                        id="appointment-cancel-confirmation"
+                        variant="h6"
+                        component="h2"
+                      >
+                        Cancel your Appointment?
+                      </Typography>
+                      <Typography id="cancel-appointment" sx={{ mt: 2 }}>
+                        <div>
+                          <Button onClick={() => handleCancelAppt(appts._id)}>Confirm</Button>
+                          <Button onClick={handleClose}> Cancel </Button>
+                        </div>
+                      </Typography>
+                    </Box>
+                  </Modal>
+                </div>
               </div>
-              <div className="cell-2">
-                <p>Reason: {appts.apptReason} </p>
-                <ApptLink />
-              </div>
-              <div>
-                <RenderStatus />
-                <Button onClick={handleOpen}>Cancel</Button>
-                <Modal
-                  open={open}
-                  onClose={handleClose}
-                  aria-labelledby="appointment-cancel-confirmation"
-                  aria-describedby="cancel-appointment"
-                >
-                  <Box sx={style}>
-                    <Typography
-                      id="appointment-cancel-confirmation"
-                      variant="h6"
-                      component="h2"
-                    >
-                      Cancel your Appointment?
-                    </Typography>
-                    <Typography id="cancel-appointment" sx={{ mt: 2 }}>
-                      <div>
-                        <Button onClick={handleCancelAppt}>Confirm</Button>
-                        <Button onClick={handleClose}> Cancel </Button>
-                      </div>
-                    </Typography>
-                  </Box>
-                </Modal>
+              <div className="cell-4 border-t-2 border-dotted py-2">
+                <p>Additional Comments:
+                  <span className="text-gray-500 px-3"> {appts.apptComments} </span>
+                </p>
               </div>
             </div>
           ))}
