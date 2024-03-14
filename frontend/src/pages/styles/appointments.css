@@ -1,8 +1,3 @@
-.appointments-page {
-    min-height: 100vh;
-    background: linear-gradient(whitesmoke, rgb(170, 170, 170));
-}
-
 .appt-main-container {
     width: 95%;         
     margin: 90px auto;     
@@ -72,3 +67,138 @@ textarea {
     resize: none;
 }
 
+.appointments-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(whitesmoke, rgb(170, 170, 170));
+}
+
+.select-container {
+    height: auto;
+}
+
+.select-content {
+    height: auto;
+    padding: 45px 20px;
+    margin: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 100px;
+}
+
+.card-wrapper {
+    
+}
+
+.card {
+    width: 500px;
+    border-radius: 25px;
+    background-color: #FFF;
+}
+
+.image-content,
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content {
+    position: relative;
+    row-gap: 5px;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #003594;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before,
+.overlay::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #003594;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #FFF;
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #FFF;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid #003594;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+}
+
+.button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button:hover {
+    background: #001A70;
+}
+
+  @media screen and (max-width: 1250px) {
+    .select-content {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 60px;
+    }
+  }
+
+@media screen and (max-width: 800px) { 
+    .select-content {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 35px;
+    }
+    
+}
