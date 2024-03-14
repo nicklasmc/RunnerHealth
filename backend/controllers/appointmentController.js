@@ -77,22 +77,6 @@ const getApptAndDoctor = async (req, res) => {
   }
 };
 
-// store the confirmed date inside of DB
-const createConfirmedDate = async (req, res) => {
-  const apptObj = {
-    takenDate: req.body[0],
-    appointment: req.body[1],
-  };
-
-  try {
-    const appts = await ApptDate.create(apptObj);
-
-    res.status(200).json(appts);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-
 const removeDate = async (req, res) => {
   const { id } = req.params;
   try {
@@ -166,9 +150,94 @@ const updateAppointment = async (req, res) => {
   }
 };
 
+const checkDate = async (req, res) => {
+  const { date } = req.params;
+  try {
+    const day = await ApptDate.findOne({apptDay: new Date(date)});
+    if (day) {
+      res.json({found:true});
+    }
+    else {
+      res.json({found:false});
+    }
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const createApptDate = async (req, res) => {
+  const { preferredDate } = req.params;
+  console.log(preferredDate);
+  try {
+    const newApptDate = await ApptDate.create({ apptDay: new Date(preferredDate) });
+    res.status(200).json(newApptDate);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+const createConfirmedAppt = async (req, res) => {
+  const { apptDay, timeSlot, appointmentId } = req.body;
+  console.log("Timeslot -----> ",timeSlot);
+  try {
+    const day = new Date(apptDay);
+    const apptDate = await ApptDate.findOne({ apptDay: day });
+    // useful ref https://www.mongodb.com/docs/manual/reference/operator/query/in/
+    if (apptDate && apptDate[timeSlot]) {
+      // appointment is sitting in the appt collection, grab it w/ doctor id
+      const bookingAppt = await Appointment.findById(appointmentId);
+      const doctorId = bookingAppt.doctor;
+
+      // take everything in the appointment collection
+      // 1. find inside appt collection
+      // 2. break it down to where the _id is equal to...
+      // 3. ... the appt id IN the timeslot (because we only need THOSE)
+      // 4. now that we have it, populate existingappt w/ doctor info
+      // 5. appointments are now populated w/ doctor info
+      const existingAppointments = await Appointment.find({
+        _id: { $in: apptDate[timeSlot] },
+      }).populate("doctor");
+
+      // iterate through every single appointment, find if the doctor
+      // is booked or not
+      for (let i = 0; i < existingAppointments.length; i++) { // length of arr.;
+        console.log(`Comparing ${existingAppointments[i].doctor._id} with ${doctorId}`);
+        if (existingAppointments[i].doctor._id.equals(doctorId)) {
+          console.log("Doctor Already booked...");
+          return res.status(200).json({ message: "false" });
+        }
+      }
+    }
+
+    if (!apptDate) { 
+      console.log("ApptDate not found!!!");
+      // create apptDate if we need it
+      const newApptDateData = {
+        apptDay: day,
+        [timeSlot]: [appointmentId]
+      };
+      console.log("checkpoint waiting... new apptdate");
+      await ApptDate.create(newApptDateData);
+      console.log("checkpoint created new apptdate");
+    } else {
+      // push into the timeslot
+      console.log("ApptDate found, updating...");
+      apptDate[timeSlot].push(appointmentId);
+      await apptDate.save();
+    }
+
+    console.log("checkpoint final");
+    res.status(200).json({ message: "true" });
+  } catch (error) {
+    console.error("Error creating confirmed appointment:", error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+
 module.exports = {
   updateAppointment,
-  createConfirmedDate,
+  createConfirmedAppt,
   createAppointment,
   getOneAppointment,
   getAllAppointments,
@@ -176,5 +245,7 @@ module.exports = {
   getApptAndDoctor,
   getTakenDates,
   removeDate,
-  updateApptStatus
+  updateApptStatus,
+  checkDate,
+  createApptDate
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './styles/appointmentDashboard.css';
-import AppointmentDashForm from '../components/AppointmentDashForm';
+import AppointmentDashForm from '../components/appts/AppointmentDashForm';
 import { useAuthContext } from '../hooks/useAuthContext.js';
 
 const AppointmentDashboard = () => {

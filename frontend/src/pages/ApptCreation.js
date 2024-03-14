@@ -19,6 +19,7 @@ const ApptCreation = () => {
   const [selectedDate, setSelectedDate] = useState();
   const [takenDates, setTakenDates] = useState([]);
   const [visitReason, setVisitReason] = useState(); // needed for react-select
+  const [apptTime, setApptTime] = useState();
 
   const apptOptions = [
     { value: 'Followup', label: 'Follow Up' },
@@ -27,15 +28,15 @@ const ApptCreation = () => {
     { value: 'Other', label: 'Other (Please explain below)' },
   ];
 
-
-
-  const processOptions = [
-    { value: '7:00', label: 'Deny' },
-    { value: 'Approved', label: 'Approve' },
-    { value: 'Pending', label: 'Set Pending' },
-    { value: 'Cancelled', label: 'Cancel' },
-    { value: 'Complete', label: 'Complete' },
-    { value: 'NO-SHOW', label: 'NO-SHOW' },
+  const timeOptions = [
+    { value: '900', label: '9:00 AM' },
+    { value: '1000', label: '10:00 AM' },
+    { value: '1100', label: '11:00 AM' },
+    { value: '1200', label: '12:00 PM' },
+    { value: '1300', label: '1:00 PM' },
+    { value: '1400', label: '2:00 PM' },
+    { value: '1500', label: '3:00 PM' },
+    { value: '1600', label: '4:00 PM' },
   ];
   // -----------------------------------------------
   const handleSubmit = async (e) => {
@@ -55,7 +56,7 @@ const ApptCreation = () => {
         patientPhone: document.getElementById('phone').value,
         languagePreference: document.getElementById('languagePreference').value,
         preferredDate: selectedDate,
-        time: document.getElementById('appt-time').value,
+        time: apptTime,
       };
 
       console.log(formData);
@@ -101,6 +102,9 @@ const ApptCreation = () => {
     fetchData();
   }, [id, patient.email]);
 
+  const handleTimeChange = (e) => {
+      setApptTime(e.value);
+  };
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -208,7 +212,13 @@ const ApptCreation = () => {
                   disabled={[{ dayOfWeek: [0, 6] }, ...takenDates]} // gray out the weekends and taken dates
                 />
                 <h2>Preferred Time:</h2>
-                <input type="time" id="appt-time" name="time" />
+                <Select
+                  name='appt-time'
+                  id = 'appt-time'
+                  options={timeOptions}
+                  placeholder={'Time'}
+                  onChange={(e) => handleTimeChange(e)}
+                />
                 <p className="text-red-500">
                   Note: A member of staff will be in contact to confirm a final
                   date and time based on availability.

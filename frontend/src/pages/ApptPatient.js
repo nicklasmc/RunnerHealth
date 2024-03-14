@@ -94,12 +94,13 @@ const ApptPatient = () => {
                 <div className="cell-1 flex-1">
                   <p>Date Received: {formatDate(appts.createdAt)}</p>
                   <p>Date Requested: {formatDate(appts.preferredDate)}</p>
-                  <p>Provider: {appts.doctor}</p>
+                  <p>Date Requested: {appts.time}</p>
                 </div>
                 <div className="cell-2 flex-1">
                   <p>Reason: {appts.apptReason} </p>
+                  <p>Provider: {appts.doctor}</p>
                   <Link to={`/appointment/${id}/${appts._id}`}>
-                    View Confirmation Receipt
+                    View Receipt
                   </Link>
                 </div>
                 <div className="cell-3 flex-1">
