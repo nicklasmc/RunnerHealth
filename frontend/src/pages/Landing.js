@@ -1,9 +1,9 @@
 import React from 'react';
 import Carousel from 'react-bootstrap/Carousel';
-// import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
-import { FaGithubSquare, FaLinkedin } from 'react-icons/fa';
+import { FaGithubSquare, FaLinkedin, FaPortrait } from 'react-icons/fa';
 
 /*images*/
 import first from './imgs/doctors-patient.jpg';
@@ -18,9 +18,9 @@ import nine from './imgs/dr.jpg';
 import ten from './imgs/records.jpg';
 import elle from './imgs/appointments.jpg';
 import twelve from './imgs/payment.jpg';
-// import thirteen from './imgs/doc.jpg';
-// import fourteen from './imgs/healthcare-worker.jpg';
-// import fifteen from './imgs/patient.jpg';
+import thirteen from './imgs/doc.jpg';
+import fourteen from './imgs/healthcare-worker.jpg';
+import fifteen from './imgs/patient.jpg';
 
 function Landing() {
   return (
@@ -57,7 +57,7 @@ function Landing() {
         <div className="runner-what container-fluid">
           <div className="runner-what-l">
             <h1 className="subsec-title">Runner Health</h1>
-            <p>
+            <p className="runner-overflow">
               Runner Health is a hospital management application that uses
               electronic health records (EHR) to help transition medical
               facilities into a digital cloud-based system for healthcare. There
@@ -93,7 +93,15 @@ function Landing() {
             <p className="runner-mission-statement">
               Runner Health is committed to assisting healthcare providers in
               the transition from paper-based records to electronic health
-              record systems.
+              record systems. We understand the importance of securely managing
+              your confidential information with care and haste. The team at 
+              Runner Health is not only trying to preserve your health records
+              for your use, but also trying to create an easy to understand
+              environment for your health providers. Accessing your health
+              records does not have to be hard, and that is why bringing the 
+              most accessible EHR service is our team's biggest 
+              driving force in our quest to advance the medical industry to 
+              the digital age.
             </p>
           </div>
         </div>
@@ -214,7 +222,7 @@ function Landing() {
                       Daniel Rivera
                     </Card.Title>
                   </ListGroup.Item>
-                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Computer Science B.S. </ListGroup.Item>
                   <ListGroup.Item>Front-end Development</ListGroup.Item>
                   <ListGroup.Item>                    
                     <div className="flex items-center gap-2 social-links">

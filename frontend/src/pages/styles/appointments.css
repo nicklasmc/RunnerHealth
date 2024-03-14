@@ -67,6 +67,61 @@ textarea {
     resize: none;
 }
 
+/* appointment confirmation */
+.confirm-appt-msg {
+    text-align: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.notice{
+    padding: 40px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.confirm-appt-msg-cont{
+    display: inline-block;
+    font-size: 15pt;
+    text-align: left;
+    max-width: 525px;
+    padding-bottom: 25px;
+}
+
+.confirm-appt-msg-cont em {
+    color: red;
+    font-style: normal;
+    padding-top: 10px;
+}   
+
+.confirm-appt-table {
+    padding: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+    font-size: 15pt;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+   
+th {
+    text-align: left;
+}
+
+.confirm-appt-table, th, td {
+    padding: 5px;
+}
+    
+.appt-main-container-btn {
+    background-color: #003594;
+    border-radius: 15px;
+    margin: auto;
+    text-align: center;
+    max-width: 200px;
+}
+
 .appointments-page {
     min-height: 100vh;
     display: flex;
