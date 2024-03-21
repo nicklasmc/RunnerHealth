@@ -6,12 +6,13 @@ const {
   getAllAppointments,
   createConfirmedAppt,
   getApptAndDoctor,
-  getTakenDates,
+  getApptsByDate,
   updateAppointment,
   removeDate,
   updateApptStatus,
   checkDate,
-  createApptDate
+  createApptDate,
+  getDoctorAppointment
 } = require('../controllers/appointmentController');
 
 const cors = require('cors');
@@ -36,6 +37,9 @@ router.get('/:id', getOneAppointment);
 // grab all appointments by patient id
 router.get('/patient/:id', getPatientAppointment);
 
+// get all appts owned by a doctor
+router.get('/doctor/:id', getDoctorAppointment);
+
 
 
 // --- ApptDate routes --- // 
@@ -44,7 +48,7 @@ router.get('/patient/:id', getPatientAppointment);
 router.post('/confirmAppt', createConfirmedAppt);
 
 // get all dates in our apptdates via doctor's mongoDB ID
-router.get('/getTakenDates/:id', getTakenDates);
+router.get('/getApptsByDate/:date/:id', getApptsByDate);
 
 // check if date has been initialized 
 router.get('/checkDate/:date', checkDate);
