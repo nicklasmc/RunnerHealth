@@ -66,11 +66,7 @@ header .container {
   padding: 0 20px;
   color: white;
   text-decoration: none;
-  font-weight: bold;
-}
-
-.link-btn:hover {
-  text-decoration: underline;
+  font-size: 20px;
 }
 
 
