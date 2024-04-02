@@ -9,14 +9,22 @@ import Typography from "@mui/material/Typography";
 import { format } from "date-fns";
 import axios from "axios";
 import "./styles/apptCreation.css";
+import convertMilitaryToTimeslot from "../utils/convertTime.js";
 
 const ApptPatient = () => {
   const { id } = useParams();
   const [apptList, setApptList] = useState([]); // represents ALL appts
+  const [selectedAppt, setSelectedAppt] = useState([]);
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
   const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
+  // const [selectedApptId, setSelectedApptId] = useState(null);
+  const handleOpen = (index) => {
+    console.log("My index------->", index);
+    const tempAppt = apptList[index];
+    setSelectedAppt(tempAppt);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
   const style = {
     position: "absolute",
@@ -45,7 +53,6 @@ const ApptPatient = () => {
     const data = await response.json();
     console.log(data);
     setApptList(data);
-
   };
 
   useEffect(() => {
@@ -72,15 +79,27 @@ const ApptPatient = () => {
     }
   };
 
-  const handleCancelAppt = async (apptId) => {
-    const response = await axios.patch(
-      `http://localhost:4000/appointments/updateApptStatus/${apptId}`,
-      {
-        status: "Cancelled",
-      }
-    );
-    handleClose();
-    getApptInfo();
+  const handleCancelAppt = async () => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:4000/appointments/updateApptStatus/${selectedAppt._id}`,
+        {
+          status: "Cancelled",
+        }
+      );
+      console.log("myrep-------->", response);
+      const convertedTimeSlot = convertMilitaryToTimeslot(selectedAppt.time);
+      const remRes = await axios.patch(
+        `http://localhost:4000/appointments/removeDate/${selectedAppt._id}/${selectedAppt.preferredDate}`,
+        { timeSlot: convertedTimeSlot }
+      );
+
+      console.log("here ---->", remRes.data.message);
+      handleClose();
+      getApptInfo();
+    } catch (error) {
+      console.log("uh oh---->", error);
+    }
   };
 
   return (
@@ -88,8 +107,11 @@ const ApptPatient = () => {
       <div className="appt-main-container">
         <h1 className="text-center mb-4">My Appointments</h1>
         <div className="border-t-4">
-          {apptList.map((appts) => (
-            <div className="min-h-50 border-b-4 border-t-0 flex-col my-2">
+          {apptList.map((appts, index) => (
+            <div
+              key={index}
+              className="min-h-50 border-b-4 border-t-0 flex-col my-2"
+            >
               <div className="justify-around flex min-w-full my-2">
                 <div className="cell-1 flex-1">
                   <p>Date Received: {formatDate(appts.createdAt)}</p>
@@ -105,34 +127,46 @@ const ApptPatient = () => {
                 </div>
                 <div className="cell-3 flex-1">
                   {RenderStatus(appts.status)}
-                  <Button onClick={handleOpen}>Cancel</Button>
-                  <Modal
-                    open={open}
-                    onClose={handleClose}
-                    aria-labelledby="appointment-cancel-confirmation"
-                    aria-describedby="cancel-appointment"
-                  >
-                    <Box sx={style}>
-                      <Typography
-                        id="appointment-cancel-confirmation"
-                        variant="h6"
-                        component="h2"
+                  {appts.status === "Approved" || appts.status === "Pending" ? (
+                    <div>
+                      <Button onClick={() => handleOpen(index)}>Cancel</Button>
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="appointment-cancel-confirmation"
+                        aria-describedby="cancel-appointment"
                       >
-                        Cancel your Appointment?
-                      </Typography>
-                      <Typography id="cancel-appointment" sx={{ mt: 2 }}>
-                        <div>
-                          <Button onClick={() => handleCancelAppt(appts._id)}>Confirm</Button>
-                          <Button onClick={handleClose}> Cancel </Button>
-                        </div>
-                      </Typography>
-                    </Box>
-                  </Modal>
+                        <Box sx={style}>
+                          <Typography
+                            id="appointment-cancel-confirmation"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Cancel your Appointment?
+                          </Typography>
+                          <Typography id="cancel-appointment" sx={{ mt: 2 }}>
+                            <div>
+                              <Button onClick={() => handleCancelAppt()}>
+                                Confirm
+                              </Button>
+                              <Button onClick={handleClose}> Cancel </Button>
+                            </div>
+                          </Typography>
+                        </Box>
+                      </Modal>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
                 </div>
               </div>
               <div className="cell-4 border-t-2 border-dotted py-2">
-                <p>Additional Comments:
-                  <span className="text-gray-500 px-3"> {appts.apptComments} </span>
+                <p>
+                  Additional Comments:
+                  <span className="text-gray-500 px-3">
+                    {" "}
+                    {appts.apptComments}{" "}
+                  </span>
                 </p>
               </div>
             </div>

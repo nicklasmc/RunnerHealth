@@ -56,11 +56,18 @@ const getPatientAppointment = async (req, res) => {
 
 const updateApptStatus = async (req, res) => {
   const { id } = req.params;
-  // if (!mongoose.Types.ObjectId.isValid(id)) {
-  //   return res.status(400).json({error: "Appointment does not exist"})
-  // }
+  const updateInfo = req.body;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(400).json({ error: "Appointment does not exist" });
+  }
   try {
-    const appointment = await Appointment.findByIdAndUpdate(id, req.body);
+    const appointment = await Appointment.findOneAndUpdate(
+      { _id: id },
+      updateInfo,
+      {
+        new: true,
+      }
+    );
     res.status(200).json(appointment);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -77,11 +84,26 @@ const getApptAndDoctor = async (req, res) => {
 };
 
 const removeDate = async (req, res) => {
-  const { id } = req.params;
   try {
-    const appts = await ApptDate.deleteOne({ appointment: id });
-    res.status(200).json(appts);
+    const { date } = req.params;
+    const { id } = req.params;
+    const { timeSlot } = req.body;
+    // populate, but only if it matches the doctor's id
+    const appts = await ApptDate.findOne({ apptDay: date }).populate();
+    if (appts) {
+      const updatedAppt = await ApptDate.findOneAndUpdate(
+        { _id: appts._id },
+        { $pull: { [timeSlot]: id } },
+        { new: true }
+      );
+
+      res.status(200).json({ message: updatedAppt });
+    } else {
+      // no appts found
+      res.status(200).json({ message: "No appointment found" });
+    }
   } catch (error) {
+    console.log("error---->", error);
     res.status(400).json({ message: error.message });
   }
 };

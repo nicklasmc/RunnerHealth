@@ -8,7 +8,6 @@
     overflow:auto;
     display: flex;
     flex-direction: column;
-
 }
 
 .appt-cells {
@@ -71,9 +70,10 @@
 }
 
 .appt-update-btn {
-    background-color: black;
+    background-color: white;
     border-radius: 5px;
-    color:white;
+    border: 1px solid black;
+    color:black;
     padding: 10px;
     font-size:15px;
     height: 50%;

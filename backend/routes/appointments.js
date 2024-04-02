@@ -62,6 +62,6 @@ router.patch('/updateAppointment/:id', updateAppointment);
 // update specifically the status 
 router.patch('/updateApptStatus/:id', updateApptStatus);
 
-router.delete('/removeDate/:id', removeDate);
+router.patch('/removeDate/:id/:date', removeDate);
 
 module.exports = router;
