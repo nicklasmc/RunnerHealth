@@ -292,9 +292,9 @@ th {
     padding: 8px 16px;
     background-color: #003594;
     border-radius: 6px;
-    margin: 14px;
+    margin: 0px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
 }
 
 .book-button:hover{
