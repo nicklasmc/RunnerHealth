@@ -3,19 +3,22 @@ import Select from "react-select";
 import "../../pages/styles/appointmentDashboard.css";
 import convertMilitaryToTimeslot from "../../utils/convertTime.js";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 const AppointmentDashForm = ({
   appointments,
   providers,
   index,
   toggleEditMode,
   toggleFormDropdown,
-  admin,
+  user,
   setUpdated,
   updated,
+  setAppointment,
 }) => {
   const [statusChanged, setStatusChanged] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(appointments);
+  const [facilityOptions, setFacilityOptions] = useState();
   const handleFormChange = (e) => {
     console.log(e);
     setSelectedAppointment((values) => ({
@@ -36,25 +39,27 @@ const AppointmentDashForm = ({
     })); // .value contains the id, .label contains the name, we only want the id
   };
 
+  // specific to react-select
   const handleSelectChange = (name, e) => {
-    // specific to react-select
     setSelectedAppointment((values) => ({ ...values, [name]: e.value }));
     if (name === "status") {
       setStatusChanged(true);
-      console.log("status is changed...");
     }
   };
 
+  // ---------------------------------------------------------
   const handleFormUpdate = async (id) => {
     console.log(selectedAppointment);
-    // const tempAppt = { ...selectedAppointment, lastEditted: admin._id };
-    const tempAppt = selectedAppointment;
+    console.log("user------->", user);
+    let tempAppt = { ...selectedAppointment, lastEditted: user._id };
+    tempAppt = selectedAppointment;
+    console.log("tappt---->", tempAppt);
+    const tempAppt2 = selectedAppointment;
     delete tempAppt.formDropdown;
     delete tempAppt.editMode;
     let res;
 
     try {
-      // -------------- Actions for approval --------------
       if (tempAppt.status === "Approved") {
         try {
           const confirmedApptData = {
@@ -76,7 +81,7 @@ const AppointmentDashForm = ({
           console.log(error);
         }
       }
-      if (res.data.message === "true" || !statusChanged) {
+      if (tempAppt) {
         console.log("Status changed?", statusChanged);
         const appointmentResponse = await axios.patch(
           `http://localhost:4000/appointments/updateAppointment/${id}`,
@@ -84,29 +89,50 @@ const AppointmentDashForm = ({
         );
         console.log(appointmentResponse);
       }
-      // -----------------------------------------------
-
-      // if (tempAppt.status === 'Denied' || tempAppt.status === 'Pending') {
-      //   try {
-      //     const updatedDateResponse = await axios.delete(
-      //       `http://localhost:4000/appointments/removeDate/${tempAppt._id}`
-      //     );
-      //     console.log(updatedDateResponse);
-      //   } catch (error) { }
-      // }
-
+      if (statusChanged) {
+        const timeSlot = convertMilitaryToTimeslot(tempAppt.time);
+        try {
+          const updatedDateResponse = await axios.patch(
+            `http://localhost:4000/appointments/removeDate/${tempAppt._id}/${tempAppt.preferredDate}`,
+            { timeSlot: timeSlot }
+          );
+          console.log(updatedDateResponse);
+          setSelectedAppointment(tempAppt2);
+        } catch (error) {
+          console.log("Could not reject appt:", error.message);
+        }
+      } else {
+        setSelectedAppointment(tempAppt2);
+      }
+      // !!
       setUpdated(!updated);
     } catch (error) {
       console.log(error);
     }
   };
+  // ---------------------------------------------------------
+  useEffect(() => {
+    let facOptions = [];
+    if (appointments && appointments.doctor.facility.length > 0) {
+      // appts exists and more than 1 facility
+      facOptions = appointments.doctor.facility.map((facility) => ({
+        value: facility,
+        label: facility,
+      }));
 
-  // The following is for use in the <Select/> tag from react-select
-  // react documentation at https://react-select.com/home
-  const facilityOptions = appointments.doctor.facility.map((facility) => ({
-    value: facility,
-    label: facility,
-  }));
+      setFacilityOptions(facOptions);
+    } else {
+      // default options
+      setFacilityOptions([
+        {
+          value: "Bakersfield",
+          label: "Bakersfield",
+        },
+      ]);
+    }
+
+    console.log("Fac options ---->", facilityOptions);
+  }, [updated]);
 
   // const languageOptions = [
   //   { value: 'spanish', label: 'Spanish' },
@@ -125,185 +151,191 @@ const AppointmentDashForm = ({
   const providerOptions = providers;
 
   return (
-    <div>
+    <div className="bg-gray-200">
       {appointments.editMode ? (
-        <div className="appt-edit-container">
+        <div>
+          <div className="appt-cells min-h-150">
+            <div className="appt-cell-one">
+              <p>
+                <span className="text-red-500">Appt ID: </span>
+                {appointments._id}
+              </p>
+              <p>
+                <span className="text-red-500">Last Proccessed By: </span>
+                {appointments.lastEditted}
+              </p>
+            </div>
+
+            <div className="appt-cell-two">
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Patient Phone #
+                </label>
+                <input
+                  name="patientPhone"
+                  className="inputField flex-auto"
+                  type="text"
+                  id="inputPhone"
+                  value={selectedAppointment.patientPhone}
+                  onChange={handleFormChange}
+                />
+              </div>
+
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Patient Email
+                </label>
+                <input
+                  name="patientEmail"
+                  className="inputField flex-auto"
+                  type="text"
+                  id="inputEmail"
+                  value={selectedAppointment.patientEmail}
+                  onChange={(e) => handleFormChange(e)}
+                  disabled={!appointments.editMode}
+                />
+              </div>
+
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Preferred Language
+                </label>
+                <input
+                  name="languagePreference"
+                  className="inputField flex-auto"
+                  type="text"
+                  id="inputLangauge"
+                  value={selectedAppointment.languagePreference}
+                  onChange={(e) => handleFormChange(e)}
+                  disabled={!appointments.editMode}
+                />
+              </div>
+            </div>
+
+            <div className="mx-5 my-2 flex items-center flex-col justify-between">
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Facility
+                </label>
+                <div className="w-72">
+                  <Select
+                    name="facility"
+                    options={facilityOptions}
+                    placeholder={appointments.facility || "Select Facility..."}
+                    isDisabled={!appointments.editMode}
+                    onChange={(e) => handleSelectChange("facility", e)}
+                  />
+                </div>
+              </div>
+
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Provider
+                </label>
+                <div className="w-72">
+                  <Select
+                    name="provider"
+                    options={providerOptions}
+                    placeholder={appointments.provider}
+                    isDisabled={!appointments.editMode}
+                    onChange={(e) => handleDoctorChange(e)}
+                  />
+                </div>
+              </div>
+              <div className="field flex w-full">
+                <label className="field mr-2 min-w-150 font-normal text-red-500">
+                  Update Status
+                </label>
+                <div className="w-72">
+                  <Select
+                    name="status"
+                    options={processOptions}
+                    placeholder={"Status..."}
+                    isDisabled={!appointments.editMode}
+                    onChange={(e) => handleSelectChange("status", e)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="my-auto flex-col">
+              <div>
+                <button
+                  className="appt-update-btn"
+                  onClick={() => {
+                    handleFormUpdate(appointments._id);
+                    toggleEditMode(index);
+                  }}
+                >
+                  Save
+                </button>
+              </div>
+              <div>
+                <button
+                  className="appt-update-btn mt-1"
+                  onClick={() => {
+                    toggleEditMode(index);
+                    toggleFormDropdown(index);
+                  }}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
           <div>
             <p>
-              <span className="text-red-500">Appt ID: </span>
-              {appointments._id}
-            </p>
-            <p>
-              <span className="text-red-500">Last Proccessed By: </span>
-              {appointments.lastEditted}
-            </p>
-          </div>
-
-          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Patient Phone #
-              </label>
-              <input
-                name="patientPhone"
-                className="inputField flex-auto"
-                type="text"
-                id="inputPhone"
-                value={selectedAppointment.patientPhone}
-                onChange={handleFormChange}
-              />
-            </div>
-
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Patient Email
-              </label>
-              <input
-                name="patientEmail"
-                className="inputField flex-auto"
-                type="text"
-                id="inputEmail"
-                value={selectedAppointment.patientEmail}
-                onChange={(e) => handleFormChange(e)}
-                disabled={!appointments.editMode}
-              />
-            </div>
-
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Preferred Language
-              </label>
-              <input
-                name="languagePreference"
-                className="inputField flex-auto"
-                type="text"
-                id="inputLangauge"
-                value={selectedAppointment.languagePreference}
-                onChange={(e) => handleFormChange(e)}
-                disabled={!appointments.editMode}
-              />
-            </div>
-          </div>
-
-          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Facility
-              </label>
-              <div className="w-72">
-                <Select
-                  name="facility"
-                  options={facilityOptions}
-                  placeholder={appointments.facility || "Select Facility..."}
-                  isDisabled={!appointments.editMode}
-                  onChange={(e) => handleSelectChange("facility", e)}
-                />
-              </div>
-            </div>
-
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Provider
-              </label>
-              <div className="w-72">
-                <Select
-                  name="provider"
-                  options={providerOptions}
-                  placeholder={appointments.provider}
-                  isDisabled={!appointments.editMode}
-                  onChange={(e) => handleDoctorChange(e)}
-                />
-              </div>
-            </div>
-            <div className="field flex w-full">
-              <label className="field mr-2 min-w-150 font-normal text-red-500">
-                Update Status
-              </label>
-              <div className="w-72">
-                <Select
-                  name="status"
-                  options={processOptions}
-                  placeholder={"Status..."}
-                  isDisabled={!appointments.editMode}
-                  onChange={(e) => handleSelectChange("status", e)}
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="appt-edit-subcontainer mx-5 my-2 flex items-center flex-col justify-between">
-            <p>
               <span className="text-red-500">Patient Comments: </span>
-              <br></br>
               {appointments.apptComments}
             </p>
-            <div>
-              <button
-                className="appt-update-btn"
-                onClick={() => {
-                  toggleEditMode(index);
-                  toggleFormDropdown(index);
-                }}
-              >
-                Cancel
-              </button>
-
-              <button
-                className="appt-update-btn"
-                onClick={() => {
-                  handleFormUpdate(appointments._id);
-                  toggleEditMode(index);
-                }}
-              >
-                Save
-              </button>
-            </div>
           </div>
         </div>
       ) : (
-        <div className="appt-edit-container">
-          <div className="appt-cell-one appt-dropform">
-            <p>
-              <span className="text-red-500">Appt ID: </span>
-              {appointments._id}
-            </p>
-            <p>
-              <span className="text-red-500">Proccessed By: </span>
-              {appointments.lastEditted}
-            </p>
+        <div>
+          <div className="appt-edit-container">
+            <div className="appt-cell-one appt-dropform">
+              <p>
+                <span className="text-red-500">Appt ID: </span>
+                {appointments._id}
+              </p>
+              <p>
+                <span className="text-red-500">Proccessed By: </span>
+                {appointments.lastEditted}
+              </p>
+              <br></br>
+            </div>
+            <div className="appt-cell-two appt-dropform">
+              <p>
+                <span className="text-red-500">Patient Phone #: </span>
+                {appointments.patientPhone}
+              </p>
+              <p>
+                <span className="text-red-500">Patient Email: </span>
+                {appointments.patientEmail}
+              </p>
+              <p>
+                <span className="text-red-500">Preferred Language: </span>
+                {appointments.languagePreference}
+              </p>
+            </div>
+            <div className="appt-cell-three appt-dropform">
+              <p>
+                <span className="text-red-500">Facility: </span>
+                {appointments.facility}
+              </p>
+              <p>
+                <span className="text-red-500">Provider: </span>
+                {appointments.doctor.fname} {appointments.doctor.lname}
+              </p>
+              <p>
+                <span className="text-red-500">Status: </span>
+                {appointments.status}
+              </p>
+            </div>
           </div>
-          <div className="appt-cell-two appt-dropform">
-            <p>
-              <span className="text-red-500">Patient Phone #: </span>
-              {appointments.patientPhone}
-            </p>
-            <p>
-              <span className="text-red-500">Patient Email: </span>
-              {appointments.patientEmail}
-            </p>
-            <p>
-              <span className="text-red-500">Preferred Language: </span>
-              {appointments.languagePreference}
-            </p>
-          </div>
-          <div className="appt-cell-three appt-dropform">
-            <p>
-              <span className="text-red-500">Facility: </span>
-              {appointments.facility}
-            </p>
-            <p>
-              <span className="text-red-500">Provider: </span>
-              {appointments.doctor.fname} {appointments.doctor.lname}
-            </p>
-            <p>
-              <span className="text-red-500">Status: </span>
-              {appointments.status}
-            </p>
-          </div>
-          <div className="appt-cell-four appt-dropform">
+          <div className="appt-cell-four">
             <p>
               <span className="text-red-500">Patient Comments: </span>
-              <br></br>
               {appointments.apptComments}
             </p>
           </div>

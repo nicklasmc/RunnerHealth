@@ -19,7 +19,6 @@ const ApptCreation = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState();
-  const [takenDates, setTakenDates] = useState([]);
   const [visitReason, setVisitReason] = useState(); // needed for react-select
   const [apptTime, setApptTime] = useState();
   const [existingAppts, setExistingAppts] = useState();
@@ -228,7 +227,7 @@ const ApptCreation = () => {
                   fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling
                   mode="single" // single date selection only
                   onSelect={setSelectedDate}
-                  disabled={[{ dayOfWeek: [0, 6] }, ...takenDates]} // gray out the weekends and taken dates
+                  disabled={[{ dayOfWeek: [0, 6] }]} // gray out the weekends and taken dates
                 />
                 <h2>Preferred Time:</h2>
                 <Select
