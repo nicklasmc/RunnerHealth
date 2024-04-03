@@ -50,6 +50,14 @@ header .container {
   flex-wrap: wrap;
 }
 
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(whitesmoke, rgb(170, 170, 170));
+}
+
 .page-contents {
   padding: 0px 0 0px;
   min-height: 100vh;

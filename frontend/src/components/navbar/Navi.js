@@ -186,18 +186,23 @@ const InvoiceContent = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
-      );
+      let response = null;
+      if (patient) {
+        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
       const data = await response.json();
       setUser(data);
     };
-    document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [patient, doctor, admin]);
   
   return (
-    <div>
+    <>
     {user ? (
       user.map((user, index) => (
         <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
@@ -219,7 +224,7 @@ const InvoiceContent = () => {
       ) : (
       <h1>Gathering Data...</h1>
     )}
-    </div>
+    </>
     );
   };
 
@@ -233,15 +238,20 @@ const ProfileContent = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
-      );
+      let response = null;
+      if (patient) {
+        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
       const data = await response.json();
       setUser(data);
     };
-    document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [patient, doctor, admin]);
 
   const handleClick = () => {
     logout();
@@ -256,7 +266,7 @@ const ProfileContent = () => {
   };
 
   return (
-    <div>
+    <>
     {user ? (
       user.map((user, index) => (
         <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
@@ -287,7 +297,7 @@ const ProfileContent = () => {
     ) : (
     <h1>Gathering Data...</h1>
   )}
-  </div>
+  </>
   );
 };
 
@@ -301,15 +311,20 @@ const RecordsContent = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
-      );
+      let response = null;
+      if (patient) {
+        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
       const data = await response.json();
       setUser(data);
     };
-    document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [patient, doctor, admin]);
 
   const handleClick = () => {
     logout();
@@ -324,7 +339,7 @@ const RecordsContent = () => {
   };
 
 return (
-  <div>
+  <>
   {user ? (
       user.map((user, index) => (
         <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
@@ -352,7 +367,7 @@ return (
   ) : (
   <h1>Gathering Data...</h1>
 )}
-</div>
+</>
 );
 };
 
@@ -366,15 +381,20 @@ const ScheduleContent = () => {
 
   useEffect(() => {
     const getUserInfo = async () => {
-      const response = await fetch(
-        `http://localhost:4000/patients/${patient.email}`
-      );
+      let response = null;
+      if (patient) {
+        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
       const data = await response.json();
       setUser(data);
     };
-    document.title = 'Home | RunnerHealth';
     getUserInfo();
-  }, [patient.email]);
+  }, [patient, doctor, admin]);
 
   const handleClick = () => {
     logout();
@@ -389,35 +409,96 @@ const ScheduleContent = () => {
   };
 
   return (
-    <div>
+    <>
       {user ? (
           user.map((user, index) => (
             <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
               <div className="mb-3 space-y-3">
               <h3 className="font-bold text-xl">Appointments</h3>
               <div className="flex-1 border-t-2 border-gray-200"/>
-              <Link to="/appointment" className="block text-base hover:underline">
-              <a href="#">
-                  Schedule Appointments
-              </a>
-              </Link>
-              <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
-              <a href="#">
-                  Upcoming Appointments
-              </a>
-              </Link>
-              <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
-              <a href="#">
-                  Appointment History
-              </a>
-              </Link>
+              {!patient && !doctor && !admin (
+                <>
+                  <Link to="/appointment" className="block text-base hover:underline">
+                  <a href="#">
+                      Schedule Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Upcoming Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Appointment History
+                  </a>
+                  </Link>
+                </>
+              )}
+              {patient && (
+                <>
+                  <Link to="/appointment" className="block text-base hover:underline">
+                  <a href="#">
+                      Schedule Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Upcoming Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Appointment History
+                  </a>
+                  </Link>
+                </>
+              )}
+              {admin && (
+                <>
+                  <Link to="/appointment" className="block text-base hover:underline">
+                  <a href="#">
+                      Schedule Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Upcoming Appointments
+                  </a>
+                  </Link>
+                  <Link to="/appointment/dashboard/" className="block text-base hover:underline">
+                  <a href="#">
+                      Appointment Dashboard
+                  </a>
+                  </Link>
+                </>
+              )}
+              {doctor && (
+                <>
+                  <Link to="/appointment" className="block text-base hover:underline">
+                  <a href="#">
+                      Schedule Appointments
+                  </a>
+                  </Link>
+                  <Link to={`/myappointments/${user._id}`} className="block text-base hover:underline">
+                  <a href="#">
+                      Upcoming Appointments
+                  </a>
+                  </Link>
+                  <Link to="/appointment/dashboard/" className="block text-base hover:underline">
+                  <a href="#">
+                      Appointment Dashboard
+                  </a>
+                  </Link>
+                </>
+              )}
               </div>
           </div>
         )) 
       ) : (
       <h1>Gathering Data...</h1>
     )}
-    </div>
+    </>
   );
 };
 
