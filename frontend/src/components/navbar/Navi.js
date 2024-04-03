@@ -416,7 +416,7 @@ const ScheduleContent = () => {
               <div className="mb-3 space-y-3">
               <h3 className="font-bold text-xl">Appointments</h3>
               <div className="flex-1 border-t-2 border-gray-200"/>
-              {!patient && !doctor && !admin (
+              {!patient && !doctor && !admin && (
                 <>
                   <Link to="/appointment" className="block text-base hover:underline">
                   <a href="#">
