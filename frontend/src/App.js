@@ -18,10 +18,7 @@ import DoctorHome from './pages/DoctorHome';
 import DoctorLogin from './pages/DoctorLogin';
 import SignupSelector from './pages/SignupSelector';
 import LoginSelector from './pages/LoginSelector';
-import Records from './pages/Records';
-import Invoice from './pages/Invoice';
 import Inventory from './pages/Inventory';
-import Schedule from './pages/Schedule';
 import NotFoundPage from './pages/NotFoundPage';
 import UserSettings from './pages/UserSettings.js'
 import Navi from './components/navbar/Navi';
@@ -48,28 +45,8 @@ function App() {
               <Route path="/signup_selection" element={<SignupSelector />} />
               <Route path="/login_selection" element={<LoginSelector />} />
               <Route
-                path="/records"
-                element={patient || doctor ? <Records /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/invoice"
-                element={
-                  patient || doctor || admin ? <Invoice /> : <Navigate to="/" />
-                }
-              />
-              <Route
                 path="/inventory"
                 element={admin ? <Inventory /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/schedule"
-                element={
-                  patient || doctor || admin ? (
-                    <Schedule />
-                  ) : (
-                    <Navigate to="/" />
-                  )
-                }
               />
               <Route
                 path="/user_settings/:id"
