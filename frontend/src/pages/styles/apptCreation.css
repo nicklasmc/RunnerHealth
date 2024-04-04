@@ -23,6 +23,11 @@
 
 
 .appt-greeting {
+    width: 90%;
+    max-width: fit-content;
+}
+
+.appt-physician { 
     border: solid; 
     border-width: 0px 0px 3px 0px;
     width: 50%;
@@ -30,9 +35,6 @@
     border-color: gray;
 }
 
-.appt-static {
-    font-size: 20px;
-}
 
 .appt-form {
     width: 50%;

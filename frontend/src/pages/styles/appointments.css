@@ -35,14 +35,6 @@
 }
 
 
-.appt-greeting {
-    border: solid; 
-    border-width: 0px 0px 3px 0px;
-    width: 50%;
-    padding: 0px 0px 10px 0px;
-    border-color: gray;
-}
-
 .appt-static {
     font-size: 20px;
 }
