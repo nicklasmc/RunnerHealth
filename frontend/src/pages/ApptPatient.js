@@ -10,6 +10,7 @@ import { format } from "date-fns";
 import axios from "axios";
 import "./styles/apptCreation.css";
 import convertMilitaryToTimeslot from "../utils/convertTime.js";
+import convertClockTime from "../utils/convertClockTime.js";
 
 const ApptPatient = () => {
   const { id } = useParams();
@@ -105,7 +106,9 @@ const ApptPatient = () => {
   return (
     <div>
       <div className="appt-main-container">
-        <h1 className="text-center mb-4 text-4xl font-semibold">My Appointments</h1>
+        <h1 className="text-center mb-4 text-4xl font-semibold">
+          My Appointments
+        </h1>
         <div className="border-t-4">
           {apptList.map((appts, index) => (
             <div
@@ -114,19 +117,38 @@ const ApptPatient = () => {
             >
               <div className="justify-around flex min-w-full my-2">
                 <div className="cell-1 flex-1">
-                  <p>Date Received: {formatDate(appts.createdAt)}</p>
-                  <p>Date Requested: {formatDate(appts.preferredDate)}</p>
-                  <p>Date Requested: {appts.time}</p>
+                  <p>
+                    <span className="font-semibold">Date Received:</span>{" "}
+                    {formatDate(appts.createdAt)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Date Requested:</span>{" "}
+                    {formatDate(appts.preferredDate)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Time Requested:</span>{" "}
+                    {convertClockTime(appts.time)}
+                  </p>
                 </div>
                 <div className="cell-2 flex-1">
-                  <p>Reason: {appts.apptReason} </p>
-                  <p>Provider: {appts.doctor.fname} {appts.doctor.lname}</p>
-                  <Link to={`/appointment/${id}/${appts._id}`}>
-                    View Receipt
-                  </Link>
+                  <p>
+                    <span className="font-semibold">Reason:</span>{" "}
+                    {appts.apptReason}{" "}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Provider:</span>{" "}
+                    {appts.doctor.fname} {appts.doctor.lname}
+                  </p>
+                  <span className="text-runnerblue">
+                    <Link to={`/appointment/${id}/${appts._id}`}>
+                      View Receipt
+                    </Link>
+                  </span>
                 </div>
                 <div className="cell-3 flex-1">
-                  {RenderStatus(appts.status)}
+                  <span className="font-semibold">
+                    {RenderStatus(appts.status)}
+                  </span>
                   {appts.status === "Approved" || appts.status === "Pending" ? (
                     <div>
                       <Button onClick={() => handleOpen(index)}>Cancel</Button>
@@ -161,9 +183,9 @@ const ApptPatient = () => {
                 </div>
               </div>
               <div className="cell-4 border-t-2 border-dotted py-2">
-                <p className = "overflow-scroll">
+                <p className="overflow-scroll font-semibold">
                   Additional Comments:
-                  <span className="text-gray-500 px-3">
+                  <span className="text-gray-500 px-3 font-normal">
                     {appts.apptComments}
                   </span>
                 </p>
