@@ -8,7 +8,6 @@ import "react-day-picker/dist/style.css";
 import Select from "react-select";
 import extractTimes from "../utils/extractTimes";
 
-
 const ApptCreation = () => {
   // -----------------------------------------------
   // Variables
@@ -21,7 +20,7 @@ const ApptCreation = () => {
   const [selectedDate, setSelectedDate] = useState();
   const [visitReason, setVisitReason] = useState(); // needed for react-select
   const [apptTime, setApptTime] = useState();
-  const [existingAppts, setExistingAppts] = useState();
+  // const [existingAppts, setExistingAppts] = useState();
   const [timeOptions, setTimeOptions] = useState([]);
 
   const apptOptions = [
@@ -31,17 +30,6 @@ const ApptCreation = () => {
     { value: "Other", label: "Other (Please explain below)" },
   ];
 
-  // const timeOptions = [
-  //   { value: "900", label: "9:00 AM" },
-  //   { value: "1000", label: "10:00 AM" },
-  //   { value: "1100", label: "11:00 AM" },
-  //   { value: "1200", label: "12:00 PM" },
-  //   { value: "1300", label: "1:00 PM" },
-  //   { value: "1400", label: "2:00 PM" },
-  //   { value: "1500", label: "3:00 PM" },
-  //   { value: "1600", label: "4:00 PM" },
-  // ];
-  // -----------------------------------------------
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
@@ -80,21 +68,14 @@ const ApptCreation = () => {
           `http://localhost:4000/patients/${patient.email}`
         );
         const doctorResponse = await axios.get(
-          `http://localhost:4000/doctors/${id}`
+          `http://localhost:4000/doctors/byId/${id}`
         );
-        const apptDocAppts = await axios.get(
-          `http://localhost:4000/appointments/doctor/${id}`
-        );
-        setExistingAppts(apptDocAppts.data);
+        // const apptDocAppts = await axios.get(
+        //   `http://localhost:4000/appointments/doctor/${id}`
+        // );
         setDoctors(doctorResponse.data);
         setUser(patientResponse.data);
-
-        // grab from the takenDate field, go over all of the via map, store in tempArr
-        // const tempArr = dateResponse.data.map((i) => new Date(i.takenDate));
-        // console.log("Taken dates:", tempArr);
-        // setTakenDates(tempArr);
         setLoading(false);
-        // console.log(dateResponse.data);
       } catch (error) {
         console.log(error);
       }
@@ -103,7 +84,7 @@ const ApptCreation = () => {
     fetchData();
   }, [id, patient.email]);
 
-  const handleTimeChange = (e) => {
+  const handleTimeChange = (e) => {;
     setApptTime(e.value);
   };
 
@@ -115,7 +96,6 @@ const ApptCreation = () => {
         `http://localhost:4000/appointments/getApptsByDate/${selectedDate}/${id}`
       );
       let timeOps = extractTimes(availResponse);
-      console.log("timeops:", timeOps);
       setTimeOptions(timeOps);
     };
     if (selectedDate) { // only do if there is actually a date selected
@@ -134,15 +114,15 @@ const ApptCreation = () => {
         <button onClick={() => navigate(-1)} className="appt-backbtn">
           &#x25c0; Back
         </button>
-        <h1 className="appt-greeting">Schedule Your Appointment</h1>
-        <div className="appt-sub-container">
-          <p className="appt-static">
-            Physician: {doctors.fname} {doctors.lname}
+        <h1 className="appt-greeting font-extrabold text-xl">Schedule Your Appointment</h1>
+        <p className="appt-physician font-extrabold">
+            Physician - {doctors.fname} {doctors.lname}
           </p>
+        <div className="appt-sub-container">
           {/* Speciality not currently a field in actual database, will add later but will not cause errors here */}
           <p className="appt-static">{doctors.speciality}</p>
 
-          <div className="appt-form-wrapper">
+          <div className="appt-form-wrapper mt-2">
             <form className="appt-form" onSubmit={handleSubmit}>
               <div className="appt-form-section-left">
                 <label htmlFor="appt-reason">Reason for Visit:</label>

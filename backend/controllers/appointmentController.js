@@ -33,7 +33,7 @@ const getOneAppointment = async (req, res) => {
     return res.status(404).json({ error: "No such appointmnet" });
   }
   try {
-    const appointment = await Appointment.findById(id);
+    const appointment = await Appointment.findById(id).populate("doctor");
     res.status(200).json(appointment);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -103,7 +103,6 @@ const removeDate = async (req, res) => {
       res.status(200).json({ message: "No appointment found" });
     }
   } catch (error) {
-    console.log("error---->", error);
     res.status(400).json({ message: error.message });
   }
 };

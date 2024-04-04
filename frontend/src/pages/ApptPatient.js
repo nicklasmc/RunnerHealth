@@ -105,7 +105,7 @@ const ApptPatient = () => {
   return (
     <div>
       <div className="appt-main-container">
-        <h1 className="text-center mb-4">My Appointments</h1>
+        <h1 className="text-center mb-4 text-4xl font-semibold">My Appointments</h1>
         <div className="border-t-4">
           {apptList.map((appts, index) => (
             <div
@@ -120,7 +120,7 @@ const ApptPatient = () => {
                 </div>
                 <div className="cell-2 flex-1">
                   <p>Reason: {appts.apptReason} </p>
-                  <p>Provider: {appts.doctor}</p>
+                  <p>Provider: {appts.doctor.fname} {appts.doctor.lname}</p>
                   <Link to={`/appointment/${id}/${appts._id}`}>
                     View Receipt
                   </Link>
@@ -161,11 +161,10 @@ const ApptPatient = () => {
                 </div>
               </div>
               <div className="cell-4 border-t-2 border-dotted py-2">
-                <p>
+                <p className = "overflow-scroll">
                   Additional Comments:
                   <span className="text-gray-500 px-3">
-                    {" "}
-                    {appts.apptComments}{" "}
+                    {appts.apptComments}
                   </span>
                 </p>
               </div>

@@ -3,17 +3,38 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import './styles/apptCreation.css';
 import { Link } from 'react-router-dom';
+import { format } from "date-fns";
+import convertClockTime from "../utils/convertClockTime";
+
 const ApptConfirmation = () => {
   const { id } = useParams();
   const [appt, setApptData] = useState({});
-  console.log(id);
+  const [apptDate, setApptDate] = useState();
+  const [apptTime, setApptTime] = useState();
+  const formatDate = (dateProp) => {
+    console.log(dateProp);
+    try {
+      return format(new Date(dateProp), "MM/dd/yyyy");
+    } catch {
+      console.log("Invalid date/Unable to format");
+      return dateProp;
+    }
+  };
+  
+  
   useEffect(() => {
     const getAppointmentInfo = async () => {
       const res = await axios.get(`http://localhost:4000/appointments/${id}`);
       setApptData(res.data);
+      let formattedDate = formatDate(res.data.preferredDate);
+      let formattedTime = convertClockTime(res.data.time);
+      setApptDate(formattedDate);
+      setApptTime(formattedTime);
     };
     getAppointmentInfo();
   }, [id]);
+
+
 
   return (
     <div>
@@ -42,13 +63,13 @@ const ApptConfirmation = () => {
                 </tbody>  
                 <tbody> 
                   <tr>
-                    <td> {appt.preferredDate}</td>
+                    <td> {apptDate}</td>
                     <td>Email: {appt.patientEmail}</td>
                   </tr>
                 </tbody>
                 <tbody> 
                   <tr>
-                    <td>at {appt.time}</td>
+                    <td>at {apptTime}</td>
                     <td>Phone: {appt.patientPhone} </td>
                   </tr>
                 </tbody>
