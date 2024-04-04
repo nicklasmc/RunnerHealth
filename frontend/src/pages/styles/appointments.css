@@ -295,6 +295,50 @@ th {
     font-weight: bold;
 }
 
+.records-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    padding: 16px 24px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.records-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.appt-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 20px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.appt-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
   @media screen and (max-width: 1250px) {
     .select-content {
         display: grid;

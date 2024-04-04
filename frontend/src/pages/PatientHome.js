@@ -1,10 +1,11 @@
-import { useParams } from "react-router-dom";
+import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Link } from 'react-router-dom';
-import { format } from "date-fns";
+import { format } from 'date-fns';
 import first from './imgs/placeholder.png';
-import { SlArrowRightCircle } from "react-icons/sl";
+import { SlArrowRightCircle } from 'react-icons/sl';
+import { LiaAddressBook } from 'react-icons/lia';
 import '../pages/styles/appointments.css';
 
 const Home = () => {
@@ -43,6 +44,15 @@ const Home = () => {
     }
   };
 
+  const formatReason = (prop) => {
+    if (prop === "Other") {
+      return "Reason for Visit: Other"
+    }  
+    else {
+      return prop;
+    }
+  };
+
   return (
     <div className="home-page flex-auto flex-col min-h-screen">
       <div className="flex flex-col mt-4 items-start h-full w-11/12 bg-white shadow-md">
@@ -64,32 +74,53 @@ const Home = () => {
       </div>
       <div className="flex w-11/12 justify-center pt-5 flex-row gap-6">
 
-        <div className="w-1/4 h-96 shadow-lg border-solid border-b-2 bg-white ">
+        <div className="w-1/4 h-96 shadow-lg border-solid border-2 bg-white ">
           <div className="bg-white sticky top-0">
           <div className="bg-[goldenrod] w-full top-0 p-2"/>
-            <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+          {user.map((user, index) => (
+            <Link to="/">
+              <p className="text-3xl mb-0 p-3 border-solid border-b-2">Records</p>
+            </Link>
+          ))}
+          </div>
+          <div className="flex flex-col justify-center items-center">
+            <p className="text-2xl my-6 p-3">
+              Upload, Store and View your medical records.
+            </p>
+            <Link to="/" className="my-6">
+              <button className="records-button">
+                View Records
+                <LiaAddressBook className=""/>
+              </button>
+            </Link>
           </div>
         </div>
 
-        <div className="w-2/4 h-96 shadow-lg bg-white border-solid border-b-2 overflow-y-scroll">
+        <div className="w-2/4 h-96 shadow-lg bg-white border-solid border-2 overflow-y-scroll">
           <div className="bg-white sticky top-0">
           <div className="bg-[goldenrod] w-full top-0 p-2"/>
-            <p className="text-3xl mb-0 p-3 border-solid border-b-2 ">My Appointments</p>
+            {user.map((user, index) => (
+              <Link to={`/myappointments/${user._id}`}>
+                <p className="text-3xl mb-0 p-3 border-solid border-b-2 ">My Appointments</p>
+              </Link>
+            ))}
           </div>
           <div className="flex flex-col justify-start box-border">
-          {apptList.map((appts, index) => (
+          {apptList.toReversed().map((appts, index) => (
             <div key={index} className="flex min-h-50 border-solid border-b-2 p-4 justify-between items-center text-xl gap-10">
               <div className="flex flex-row items-center">
-                <Link to="/" className="">
-                  <button className="book-button">
+              {user.map((user, index) => (
+                <Link to={`/myappointments/${user._id}`} className="">
+                  <button className="appt-button">
                     View
                     <SlArrowRightCircle className=""/>
                   </button>
                 </Link>
+              ))}
               </div>
                 <div className="flex flex-col justify-center items-center">
-                  <img src={first} alt="placeholder" className="h-14 w-14 rounded-full border-2"/>
-                  <p className="">{appts.doctor.fname} {appts.doctor.lname}</p>
+                  <p className="mb-6">{formatReason(appts.apptReason)}</p>
+                  <p className="">Dr. {appts.doctor.fname} {appts.doctor.lname}</p>
                 </div>
               <div className="flex flex-col">
                 <p className="mb-3">Date of Service: {formatDate(appts.preferredDate)} at {appts.time}</p>
@@ -101,10 +132,14 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="w-1/4 h-96 shadow-lg border-solid border-b-2 bg-white">
+        <div className="w-1/4 h-96 shadow-lg border-solid border-2 bg-white">
           <div className="bg-white sticky top-0">
           <div className="bg-[goldenrod] w-full top-0 p-2"/>
-            <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+          {user.map((user, index) => (
+            <Link to="/">
+              <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+            </Link>
+          ))}
           </div>
         </div>
       </div>

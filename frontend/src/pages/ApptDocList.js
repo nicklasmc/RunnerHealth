@@ -41,6 +41,13 @@ const ApptDocList = () => {
 
   return (
     <div className ="home-page justify-center shrink-0">
+      <div className="home-page flex-auto flex-col min-h-screen">
+      <div className="flex flex-col items-start h-full w-11/12 mt-4 bg-white shadow-md">
+        <div className="bg-[goldenrod] w-full top-0 p-3"/>
+          <p className="flex justify-center items-center text-center flex-wrap text-5xl m-0 px-2">
+            <span className="px-4 ml-10 my-6">Schedule Your Appointment</span>
+          </p>
+      </div>
         <div className="select-content">
           {doctors.map((doctor) => (
             <div key={doctor.email} className="card-wrapper">
@@ -65,6 +72,7 @@ const ApptDocList = () => {
             </div>
           ))}
         </div>
+    </div>
     </div>
   );
 };
