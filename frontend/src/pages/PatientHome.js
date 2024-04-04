@@ -12,12 +12,12 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response1 = await fetch('http://localhost:4000/patients/${patient.email}');
+        const response1 = await fetch(`http://localhost:4000/patients/${patient.email}`);
         const userData = await response1.json()
   
         if (userData) {
           setUser(userData);
-          const response2= await fetch('http://localhost:4000/appointments/patient/${userData[0]._id}');
+          const response2= await fetch(`http://localhost:4000/appointments/patient/${userData[0]._id}`);
           const apptData = await response2.json();
           setApptList(apptData);
         } else {
@@ -63,7 +63,7 @@ const Home = () => {
           <div className="flex-1 border-t-2 border-black"/>
         </div>
         <div className="w-1/3 h-96 shadow-lg bg-white border-black border-solid border-2">
-          <h3 className="font-bold text-2xl mb-0 p-3 ">Recent Appointments</h3>
+          <h3 className="font-bold text-2xl mb-0 p-3 ">My Appointments</h3>
           <div className="flex-1 border-t-2 border-black"/>
           {apptList.map((appts, index) => (
             <div key={index} className="">
