@@ -1,9 +1,7 @@
 const extractTimes = (prop) => {
   // works with timexx format in appDateModel.js
   let tempArr = [];
-    console.log(prop);
   if (prop.data.length > 0) {
-    console.log("prop", prop.data);
     // check 9:00
     if (prop.data[0].time09.length === 0) {
       tempArr.push({ value: "0900", label: "9:00 AM" });
@@ -65,8 +63,6 @@ const extractTimes = (prop) => {
       { value: "1600", label: "4:00 PM" },
     ];
   }
-
-  console.log("returning", tempArr);
   return tempArr;
 };
 

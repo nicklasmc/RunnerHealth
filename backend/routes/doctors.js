@@ -25,7 +25,7 @@ router.post('/doctor_signup', signupDoctor);
 router.get('/', getAllDoctors);
 
 // get a single doctor
-//router.get('/:id', getOneDoctor);
+router.get('/byId/:id', getOneDoctor);
 
 // get a admin from email
 router.get('/:email', getDoctor);
