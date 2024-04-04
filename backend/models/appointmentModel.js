@@ -8,7 +8,8 @@ const appointmentSchema = mongoose.Schema(
             required: true
         },
         patientId: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Patient',
             required: [true, 'Patient Id required'],
         },
         facility: {
@@ -66,6 +67,10 @@ const appointmentSchema = mongoose.Schema(
             required: false,
             default: null,
         }
+        
+    },
+    {
+        timestamps: true,
     }
 
 )

@@ -20,14 +20,13 @@ const Footer = () => {
             <a href="#" className="footy-links">Terms of Service</a>
             <a href="#" className="footy-links">Privacy Policy</a>
             <a href="#" className="footy-links">Documentation</a>
-            <a href="https://github.com/nicklasmc/RunnerHealth" className="footy-links">Source Code</a>
             <a href="/contact_us" className="footy-links">Contact Us</a>
           </nav>
         </div>
         {/* Socials and Copyright */}
         <div className="social-copy flex flex-col md:flex-row justify-between mt-6 ml-6">
           {/* Social icons */}
-          <div className="social-icons flex gap-x-4">
+          <div className="footer-icons flex gap-x-4">
             <a href="#" title="LinkedIn">
               <FaLinkedin className="icon text-2xl" />
             </a>

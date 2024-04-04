@@ -1,15 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: "Heebo";
+  src: local("HeeboLight"),
+    url("./fonts/Heebo-Light.ttf") format("truetype");
+}
 
 html,
 body {
   margin: 0;
   color: black;
-  background-color: #003594;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  background-color: #061237;
+  font-family: "Heebo";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -47,10 +50,18 @@ header .container {
   flex-wrap: wrap;
 }
 
+.home-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  margin: auto;
+  background: #F8F8F8;
+}
+
 .page-contents {
   padding: 0px 0 0px;
   min-height: 100vh;
-  background-color: gainsboro;
+  background-color: #F8F8F8;
 }
 
 .page-links {
@@ -63,11 +74,7 @@ header .container {
   padding: 0 20px;
   color: white;
   text-decoration: none;
-  font-weight: bold;
-}
-
-.link-btn:hover {
-  text-decoration: underline;
+  font-size: 20px;
 }
 
 .logout-btn {
@@ -177,14 +184,37 @@ header .container {
   align-items: center;
 }
 
+.social-links a {
+  color: goldenrod;
+  font-size: 20px;
+}
+
+.social-links a:hover {
+  color: #003594;
+}
+
+.runner-overflow {
+  display: flex;
+  font-family: "Heebo";
+  font-size: 15pt;
+  padding: 10px;
+  width: 100%; 
+}
+
 .runner-what,
 .runner-mission,
 .runner-team,
 .runner-service,
 .runner-review {
   display: flex;
-  padding: 100px 25px;
+  padding: 80px 25px;
   min-height: 50vh;
+}
+
+.runner-what {
+  background-color: #e6e7e8;
+  color: #001a70;
+  font-weight: bold;
 }
 
 .runner-what-l {
@@ -228,7 +258,6 @@ header .container {
 
 .runner-team-box {
   display: flex;
-  flex-wrap: wrap;
   justify-content: space-around;
 }
 
@@ -394,14 +423,12 @@ header .container {
 .footy-links {
   color: white;
   text-decoration: none;
-  margin-right: 20px;
   margin-top: 30px;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .footy-links:hover {
-  color: #4f4f4f;
-  text-decoration: underline;
+  color: goldenrod;
 }
 
 /* Social icons */
@@ -411,7 +438,16 @@ header .container {
 }
 
 .social-icons a:hover {
-  color: #4f4f4f;
+  color: #003594;
+}
+
+.footer-icons a {
+  color: goldenrod;
+  font-size: 24px;
+}
+
+.footer-icons a:hover {
+  color: white;
 }
 
 .footy-copyright {

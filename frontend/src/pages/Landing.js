@@ -57,7 +57,7 @@ function Landing() {
         <div className="runner-what container-fluid">
           <div className="runner-what-l">
             <h1 className="subsec-title">Runner Health</h1>
-            <p>
+            <p className="runner-overflow">
               Runner Health is a hospital management application that uses
               electronic health records (EHR) to help transition medical
               facilities into a digital cloud-based system for healthcare. There
@@ -93,13 +93,21 @@ function Landing() {
             <p className="runner-mission-statement">
               Runner Health is committed to assisting healthcare providers in
               the transition from paper-based records to electronic health
-              record systems.
+              record systems. We understand the importance of securely managing
+              your confidential information with care and haste. The team at 
+              Runner Health is not only trying to preserve your health records
+              for your use, but also trying to create an easy to understand
+              environment for your health providers. Accessing your health
+              records does not have to be hard, and that is why bringing the 
+              most accessible EHR service is our team's biggest 
+              driving force in our quest to advance the medical industry to 
+              the digital age.
             </p>
           </div>
         </div>
         <div className="runner-team container-fluid">
           <h1 className="subsec-title">Team Members</h1>
-          <div className="runner-team-box">
+          <div className="runner-team-box container-fluid">
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={seven} />
               <Card.Body>
@@ -146,7 +154,7 @@ function Landing() {
                     </Card.Title>
                   </ListGroup.Item>
                   <ListGroup.Item>Computer Science B.S.</ListGroup.Item>
-                  <ListGroup.Item>Full Stack Development</ListGroup.Item>
+                  <ListGroup.Item>Back-end Development</ListGroup.Item>
                   <ListGroup.Item className="">
                     <div className="social-links flex items-center gap-2">
                       <a
@@ -214,7 +222,7 @@ function Landing() {
                       Daniel Rivera
                     </Card.Title>
                   </ListGroup.Item>
-                  <ListGroup.Item>~Your Degree Here~</ListGroup.Item>
+                  <ListGroup.Item>Computer Science B.S. </ListGroup.Item>
                   <ListGroup.Item>Front-end Development</ListGroup.Item>
                   <ListGroup.Item>                    
                     <div className="flex items-center gap-2 social-links">

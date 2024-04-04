@@ -1,8 +1,3 @@
-.appointments-page {
-    min-height: 100vh;
-    background: linear-gradient(whitesmoke, rgb(170, 170, 170));
-}
-
 .appt-main-container {
     width: 95%;         
     margin: 90px auto;     
@@ -12,6 +7,14 @@
     background-color: white;
     height: 100vh; 
 }
+
+.appt-main-container .appt-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}   
 
 #appt-comments {
     margin-top: 10px;
@@ -24,20 +27,13 @@
     padding: 10px;
     font-weight: bold;
     text-align: left;
+    width: 10%;
 }
 
 .appt-subtext {
     font-size: 20px;
 }
 
-
-.appt-greeting {
-    border: solid; 
-    border-width: 0px 0px 3px 0px;
-    width: 50%;
-    padding: 0px 0px 10px 0px;
-    border-color: gray;
-}
 
 .appt-static {
     font-size: 20px;
@@ -72,3 +68,289 @@ textarea {
     resize: none;
 }
 
+/* appointment confirmation */
+.confirm-appt-msg {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+.notice{
+    padding: 30px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.confirm-title {
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.5rem;
+    color: goldenrod;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 2px solid #ccc;
+    padding-top: 25px;
+}
+
+.confirm-appt-msg-cont{
+    display: inline;
+    justify-content: center;
+    font-size: 15pt;
+    text-align: left;
+    max-width: 525px;
+    padding-bottom: 25px;
+}
+
+.confirm-appt-msg-notice {
+    padding-top: 30px;
+}
+
+.confirm-appt-msg-notice em {
+    color: red;
+    font-style: normal;
+    padding-top: 10px;
+}   
+
+.confirm-appt-table {
+    padding: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 750px;
+    font-size: 15pt;
+    border: 1px solid #000;
+    border-collapse: collapse;
+}
+   
+th {
+    text-align: left;
+}
+
+.confirm-appt-table, th, td {
+    padding: 5px;
+}
+    
+.appt-main-container-btn {
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #003594;
+    text-align: center;
+}
+
+.appt-main-container-btn:hover {
+    background-color: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+
+.submit-button {
+    color: #FFF;
+    background-color: #003594;
+    border-color: #003594;
+    padding: 4px 20px 4px 20px;
+    display: inline-block;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+    font-weight: bold;
+    border-radius: 0.75rem; /* 12px */
+}
+
+.submit-button:hover{
+    background-color: goldenrod;
+    color: #003594;
+}
+
+.appointments-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #F8F8F8;
+}
+
+.select-container {
+    height: auto;
+}
+
+.select-content {
+    height: auto;
+    padding: 45px 20px;
+    margin: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 100px;
+}
+
+.card-wrapper {
+    
+}
+
+.card {
+    width: 500px;
+    border-radius: 25px;
+    background-color: #FFF;
+    border: 2px solid goldenrod;
+}
+
+.image-content,
+.card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.image-content {
+    position: relative;
+    row-gap: 5px;
+    padding: 25px 0;
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #003594;
+    border-radius: 25px 25px 0 25px;
+}
+
+.overlay::before,
+.overlay::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -40px;
+    height: 40px;
+    width: 40px;
+    background-color: #003594;
+}
+
+.overlay::after {
+    border-radius: 0 25px 0 0;
+    background-color: #FFF;
+}
+
+.card-image {
+    position: relative;
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    background: #FFF;
+    padding: 3px;
+}
+
+.card-image .card-img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid goldenrod;
+}
+
+.name {
+    font-size: 18px;
+    font-weight: bolder;
+    color: #333;
+}
+
+.description {
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+}
+
+.book-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.book-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.records-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    padding: 16px 24px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.records-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.appt-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 20px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.appt-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+  @media screen and (max-width: 1250px) {
+    .select-content {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 60px;
+    }
+  }
+
+@media screen and (max-width: 800px) { 
+    .select-content {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+        gap: 35px;
+    }
+    
+}

@@ -74,8 +74,22 @@ const DoctorLogin = () => {
           </p>
         </div>
       </div>
-      <button onClick={handlePresetLogin}>
-        Preset Login
+      <div className="switch-section-container mt-2">
+        <div className="switch-section">
+          <p>
+            Not a Doctor?{' '}Login as{' '}
+            <Link to="/patient_login" className="switch-link">
+              Patient
+            </Link>
+            {' '} or {' '}
+            <Link to="/admin_login" className="switch-link">
+              Admin
+            </Link>
+          </p>
+        </div>
+      </div>
+      <button onClick={handlePresetLogin} className="mt-2">
+        Test Login
       </button>
     </div>
   );

@@ -8,7 +8,6 @@
     overflow:auto;
     display: flex;
     flex-direction: column;
-
 }
 
 .appt-cells {
@@ -18,21 +17,20 @@
 }
 
 .appt-cell-one {
-    margin: 10px;
+    margin: 16px;
     min-width: 400px;
     /* border-right: 1px solid gray; */
 }
 
 .appt-cell-two {
-    margin: 10px;
-    min-width: 400px;
+    margin: 16px;
+    min-width: 300px;
     /* border-right: 1px solid gray; */
 }
 
 .appt-cell-three {
-    margin: 10px;
-    padding: 10px;
-    min-width: 400px;
+    padding: 16px;
+    min-width: 300px;
     /* border-right: 1px solid gray; */
     word-break: break-word;
     flex-basis: 0;
@@ -41,9 +39,8 @@
 }
 
 .appt-cell-four {
-    margin: 10px;
-    padding: 10px;
-    min-width: 400px;
+    padding: 16px;
+    min-width: 300px;
     /* border-right: 1px solid gray; */
     word-break: break-word;
     flex-basis: 0;
@@ -53,7 +50,7 @@
 }
 
 .appt-cell-five {
-    min-width: 400px;
+    min-width: 300px;
     /* border-right: 1px solid gray; */
     word-break: break-word;
     flex-basis: 0;
@@ -71,9 +68,10 @@
 }
 
 .appt-update-btn {
-    background-color: black;
+    background-color: white;
     border-radius: 5px;
-    color:white;
+    border: 1px solid black;
+    color:black;
     padding: 10px;
     font-size:15px;
     height: 50%;
@@ -103,7 +101,7 @@
 }
 
 .appt-edit-subcontainer {
-    min-width: 400px;
+    min-width: 300px;
 }
 
 .inputLabel {
@@ -116,4 +114,17 @@
     width: 150px;
     height: 30px;
     
+}
+
+.datePicker {
+    font-size: 15px;
+    max-height: 30px;
+}
+
+.customDatePickerWidth, 
+.customDatePickerWidth > div.react-datepicker-wrapper, 
+.customDatePickerWidth > div > div.react-datepicker__input-container
+.customDatePickerWidth > div > div.react-datepicker__input-container input {
+   width: 90%;
+   
 }

@@ -89,6 +89,20 @@ const Signup = () => {
           </p>
         </div>
       </div>
+      <div className="switch-section-container mt-2">
+        <div className="switch-section">
+          <p>
+            Not an Admin?{' '}Signup as{' '}
+            <Link to="/patient_signup" className="switch-link">
+              Patient
+            </Link>
+            {' '} or {' '}
+            <Link to="/doctor_signup" className="switch-link">
+              Doctor
+            </Link>
+          </p>
+        </div>
+      </div>
     </div>
   );
 };
