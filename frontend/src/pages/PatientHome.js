@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Link } from 'react-router-dom';
 import { format } from "date-fns";
+import first from './imgs/placeholder.png';
+import { SlArrowRightCircle } from "react-icons/sl";
+import '../pages/styles/appointments.css';
 
 const Home = () => {
   const [apptList, setApptList] = useState([]); // represents ALL appts
@@ -41,13 +44,15 @@ const Home = () => {
   };
 
   return (
-    <div className="home-page flex flex-col min-h-screen gap-8">
-      <div>
-        <h2 className="flex flex-wrap h-1/2 text-6xl">
+    <div className="home-page flex-auto flex-col min-h-screen">
+      <div className="flex flex-col mt-4 items-start h-full w-11/12 bg-white shadow-md">
+        <div className="bg-[goldenrod] w-full top-0 p-2"/>
+        <h2 className="flex justify-center items-center text-center flex-wrap text-5xl m-0 px-2">
+        <span className="px-4 my-2"><img src={first} alt="placeholder" className="h-40 w-40 rounded-full border-2"/></span>
           Welcome, &nbsp;
           {user ? (
             user.map((user, index) => (
-              <div key={index} className="uname">
+              <div key={index} className="flex justify-center items-center text-center">
                 <span>{user.fname}</span>&nbsp;
                 <span>{user.lname}</span>!
               </div>
@@ -57,23 +62,50 @@ const Home = () => {
           )}
         </h2>
       </div>
-      <div className="flex w-full p-5 flex-row gap-6">
-        <div className="w-1/3 h-96 shadow-lg bg-white border-black border-solid border-2">
-          <h3 className="font-bold text-2xl mb-0 p-3 ">Invoice</h3>
-          <div className="flex-1 border-t-2 border-black"/>
+      <div className="flex w-11/12 justify-center pt-5 flex-row gap-6">
+
+        <div className="w-1/4 h-96 shadow-lg border-solid border-b-2 bg-white ">
+          <div className="bg-white sticky top-0">
+          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+            <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+          </div>
         </div>
-        <div className="w-1/3 h-96 shadow-lg bg-white border-black border-solid border-2">
-          <h3 className="font-bold text-2xl mb-0 p-3 ">My Appointments</h3>
-          <div className="flex-1 border-t-2 border-black"/>
+
+        <div className="w-2/4 h-96 shadow-lg bg-white border-solid border-b-2 overflow-y-scroll">
+          <div className="bg-white sticky top-0">
+          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+            <p className="text-3xl mb-0 p-3 border-solid border-b-2 ">My Appointments</p>
+          </div>
+          <div className="flex flex-col justify-start box-border">
           {apptList.map((appts, index) => (
-            <div key={index} className="">
-              <p>Provider: {appts.doctor}</p>
+            <div key={index} className="flex min-h-50 border-solid border-b-2 p-4 justify-between items-center text-xl gap-10">
+              <div className="flex flex-row items-center">
+                <Link to="/" className="">
+                  <button className="book-button">
+                    View
+                    <SlArrowRightCircle className=""/>
+                  </button>
+                </Link>
+              </div>
+                <div className="flex flex-col justify-center items-center">
+                  <img src={first} alt="placeholder" className="h-14 w-14 rounded-full border-2"/>
+                  <p className="">{appts.doctor.fname} {appts.doctor.lname}</p>
+                </div>
+              <div className="flex flex-col">
+                <p className="mb-3">Date of Service: {formatDate(appts.preferredDate)} at {appts.time}</p>
+                <div className="flex-1 border-t-2 border-gray-200"/>
+                <p className="mt-3">Facility: {appts.doctor.facility[0]}</p>
+              </div>
             </div>
           ))}
+          </div>
         </div>
-        <div className="w-1/3 h-96 shadow-lg bg-white border-black border-solid border-2">
-          <h3 className="font-bold text-2xl mb-0 p-3 ">Invoice</h3>
-          <div className="flex-1 border-t-2 border-black"/>
+
+        <div className="w-1/4 h-96 shadow-lg border-solid border-b-2 bg-white">
+          <div className="bg-white sticky top-0">
+          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+            <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+          </div>
         </div>
       </div>
     </div>

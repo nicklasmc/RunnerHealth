@@ -177,7 +177,7 @@ th {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(whitesmoke, rgb(170, 170, 170));
+    background: #F8F8F8;
 }
 
 .select-container {

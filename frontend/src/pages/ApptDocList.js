@@ -40,7 +40,7 @@ const ApptDocList = () => {
   }, []);
 
   return (
-    <div className ="appointments-page shrink-0">
+    <div className ="home-page justify-center shrink-0">
         <div className="select-content">
           {doctors.map((doctor) => (
             <div key={doctor.email} className="card-wrapper">

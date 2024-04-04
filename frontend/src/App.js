@@ -16,8 +16,6 @@ import AdminLogin from './pages/AdminLogin';
 import DoctorSignup from './pages/DoctorSignup';
 import DoctorHome from './pages/DoctorHome';
 import DoctorLogin from './pages/DoctorLogin';
-import SignupSelector from './pages/SignupSelector';
-import LoginSelector from './pages/LoginSelector';
 import Inventory from './pages/Inventory';
 import NotFoundPage from './pages/NotFoundPage';
 import UserSettings from './pages/UserSettings.js'
@@ -42,8 +40,6 @@ function App() {
           <div className="pages">
             <Routes>
               <Route path="/" element={<Landing />} />
-              <Route path="/signup_selection" element={<SignupSelector />} />
-              <Route path="/login_selection" element={<LoginSelector />} />
               <Route
                 path="/inventory"
                 element={admin ? <Inventory /> : <Navigate to="/" />}

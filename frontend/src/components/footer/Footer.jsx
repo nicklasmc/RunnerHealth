@@ -26,7 +26,7 @@ const Footer = () => {
         {/* Socials and Copyright */}
         <div className="social-copy flex flex-col md:flex-row justify-between mt-6 ml-6">
           {/* Social icons */}
-          <div className="social-icons flex gap-x-4">
+          <div className="footer-icons flex gap-x-4">
             <a href="#" title="LinkedIn">
               <FaLinkedin className="icon text-2xl" />
             </a>

@@ -54,14 +54,14 @@ header .container {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  justify-content: center;
-  background: linear-gradient(whitesmoke, rgb(170, 170, 170));
+  margin: auto;
+  background: #F8F8F8;
 }
 
 .page-contents {
   padding: 0px 0 0px;
   min-height: 100vh;
-  background-color: gainsboro;
+  background-color: #F8F8F8;
 }
 
 .page-links {
@@ -426,12 +426,11 @@ header .container {
   color: white;
   text-decoration: none;
   margin-top: 30px;
-  font-size: 15px;
+  font-size: 17px;
 }
 
 .footy-links:hover {
-  color: #4f4f4f;
-  text-decoration: underline;
+  color: goldenrod;
 }
 
 /* Social icons */
@@ -442,6 +441,15 @@ header .container {
 
 .social-icons a:hover {
   color: #003594;
+}
+
+.footer-icons a {
+  color: goldenrod;
+  font-size: 24px;
+}
+
+.footer-icons a:hover {
+  color: white;
 }
 
 .footy-copyright {

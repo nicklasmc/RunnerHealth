@@ -79,12 +79,16 @@ const Signup = () => {
           {error && <div className="error">{error}</div>}
         </form>
       </div>
-      <div className="switch-section-container">
+      <div className="switch-section-container mt-2">
         <div className="switch-section">
           <p>
-            Already have an account?{' '}
-            <Link to="/doctor_login" className="switch-link">
-              Log in
+            Not a Doctor?{' '}Signup as{' '}
+            <Link to="/patient_signup" className="switch-link">
+              Patient
+            </Link>
+            {' '} or {' '}
+            <Link to="/admin_signup" className="switch-link">
+              Admin
             </Link>
           </p>
         </div>
