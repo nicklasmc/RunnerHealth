@@ -47,7 +47,7 @@ const getPatientAppointment = async (req, res) => {
     return res.status(404).json({ error: "Patient does not exist" });
   }
   try {
-    const appointment = await Appointment.find({ patientId: id });
+    const appointment = await Appointment.find({ patientId: id }).populate("doctor");
     res.status(200).json(appointment);
   } catch (error) {
     res.status(400).json({ message: error.message });
