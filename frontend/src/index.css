@@ -38,7 +38,14 @@ header .container {
 
 .navbar {
   border-bottom: rgb(141, 141, 141) solid 1px;
-  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.25);
+  justify-content: center;
+}
+
+.topnav-contents {
+  width: 100%;
+  padding: 0%;
+  margin: 0%;
 }
 
 .banner {
@@ -48,14 +55,6 @@ header .container {
 .welcome {
   display: flex;
   flex-wrap: wrap;
-}
-
-.home-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  margin: auto;
-  background: #F8F8F8;
 }
 
 .page-contents {
@@ -405,7 +404,38 @@ header .container {
   padding-top: 20px;
   padding-bottom: 20px;
   border-top: rgb(141, 141, 141) solid 1px;
-  box-shadow: 0 -5px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 -5px 6px rgba(0,0,0,0.25);
+  display: flex;
+  flex-direction: row;
+}
+
+.footy-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 20px;
+  margin-right: 20px;
+  padding-left: 100px;
+  padding-right: 100px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  row-gap: 1.5rem; /* 24px */
+  width: 100%;
+}
+
+.social-copy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  margin-left: 1.5rem;
+  width: 100%;
 }
 
 /* Footer contents */
@@ -423,7 +453,6 @@ header .container {
 .footy-links {
   color: white;
   text-decoration: none;
-  margin-top: 30px;
   font-size: 17px;
 }
 
@@ -588,7 +617,7 @@ header .container {
   }
 
   .footy-container {
-    align-items: center;
+    align-items: flex-start;
   }
 
   .footy-contents {
@@ -597,6 +626,10 @@ header .container {
     justify-content: center;
     align-items: center;
     text-align: center;
+  }
+
+  .logo-text {
+    flex-direction: column;
   }
 
   .footy-links {
@@ -618,6 +651,10 @@ header .container {
     padding-bottom: 60px;
   }
 
+  .footy-nav {
+    flex-direction: column;
+  }
+  
   .footy-copyright {
     margin-top: 20px;
   }
@@ -628,6 +665,7 @@ header .container {
 
   .social-copy {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
@@ -727,6 +765,8 @@ header .container {
     font-size: 25pt;
     text-align: center;
   }
+
+
 }
 
 @media screen and (max-width: 1250px) {
@@ -735,6 +775,15 @@ header .container {
     margin: 50px;
     font-size: 15pt;
   }
+
+  .footy-container {
+    margin-left: 10px;
+    margin-right: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  
 }
 
 @media screen and (max-width: 1000px) {
@@ -742,5 +791,16 @@ header .container {
     min-height: 50px;
     margin: 30px;
     font-size: 15pt;
+  }
+
+  .logo-text {
+    row-gap: 1.5rem;
+  }
+
+  .footy-container {
+    margin-left: 5px;
+    margin-right: 5px;
+    padding-left: 25px;
+    padding-right: 25px;
   }
 }

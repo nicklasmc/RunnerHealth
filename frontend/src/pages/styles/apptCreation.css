@@ -1,14 +1,22 @@
-.appt-main-container {
+.creation-main-container {
     width: 95%;         
-    margin: 90px auto;     
+    margin: 25px auto;     
     box-sizing: border-box; 
     padding: 30px;     
     border-radius: 10px; 
     background-color: white;
-    height: 80vh; 
+    height: 95%; 
+    display: flex;
+    flex-direction: column;
 }
 
-.appt-backbtn {
+.creation-sub-container {
+    width: 100%;
+    display: flex; 
+    flex-direction: row;
+}
+
+.creation-backbtn {
     background: none;
     border:none;
     padding:0;
@@ -17,17 +25,17 @@
     text-align: left;
 }
 
-.appt-subtext {
+.creation-subtext {
     font-size: 20px;
 }
 
 
-.appt-greeting {
+.creation-greeting {
     width: 90%;
     max-width: fit-content;
 }
 
-.appt-physician { 
+.creation-physician { 
     border: solid; 
     border-width: 0px 0px 3px 0px;
     width: 50%;
@@ -35,26 +43,50 @@
     border-color: gray;
 }
 
-
-.appt-form {
-    width: 50%;
-}
-
-.appt-disabled {
+.creation-disabled {
     background-color: #e0e0e0;
 }
 
 #languagePreference {
-    margin-left: 10px;
     padding: 2px;
     border-radius: 10px;
 }
 
-.appt-form {
-    display: grid;
+#creation-reason {
+    margin-bottom: 16px;
+}
+
+.creation-form {
+    display: flex;
+    flex-direction: row;
     width: 100%;
-    grid-template-columns: 1fr 2fr 2fr;
+    height: 100%;
     gap: 60px;
+}
+
+.creation-form-section-left-half {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    gap: 40px;
+}
+
+.creation-form-section-left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}   
+
+.creation-form-section-middle {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.creation-form-section-right {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
 }
 
 textarea {
@@ -63,5 +95,153 @@ textarea {
     background-color: #f8f8f8;
     font-size: 16px;
     resize: none;
+}
+
+.creation-button {
+    color: #FFF;
+    background-color: #003594;
+    border-color: #003594;
+    padding: 4px 20px 4px 20px;
+    display: inline-block;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+    font-weight: bold;
+    border-radius: 0.75rem; /* 12px */
+}
+
+.creation-button:hover{
+    background-color: goldenrod;
+    color: #003594;
+}
+
+@media screen and (max-width: 1250px) {
+    .creation-form {
+        gap: 0%;
+    }
+
+    .creation-form-section-left-half {
+        flex-direction: column;
+        width: 100%;
+        gap: 0%;
+    }
+
+    .creation-form-section-left {
+        width: 80%;
+    }
+
+    .creation-form-section-middle {
+        width: 80%;
+    }
+
+    .creation-form-section-right {
+        width: 100%;
+    }
+}
+    
+@media screen and (max-width: 800px) { 
+    .creation-main-container {
+        width: 100%;
+        height: 100%;
+    }
+
+    .creation-greeting {
+        justify-content: center;
+        align-items: center;
+    }
+
+    .creation-form {
+        gap: 0%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .creation-form-section-left {
+
+    }
+
+    .creation-form-section-middle-header {
+        margin-bottom: 10px;
+    }
+
+    #creation-reason {
+        margin-bottom: 8px;
+    }
+
+    #creation-comments {
+        width: 100%;
+    }
+
+    .creation-form-section-right {
+        margin-bottom: 16px;
+    }
+
+    .creation-form-right-header {
+        margin-top: 24px;
+    }
+
+    .creation-form-date-picker {
+        margin-bottom: 16px;
+    }
+
+    .creation-time-header {
+        margin-bottom: 10px;
+    }
+
+    .creation-sub-container {
+        display: flex; 
+        flex-direction: column;
+    }
+
+    .creation-button {
+        padding: 8px 40px 8px 40px;
+    }
+    
+    .creation-button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 16px;
+        margin-bottom: 16px;
+    }
+
+    .creation-form-right-note {
+        margin-top: 16px;
+    }
+}
+
+@media screen and (max-width: 610px) {
+    .creation-main-container {
+        width: 100%;
+        height: 100%;
+        margin: 10px auto;   
+    }
+
+    .creation-form {
+        gap: 0%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .creation-sub-container {
+        display: flex; 
+        flex-direction: column;
+    }
+
+    .creation-form-right-note {
+        margin-top: 16px;
+    }
+
+    .creation-physician {
+        width: 100%;
+        margin-top: 4px;
+    }
+
+    .creation-backbtn {
+        margin: 0%;
+        display: flex;
+        justify-content: flex-start;
+        padding: 10px 10px 10px 0px
+    }
+
+
 }
 

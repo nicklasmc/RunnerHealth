@@ -1,14 +1,13 @@
 .settings-main-container {
     width: 95%;         
-    margin: 90px auto;     
+    margin: 25px auto;     
     box-sizing: border-box; 
     padding: 30px;     
     border-radius: 10px; 
     background-color: white;
-    overflow:auto;
+    height: 95%; 
     display: flex;
     flex-direction: column;
-    height: 80vh;
 }
 
 .top-row { 
@@ -17,4 +16,100 @@
 
 .select-label {
 
+}
+
+.update-settings-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    padding: 8px 24px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.update-settings-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.settings-1 {
+    display: flex;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+    gap: 4.0rem;
+}
+.settings-2 {
+    display: flex;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+    gap: 4.0rem;
+}
+.settings-3 {
+    display: flex;
+    padding-left: 1.0rem;
+    padding-right: 1.0rem;
+    gap: 4.0rem;
+}
+
+.settings-1-section-2 {
+    display: flex;  
+}
+
+.settings-dob {
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-items: center;
+}
+
+.settings-dob-input {
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+}
+
+
+@media screen and (max-width: 800px) { 
+    .settings-main-container {
+        width:100%;
+        height: 100%;
+    }
+    .settings-1 {
+        display: flex;
+        flex-direction: column;
+        padding: 0%;
+        gap: 2.0rem;
+    }
+    .settings-2 {
+        display: flex;
+        flex-direction: column;
+        padding: 0%;
+        gap: 2.0rem;
+    }
+    .settings-3 {
+        display: flex;
+        flex-direction: column;
+        padding: 0%;
+        gap: 2.0rem;
+    }
+
+    .settings-1-section-2 {
+        flex-direction: column;
+    }
+
+    .settings-dob {
+    }
+
+    .settings-dob-input {
+        margin-left: 0%;
+        margin-right: 0%;
+    }
+    
 }

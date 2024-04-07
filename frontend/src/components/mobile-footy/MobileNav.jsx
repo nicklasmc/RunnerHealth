@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { UseLogout } from '../../hooks/useLogout.js';
 import { UseAdminLogout } from '../../hooks/useAdminLogout';
@@ -19,6 +20,30 @@ const MNavi = () => {
   const { adminLogout } = UseAdminLogout();
   const { doctorLogout } = UseDoctorLogout();
   const { patient, doctor, admin } = useAuthContext();
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      let response = null;
+      if (patient) {
+        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
+      if (response) {
+        const data = await response.json();
+        setUser(data);
+      }
+      else {
+        setUser(null);
+      }
+    };
+    getUserInfo();
+  }, [patient, doctor, admin]);
 
   const handleClick = () => {
     logout();
@@ -43,12 +68,13 @@ const MNavi = () => {
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
+            {user && user.map((user, index) => (
+            <>
             <DropdownButton
               drop={'up'}
               title=<FaUserCircle className="bttm-link-btn profile-options-btn" />
               variant="dark"
-              className="dd-profile-btn"
-            >
+              className="dd-profile-btn">
               <Dropdown.Item eventKey="4">
                 <Button
                   onClick={handleClick}
@@ -59,88 +85,17 @@ const MNavi = () => {
                 </Button>
               </Dropdown.Item>
               <Dropdown.Divider />
-              <Dropdown.Item eventKey="1">Edit Profile</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
-              <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
+                <Dropdown.Item eventKey="1">
+                  <Link to={`/user_settings/${user._id}`}>
+                    Profile Settings
+                  </Link>
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
             </DropdownButton>
+            </>
+            ))}
           </div>
-          <Link to="/schedule" className="bttm-link-btn">
-            <BsCalendar2DateFill />
-          </Link>
-          <Link to="/invoice" className="bttm-link-btn">
-            <FaFileInvoiceDollar />
-          </Link>
-        </>
-      )}
-      {admin && (
-        <>
-          <Link to="/admin_home" className="bttm-link-btn">
-            <IoIosHome />
-          </Link>
-          <Link to="/inventory" className="bttm-link-btn">
-            <MdInventory />
-          </Link>
-          <div className="bttm-link-btn">
-            <DropdownButton
-              drop={'up'}
-              title=<FaUserCircle className="bttm-link-btn profile-options-btn" />
-              variant="dark"
-              className="dd-profile-btn"
-            >
-              <Dropdown.Item eventKey="4">
-                <Button
-                  onClick={handleAdminClick}
-                  className="btn mnav-logout-btn"
-                  variant="secondary"
-                >
-                  LOGOUT
-                </Button>
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="1">Edit Profile</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
-              <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
-            </DropdownButton>
-          </div>
-          <Link to="/schedule" className="bttm-link-btn">
-            <BsCalendar2DateFill />
-          </Link>
-          <Link to="/invoice" className="bttm-link-btn">
-            <FaFileInvoiceDollar />
-          </Link>
-        </>
-      )}
-      {doctor && (
-        <>
-          <Link to="/doctor_home" className="bttm-link-btn">
-            <IoIosHome />
-          </Link>
-          <Link to="/records" className="bttm-link-btn">
-            <IoDocumentText />
-          </Link>
-          <div className="bttm-link-btn">
-            <DropdownButton
-              drop={'up'}
-              title=<FaUserCircle className="bttm-link-btn profile-options-btn" />
-              variant="dark"
-              className="dd-profile-btn"
-            >
-              <Dropdown.Item eventKey="4">
-                <Button
-                  onClick={handleDoctorClick}
-                  className="btn mnav-logout-btn"
-                  variant="secondary"
-                >
-                  LOGOUT
-                </Button>
-              </Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="1">Edit Profile</Dropdown.Item>
-              <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
-              <Dropdown.Item eventKey="3">Settings</Dropdown.Item>
-            </DropdownButton>
-          </div>
-          <Link to="/schedule" className="bttm-link-btn">
+          <Link to="/appointment" className="bttm-link-btn">
             <BsCalendar2DateFill />
           </Link>
           <Link to="/invoice" className="bttm-link-btn">
@@ -150,10 +105,10 @@ const MNavi = () => {
       )}
       {!patient && !doctor && !admin && (
         <div className="bott-navi">
-          <Link className="bttm-link-btn mnav-login" to="/login_selection">
+          <Link className="bttm-link-btn mnav-login" to="/patient_login">
             LOGIN
           </Link>
-          <Link className="bttm-link-btn mnav-join" to="/signup_selection">
+          <Link className="bttm-link-btn mnav-join" to="/patient_signup">
             JOIN
           </Link>
         </div>
