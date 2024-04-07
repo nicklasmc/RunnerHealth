@@ -77,8 +77,8 @@ const UserSettings = () => {
 
             </div>
             {/* first row content - contact details */}
-            <h1 className="py-4 mt-3 text-2xl font-semibold">Identification</h1>
-            <div className="flex px-4">
+            <h1 className="py-4 text-2xl font-semibold">Identification</h1>
+            <div className="settings-1">
               <div className="flex-col min-w-33%">
                 <div className="flex">
                   <label
@@ -115,23 +115,23 @@ const UserSettings = () => {
               </div>
 
               <div className="flex-col min-w-33%">
-                <div className="flex min-h-50%">
-                  <div className="flex-shrink-0 my-auto">
+                <div className="settings-1-section-2">
+                  <div className="settings-dob">
                     <label
                       htmlFor="fname"
-                      className="flex-shrink-0 text-md min-w-50"
+                      className="items-center justify-center text-md min-w-50"
                     >
                       DoB
                     </label>
-                  </div>
-                  <input
+                    <input
                     type="text"
                     id="patient-last-name"
                     name="lname"
                     value="hi"
                     disabled
-                    className="disabled-input mx-3"
-                  />
+                    className="settings-dob-input disabled-input"
+                    />
+                  </div>
                   <p className = "text-sm text-red-500">Contact your provider's office to update your DoB</p>
                 </div>
                 
@@ -155,8 +155,8 @@ const UserSettings = () => {
             </div>
 
             {/* Second Row - Contact Information */}
-            <h1 className="py-4 mt-3 text-2xl font-semibold">Contact Information</h1>
-            <div className="flex px-4">
+            <h1 className="py-4 text-2xl font-semibold">Contact Information</h1>
+            <div className="settings-2">
               <div className="flex-col min-w-33%">
                 <div className="flex">
                   <label
@@ -234,8 +234,8 @@ const UserSettings = () => {
             </div>
 
              {/* Third Row - Additional Information */}
-             <h1 className="py-4 mt-3 text-2xl font-semibold">Additional Information</h1>
-            <div className="flex px-4">
+             <h1 className="py-4 text-2xl font-semibold">Additional Information</h1>
+            <div className="settings-3">
               <div className="flex-col min-w-33%">
                 <div className="flex">
                   <label
@@ -255,7 +255,7 @@ const UserSettings = () => {
                 </div>
 
               </div>
-              <button className="min-w-150 text-2xl underline underline-offset-3 ml-40">
+              <button className="update-settings-button">
                 Update
               </button>
             </div>
