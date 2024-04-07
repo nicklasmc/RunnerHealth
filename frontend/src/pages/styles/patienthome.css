@@ -1,0 +1,335 @@
+.home-page {
+    background-color: #F8F8F8;
+    margin: auto;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    align-items: flex-start;
+    height: 100%;
+    width: 91.666667%;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.top-bar {
+    background-color: goldenrod;
+    width: 100%;
+    top: 0%;
+    padding: 0.5rem; /* 8px */;
+}
+
+.header-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    font-size: 3rem; /* 48px */
+    line-height: 1;
+    margin: 0%;
+    padding-left: 0.5rem; /* 8px */
+    padding-right: 0.5rem; /* 8px */
+}
+
+.header-image-span {
+    padding-left: 1rem; /* 16px */
+    padding-right: 1rem; /* 16px */
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.header-image {
+    height: 10rem;
+    width: 10rem;
+    border-radius: 9999px;
+    border-width: 2px;
+}
+
+.header-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.body-container {
+    display: flex;
+    width: 91.666667%;
+    justify-content: center;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    flex-direction: row;
+    gap: 1.5rem;
+}
+
+.records-container {
+    width: 25%;
+    height: 24rem; /* 384px */
+    border: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.content-section {
+    background-color: white;
+    position: sticky;
+    top: 0%;
+}
+
+.content-header {
+    border-bottom: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    margin-bottom: 0%;
+    padding: 0.75rem;
+    font-size: 1.875rem; /* 30px */
+    line-height: 2.25rem; /* 36px */
+}
+
+.content-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.content-text {
+    font-size: 1.5rem; /* 24px */
+    line-height: 2rem; /* 32px */
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding: 0.75rem;
+}
+
+.records-button-link {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+.records-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 20px;
+    color: #FFF;
+    padding: 16px 24px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.records-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.appt-button {
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+    align-items: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 20px;
+    background-color: #003594;
+    border-radius: 6px;
+    margin: 0px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+}
+
+.appt-button:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.appts-container {
+    width: 50%;
+    height: 24rem; /* 384px */
+    border: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    overflow-y: scroll;
+}
+
+.appts-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+.each-appt {
+    display: flex;
+    border-bottom: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+    gap: 2.5rem; /* 40px */
+}
+
+.appt-button-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.appt-doc-name {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.appt-text {
+
+}
+
+.appt-info-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.appt-single-border {
+    flex: 1 1 0%;
+    border-top: 2px solid;
+    border-color: rgb(229 231 235);
+}
+
+.invoice-container {
+    width: 25%;
+    height: 24rem; /* 384px */
+    border: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    background-color: white;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+@media screen and (max-width: 800px) {
+
+    .header-container {
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    .header-content {
+        display: flex;
+        justify-content: flex-start;
+        font-size: 1.875rem; /* 30px */
+        line-height: 2.25rem; /* 36px */
+    }
+
+    .header-text {
+        justify-content: start;
+        align-items: start;
+        padding: 0%;
+        margin-left: 0%;
+        flex-wrap: nowrap;
+        margin-right: 0%;
+    }
+
+    .header-image-span {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+
+    .header-image {
+        height: 5rem;
+        width: 5rem;
+        border-radius: 9999px;
+        border-width: 2px;
+    }
+    
+    .body-container {
+        flex-direction: column;
+    }
+
+    .records-container {
+        width: 100%;
+        height: 22rem;
+    }
+
+    .appts-container {
+        width: 100%;
+    }
+
+    .appts-list {
+        width: 100%;
+    }
+
+    .each-appt {
+        flex-direction: row;
+        width: 100%
+    }
+
+    .appt-info-container {
+        width: 100%;
+    }
+
+    .appt-doc-name {
+        justify-content: start;
+        align-items: start;
+        width: 100%;
+    }
+
+    .appt-text {
+        display: flex;
+        flex-wrap: wrap;
+        font-size: larger;
+    }
+
+    .invoice-container {
+        width: 100%;
+    }
+
+}
+
+@media screen and (max-width: 610px) {
+    .top-bar {
+        width: 100%;
+    }
+
+    .header-content {
+        font-size: 1.5rem; /* 24px */
+        line-height: 2rem; /* 32px */
+    }
+
+    .header-image-span {
+        margin: 0%;
+    }
+
+    .each-appt {
+        font-size: 1rem;
+        flex-direction: column-reverse;
+        gap: 1.5rem;
+    }
+
+    .appt-button{
+        font-size: 16px;
+        padding: 4px 16px;
+        gap: 0px;
+    }
+}
+

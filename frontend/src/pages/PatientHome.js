@@ -6,7 +6,7 @@ import { format } from 'date-fns';
 import first from './imgs/placeholder.png';
 import { SlArrowRightCircle } from 'react-icons/sl';
 import { LiaAddressBook } from 'react-icons/lia';
-import '../pages/styles/appointments.css';
+import '../pages/styles/patienthome.css';
 
 const Home = () => {
   const [apptList, setApptList] = useState([]); // represents ALL appts
@@ -54,15 +54,15 @@ const Home = () => {
   };
 
   return (
-    <div className="home-page flex-auto flex-col min-h-screen">
-      <div className="flex flex-col mt-4 items-start h-full w-11/12 bg-white shadow-md">
-        <div className="bg-[goldenrod] w-full top-0 p-2"/>
-        <h2 className="flex justify-center items-center text-center flex-wrap text-5xl m-0 px-2">
-        <span className="px-4 my-2"><img src={first} alt="placeholder" className="h-40 w-40 rounded-full border-2"/></span>
+    <div className="home-page">
+      <div className="header-container">
+        <div className="top-bar bg-[goldenrod] w-full top-0 p-2"/>
+        <h2 className="header-content">
+        <span className="header-image-span"><img src={first} alt="placeholder" className="header-image"/></span>
           Welcome, &nbsp;
           {user ? (
             user.map((user, index) => (
-              <div key={index} className="flex justify-center items-center text-center">
+              <div key={index} className="header-text">
                 <span>{user.fname}</span>&nbsp;
                 <span>{user.lname}</span>!
               </div>
@@ -72,22 +72,22 @@ const Home = () => {
           )}
         </h2>
       </div>
-      <div className="flex w-11/12 justify-center pt-5 flex-row gap-6">
+      <div className="body-container">
 
-        <div className="w-1/4 h-96 shadow-lg border-solid border-2 bg-white ">
-          <div className="bg-white sticky top-0">
-          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+        <div className="records-container">
+          <div className="content-section">
+          <div className="top-bar"/>
           {user.map((user, index) => (
             <Link to="/">
-              <p className="text-3xl mb-0 p-3 border-solid border-b-2">Records</p>
+              <p className="content-header">Records</p>
             </Link>
           ))}
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <p className="text-2xl my-6 p-3">
+          <div className="content-text-container">
+            <p className="content-text">
               Upload, Store and View your medical records.
             </p>
-            <Link to="/" className="my-6">
+            <Link to="/" className="records-button-link">
               <button className="records-button">
                 View Records
                 <LiaAddressBook className=""/>
@@ -96,19 +96,19 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="w-2/4 h-96 shadow-lg bg-white border-solid border-2 overflow-y-scroll">
-          <div className="bg-white sticky top-0">
-          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+        <div className="appts-container">
+          <div className="content-section">
+          <div className="top-bar"/>
             {user.map((user, index) => (
               <Link to={`/myappointments/${user._id}`}>
-                <p className="text-3xl mb-0 p-3 border-solid border-b-2 ">My Appointments</p>
+                <p className="content-header">My Appointments</p>
               </Link>
             ))}
           </div>
-          <div className="flex flex-col justify-start box-border">
+          <div className="appts-list">
           {apptList.toReversed().map((appts, index) => (
-            <div key={index} className="flex min-h-50 border-solid border-b-2 p-4 justify-between items-center text-xl gap-10">
-              <div className="flex flex-row items-center">
+            <div key={index} className="each-appt">
+              <div className="appt-button-container">
               {user.map((user, index) => (
                 <Link to={`/myappointments/${user._id}`} className="">
                   <button className="appt-button">
@@ -118,26 +118,26 @@ const Home = () => {
                 </Link>
               ))}
               </div>
-                <div className="flex flex-col justify-center items-center">
-                  <p className="mb-6">{formatReason(appts.apptReason)}</p>
-                  <p className="">Dr. {appts.doctor.fname} {appts.doctor.lname}</p>
+                <div className="appt-doc-name">
+                  <p className="appt-text mb-6">{formatReason(appts.apptReason)}</p>
+                  <p className="appt-text">Dr. {appts.doctor.fname} {appts.doctor.lname}</p>
                 </div>
-              <div className="flex flex-col">
-                <p className="mb-3">Date of Service: {formatDate(appts.preferredDate)} at {appts.time}</p>
-                <div className="flex-1 border-t-2 border-gray-200"/>
-                <p className="mt-3">Facility: {appts.doctor.facility[0]}</p>
+              <div className="appt-info-container">
+                <p className="appt-text mb-3">Date of Service: {formatDate(appts.preferredDate)} at {appts.time}</p>
+                <div className="appt-single-border"/>
+                <p className="appt-text mt-3">Facility: {appts.doctor.facility[0]}</p>
               </div>
             </div>
           ))}
           </div>
         </div>
 
-        <div className="w-1/4 h-96 shadow-lg border-solid border-2 bg-white">
-          <div className="bg-white sticky top-0">
-          <div className="bg-[goldenrod] w-full top-0 p-2"/>
+        <div className="invoice-container">
+          <div className="content-section">
+          <div className="top-bar"/>
           {user.map((user, index) => (
             <Link to="/">
-              <p className="text-3xl mb-0 p-3 border-solid border-b-2">Invoice</p>
+              <p className="content-header">Invoice</p>
             </Link>
           ))}
           </div>
