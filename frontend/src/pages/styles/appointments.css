@@ -1,19 +1,112 @@
-.appt-main-container {
-    width: 95%;         
-    margin: 90px auto;     
-    box-sizing: border-box; 
-    padding: 30px;     
-    border-radius: 10px; 
-    background-color: white;
-    height: 100vh; 
+.patient-appt-main-container {
+    background-color: #F8F8F8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
 }
 
-.appt-main-container .appt-container {
+.top-bar {
+    background-color: goldenrod;
+    width: 100%;
+    top: 0%;
+    padding: 0.5rem; /* 8px */;
+}
+
+.patient-appt-header {
+    text-align: start;
+    margin: 1rem;
+    font-size: 2.25rem; /* 36px */
+    line-height: 2.5rem; /* 40px */
+    font-weight: 500;
+}
+
+.patient-appt-content-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+}
+
+.patient-each-appt-container {
+    width: 90%;
+    height: 100%;
+    border: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-radius: 0.375rem; /* 6px */
+    overflow-y: scroll;
+    margin: 16px;
+}
+
+.patient-appt-label {
+    font-weight: 600;
+    color: #003594;
+}
+
+.cell-1 {
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-2 {
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-3 {
+    display: flex;
+    flex-direction: column;
+}
+
+.cell-4 {
+    display: flex;
+}
+
+.cell-5 {
+    padding: 1rem;
+    border-top-width: 2px;
+    border-style: dotted;
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.75rem; /* 28px */
+}
+
+.each-appt-content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+    gap: 2.5rem; /* 40px */
+}
+
+.patient-appt-cancel {
+}
+
+.patient-appt-cancel:hover{
+    background: goldenrod;
+    color: #003594;
+    font-weight: bold;
+}
+
+.confirm-main-container {
+    width: 95%;         
+    margin: 25px auto;     
+    box-sizing: border-box; 
+    padding: 30px;     
+    border-radius: 10px; 
+    background-color: white;
+    height: 95%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }   
 
 #appt-comments {
@@ -47,12 +140,6 @@
     background-color: #e0e0e0;
 }
 
-#languagePreference {
-    margin-left: 10px;
-    padding: 2px;
-    border-radius: 10px;
-}
-
 .appt-form {
     display: grid;
     width: 100%;
@@ -70,6 +157,8 @@ textarea {
 
 /* appointment confirmation */
 .confirm-appt-msg {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     padding-top: 20px;
     padding-bottom: 30px;
@@ -95,16 +184,15 @@ textarea {
 }
 
 .confirm-appt-msg-cont{
-    display: inline;
     justify-content: center;
+    align-items: center;
     font-size: 15pt;
-    text-align: left;
-    max-width: 525px;
+    text-align: center;
+    max-width: 100%;
     padding-bottom: 25px;
 }
 
 .confirm-appt-msg-notice {
-    padding-top: 30px;
 }
 
 .confirm-appt-msg-notice em {
@@ -113,26 +201,70 @@ textarea {
     padding-top: 10px;
 }   
 
-.confirm-appt-table {
-    padding: 20px;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 750px;
-    font-size: 15pt;
-    border: 1px solid #000;
-    border-collapse: collapse;
-}
-   
-th {
-    text-align: left;
+.confirm-appt-content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.confirm-appt-table, th, td {
-    padding: 5px;
+.confirm-appt-container {
+    width: 90%;
+    height: 100%;
+    border: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-radius: 0.375rem; /* 6px */
+    overflow-y: scroll;
+    margin: 16px;
+}
+
+.confirm-appt-label {
+    font-weight: 600;
+    color: #003594;
+}
+
+.confirm-appt-content {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+    padding: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem; /* 20px */
+    line-height: 1.75rem; /* 28px */
+    gap: 2.5rem; /* 40px */
+    width: 100%;
+}
+
+.confirm-cell-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+}
+
+.confirm-cell-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.appt-return {
+    justify-content: center;
+    align-items: center;
 }
     
-.appt-main-container-btn {
+.confirm-appt-container-btn {
     gap: 5px;
     align-items: center;
     border: none;
@@ -155,23 +287,6 @@ th {
 }
 
 
-.submit-button {
-    color: #FFF;
-    background-color: #003594;
-    border-color: #003594;
-    padding: 4px 20px 4px 20px;
-    display: inline-block;
-    font-size: 1.125rem; /* 18px */
-    line-height: 1.75rem; /* 28px */
-    font-weight: bold;
-    border-radius: 0.75rem; /* 12px */
-}
-
-.submit-button:hover{
-    background-color: goldenrod;
-    color: #003594;
-}
-
 .appointments-page {
     min-height: 100vh;
     display: flex;
@@ -184,21 +299,13 @@ th {
     height: auto;
 }
 
-.select-content {
-    height: auto;
-    padding: 45px 20px;
-    margin: 0 20px;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 100px;
-}
 
 .card-wrapper {
-    
+    width: 100%;
 }
 
 .card {
-    width: 500px;
+    width: 100%;
     border-radius: 25px;
     background-color: #FFF;
     border: 2px solid goldenrod;
@@ -295,62 +402,166 @@ th {
     font-weight: bold;
 }
 
-.records-button {
-    display: flex;
-    justify-content: space-evenly;
-    gap: 5px;
+.doc-list-page {
+    background-color: #F8F8F8;
+    margin: auto;
     align-items: center;
-    border: none;
-    font-size: 20px;
-    color: #FFF;
-    padding: 16px 24px;
-    background-color: #003594;
-    border-radius: 6px;
-    margin: 0px;
-    cursor: pointer;
-    transition: all 0.5s ease;
-}
-
-.records-button:hover{
-    background: goldenrod;
-    color: #003594;
-    font-weight: bold;
-}
-
-.appt-button {
     display: flex;
-    justify-content: space-evenly;
-    gap: 5px;
+    flex-direction: column;
+    height: 100%;
+    justify-content: center;
+    width: 100%
+}
+
+.select-content {
+    height: auto;
+    width: 100%;
+    padding: 45px 55px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 100px;
+}
+
+.header-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    width: 91.666667%;
+    margin-top: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.doc-list-content {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    border: none;
-    font-size: 16px;
-    color: #FFF;
-    padding: 8px 20px;
-    background-color: #003594;
-    border-radius: 6px;
-    margin: 0px;
-    cursor: pointer;
-    transition: all 0.5s ease;
+    text-align: center;
+    flex-wrap: wrap;
+    font-size: 3rem; /* 48px */
+    line-height: 1;
+    margin: 0%;
+    padding-left: 0.5rem; /* 8px */
+    padding-right: 0.5rem; /* 8px */
 }
 
-.appt-button:hover{
-    background: goldenrod;
-    color: #003594;
-    font-weight: bold;
+.top-bar {
+    background-color: goldenrod;
+    width: 100%;
+    top: 0%;
+    padding: 0.5rem; /* 8px */;
 }
 
-  @media screen and (max-width: 1250px) {
-    .select-content {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 60px;
-    }
-  }
+.doc-list-header-text {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: 2.5rem;
+    margin-right: 1.5rem;
+}
+
+@media screen and (max-width: 1250px) {
+.select-content {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 60px;
+}
+}
 
 @media screen and (max-width: 800px) { 
+
+    .doc-list-page {
+    
+    }
+
+    .doc-list-content {
+        font-size: 1.75rem;
+        padding: .75rem;
+        flex-wrap: nowrap;
+    }
+
     .select-content {
         grid-template-columns: repeat(1, minmax(0, 1fr));
         gap: 35px;
+        width: 95%;
+        padding: 0%;
+        margin: 1.5rem;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card-wrapper {
+        width: 100%;
     }
     
+    .card {
+        width: 100%;
+    }
+
+    .confirm-appt-table {
+        width: fit-content;
+    }
+
+    .appt-main-container {
+        width: 100%;
+    }
+
+    .patient-appt-content-container{
+        width: 100%;
+    }
+
+    .patient-appt-header {
+        text-align: center;
+    }
+
+    .each-appt-content {
+        min-width: 90%;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .cell-1 {
+        width: 100%;
+        justify-content: center;
+    }
+    .cell-2 {
+        width: 100%;
+        justify-content: center;
+    }
+    .cell-3 {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .cell-4 {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .patient-each-appt-container {
+        
+    }
+
+    .confirm-title {
+        padding-top: 5px;
+    }
+
+    .confirm-appt-msg {
+        padding-bottom: 10px;
+    }
+
+    .confirm-appt-content {
+        flex-direction: column;
+        gap: 1.0rem;
+        justify-content: flex-start;
+    }
+
+    .appt-return {}
+
+    .confirm-appt-container-btn {
+        padding: 16px 24px;
+    }
 }
