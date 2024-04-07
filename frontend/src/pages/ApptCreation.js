@@ -109,26 +109,26 @@ const ApptCreation = () => {
   }
 
   return (
-    <div>
-      <div className="appt-main-container">
-        <button onClick={() => navigate(-1)} className="appt-backbtn">
-          &#x25c0; Back
-        </button>
-        <h1 className="appt-greeting font-extrabold text-xl">Schedule Your Appointment</h1>
-        <p className="appt-physician font-extrabold">
-            Physician - {doctors.fname} {doctors.lname}
-          </p>
-        <div className="appt-sub-container">
-          {/* Speciality not currently a field in actual database, will add later but will not cause errors here */}
-          <p className="appt-static">{doctors.speciality}</p>
+    <div className="creation-main-container">
+      <button onClick={() => navigate(-1)} className="creation-backbtn">
+        &#x25c0; Back
+      </button>
+      <h1 className="creation-greeting font-extrabold text-xl">Schedule Your Appointment</h1>
+      <p className="creation-physician font-extrabold">
+          Physician - {doctors.fname} {doctors.lname}
+        </p>
+      <div className="creation-sub-container">
+        {/* Speciality not currently a field in actual database, will add later but will not cause errors here */}
+        <p className="creation-static">{doctors.speciality}</p>
 
-          <div className="appt-form-wrapper mt-2">
-            <form className="appt-form" onSubmit={handleSubmit}>
-              <div className="appt-form-section-left">
-                <label htmlFor="appt-reason">Reason for Visit:</label>
+        <div className="creation-form-wrapper mt-2">
+          <form className="creation-form" onSubmit={handleSubmit}>
+            <div className="creation-form-section-left-half">
+              <div className="creation-form-section-left">
+                <label htmlFor="creation-reason">Reason for Visit:</label>
                 <div>
                   <Select
-                    id="appt-reason"
+                    id="creation-reason"
                     name="appt-reason"
                     options={apptOptions}
                     placeholder={"Reason for visit..."}
@@ -137,20 +137,20 @@ const ApptCreation = () => {
                 </div>
                 <textarea
                   type="text"
-                  id="appt-comments"
+                  id="creation-comments"
                   name="appt-comments"
                   maxLength={300}
                   rows="4"
                   cols="50"
                   placeholder=" Enter additional information here..."
                 />
-                <p className="text-red-500">
+                <p className="mt-4 text-red-500">
                   In the case of emergency, please dial 911
                 </p>
               </div>
 
-              <div className="appt-form-section-middle">
-                <h2>Contact Information</h2>
+              <div className="creation-form-section-middle">
+                <h2 className="creation-form-section-middle-header">Contact Information:</h2>
 
                 <div>
                   {user ? (
@@ -199,36 +199,39 @@ const ApptCreation = () => {
                   <option value="Spanish">Spanish</option>
                 </select>
               </div>
+            </div>
 
-              <div className="appt-form-section-right">
-                <h2>Appointment Time</h2>
-                <DayPicker
-                  showOutsideDays // show days outside of the month for accessibility purposes
-                  fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling
-                  mode="single" // single date selection only
-                  onSelect={setSelectedDate}
-                  disabled={[{ dayOfWeek: [0, 6] }]} // gray out the weekends and taken dates
-                />
-                <h2>Preferred Time:</h2>
-                <Select
-                  name="appt-time"
-                  id="appt-time"
-                  options={timeOptions}
-                  isOptionDisabled = {(option) => option.disabled}
-                  placeholder={"Time"}
-                  onChange={(e) => handleTimeChange(e)}
-                />
-                <p className="text-red-500">
-                  Note: A member of staff will be in contact to confirm a final
-                  date and time based on availability.
-                </p>
-                <br />
-                <button type="submit" className="submit-button">
+            <div className="creation-form-section-right">
+              <h2 className="creation-form-right-header">Appointment Time:</h2>
+              <DayPicker
+                className="creation-form-date-picker"
+                showOutsideDays // show days outside of the month for accessibility purposes
+                fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling
+                mode="single" // single date selection only
+                onSelect={setSelectedDate}
+                disabled={[{ dayOfWeek: [0, 6] }]} // gray out the weekends and taken dates
+              />
+              <h2 className="creation-time-header">Preferred Time:</h2>
+              <Select
+                name="creation-time"
+                id="appt-time"
+                options={timeOptions}
+                isOptionDisabled = {(option) => option.disabled}
+                placeholder={"Time"}
+                onChange={(e) => handleTimeChange(e)}
+              />
+              <p className="creation-form-right-note mt-4 text-red-500">
+                Note: A member of staff will be in contact to confirm a final
+                date and time based on availability.
+              </p>
+              <br />
+              <div className="creation-button-container">
+                <button type="submit" className="creation-button">
                   Submit
                 </button>
               </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
