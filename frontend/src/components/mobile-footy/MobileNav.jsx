@@ -34,8 +34,13 @@ const MNavi = () => {
         response = await fetch(`http://localhost:4000/admins/${admin.email}`);
       }
 
-      const data = await response.json();
-      setUser(data);
+      if (response) {
+        const data = await response.json();
+        setUser(data);
+      }
+      else {
+        setUser(null);
+      }
     };
     getUserInfo();
   }, [patient, doctor, admin]);
@@ -63,7 +68,7 @@ const MNavi = () => {
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
-            {user.map((user, index) => (
+            {user && user.map((user, index) => (
             <>
             <DropdownButton
               drop={'up'}

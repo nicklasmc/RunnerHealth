@@ -3,9 +3,9 @@ import { FaGithubSquare, FaLinkedin } from 'react-icons/fa';
 const Footer = () => {
   return (
     <footer className="footy bg-[#003594] py-8">
-      <div className="footy-container container mx-auto px-4">
+      <div className="footy-container">
         {/* Footer top */}
-        <div className="logo-text flex flex-col md:flex-row justify-between gap-y-6">
+        <div className="logo-text">
           {/* Logo and Text */}
           <div className="rh-footer-can flex items-center">
             <img
@@ -24,7 +24,7 @@ const Footer = () => {
           </nav>
         </div>
         {/* Socials and Copyright */}
-        <div className="social-copy flex flex-col md:flex-row justify-between mt-6 ml-6">
+        <div className="social-copy">
           {/* Social icons */}
           <div className="footer-icons flex gap-x-4">
             <a href="#" title="LinkedIn">
