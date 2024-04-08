@@ -133,13 +133,16 @@ header .container {
 }
 
 .landing-page {
+  padding: 0px 0 0px;
+  min-height: 100vh;
+  background-color: #F8F8F8;
 }
 
 .carousel-item,
 .showcase-img {
   object-fit: cover;
   object-position: center;
-  height: 60vh;
+  height: 30vh;
   overflow: hidden;
 }
 
@@ -195,10 +198,20 @@ header .container {
 
 .runner-overflow {
   display: flex;
+  color: black;
   font-family: "Heebo";
-  font-size: 15pt;
-  padding: 10px;
-  width: 100%; 
+  font-size: 18pt;
+  margin-left: 65pt;
+  width: 80%; 
+}
+
+.runner-overflow-b {
+  display: flex;
+  font-family: "Heebo";
+  font-size: 20pt;
+  margin-left: 65pt;
+  width: 80%; 
+  padding-top: 50px;
 }
 
 .runner-what,
@@ -219,7 +232,7 @@ header .container {
 
 .runner-what-l {
   text-align: justify;
-  padding: 25px;
+  padding: 20px;
   width: 60%;
 }
 .runner-what-r {
@@ -368,6 +381,7 @@ header .container {
 
 .team-img {
   object-fit: cover;
+  border-radius: 25px;
   object-position: center;
   border-bottom: goldenrod 1px solid;
   height: 75%;
@@ -376,19 +390,30 @@ header .container {
 /*Headers for Landing Page*/
 .subsec-title {
   text-align: center;
+  transform: scale(0.75);
   font-weight: bold;
   font-size: 2.5rem;
   color: goldenrod;
-  margin-bottom: 50px;
-  text-transform: uppercase;
+  margin-bottom: 40px;
   letter-spacing: 2px;
-  border-bottom: 2px solid #ccc;
-  padding-bottom: 10px;
+  border-bottom: 2px goldenrod solid;
+  padding-bottom: 5px;
+}
+
+.subsec-title2 {
+  text-align: center;
+  transform: scale(0.75);
+  font-size: 2.5rem;
+  color: black;
+  margin-bottom: 30px;
+  letter-spacing: 2px;
+  padding-bottom: 5px;
+  justify-content: center;
 }
 
 .team-member-card {
   margin: 25px;
-  width: 20rem;
+  width: 10rem;
   border: goldenrod 1px solid;
   background-color: gainsboro;
   box-shadow: 5px 3px 3px #111;
@@ -602,7 +627,11 @@ header .container {
     background-color: rgba(0, 0, 0, 0.349);
   }
 
-  .landing-showcase,
+  .landing-showcase {
+    height: 2vh;
+    border-bottom: rgb(141, 141, 141) solid 1px;
+
+  }
   .carousel-item,
   .showcase-img {
     max-height: 50vh;
@@ -694,9 +723,15 @@ header .container {
     display: none;
   }
 
+  .runner-team {
+    transform: scale(0.75);
+    flex-direction: column;
+    align-items: center;
+    padding: 100px 25px;
+  }
+
   .runner-what,
   .runner-mission,
-  .runner-team,
   .runner-service,
   .runner-review,
   .runner-contact {

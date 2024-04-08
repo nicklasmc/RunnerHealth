@@ -78,7 +78,7 @@ const ApptConfirmation = () => {
       <h2 className="notice"> Please save this confirmation in the event that you need to
         reschedule or cancel your appointment.</h2>
       <Link to="/patient_home" className="appt-return">
-        <button className="confirm-appt-container-btn">
+        <button className="appt-button">
           Click here to return Home
         </button>
       </Link>
