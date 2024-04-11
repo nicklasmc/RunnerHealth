@@ -57,12 +57,6 @@ header .container {
   flex-wrap: wrap;
 }
 
-.page-contents {
-  padding: 0px 0 0px;
-  min-height: 100vh;
-  background-color: #F8F8F8;
-}
-
 .page-links {
   display: flex;
   justify-content: space-evenly;
@@ -133,16 +127,24 @@ header .container {
 }
 
 .landing-page {
-  padding: 0px 0 0px;
-  min-height: 100vh;
   background-color: #F8F8F8;
+  margin: auto;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.carousel {
+  width: 100%;
 }
 
 .carousel-item,
 .showcase-img {
   object-fit: cover;
   object-position: center;
-  height: 30vh;
+  height: 40vh;
   overflow: hidden;
 }
 
@@ -164,11 +166,18 @@ header .container {
 .landing-showcase,
 .carousel-item,
 .showcase-img {
+  width: 100%;
   max-height: 60vh;
   border-bottom: rgb(141, 141, 141) solid 1px;
 }
 
 .showcase-img {
+  width: 100%;
+}
+
+.rh-landing-bit {
+  display: flex;
+  flex-direction: column;
   width: 100%;
 }
 
@@ -196,49 +205,136 @@ header .container {
   color: #003594;
 }
 
-.runner-overflow {
+.runner-what-a {
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   color: black;
   font-family: "Heebo";
-  font-size: 18pt;
-  margin-left: 65pt;
-  width: 80%; 
+  width: 50%;
+  margin: 2.5rem 0rem 0rem 2.5rem;
+  gap: 1.5rem;
 }
 
-.runner-overflow-b {
+.runner-what-b {
   display: flex;
   font-family: "Heebo";
   font-size: 20pt;
-  margin-left: 65pt;
-  width: 80%; 
-  padding-top: 50px;
+  width: 50%; 
+  border-radius: 0.75rem; /* 12px */
 }
 
-.runner-what,
-.runner-mission,
-.runner-team,
-.runner-service,
-.runner-review {
+.runner-what-img {
+  border-radius: 0rem 0.75rem 0.75rem 0rem; /* 12px */
+}
+
+.runner-what-hook {
+  font-family: "Heebo";
+  font-size: 16pt;
+  font-weight: bold;
+  width: 90%;
+}
+
+.runner-what-paragraph {
+  width: 90%;
+}
+
+.runner-what-text {
   display: flex;
-  padding: 80px 25px;
-  min-height: 50vh;
+  flex-direction: column;
+  font-size: 13pt;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.runner-what-title {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: goldenrod;
+  letter-spacing: 2px;
+  border-bottom: 2px goldenrod solid;
+  padding-bottom: 5px;
+  width: 90%
+}
+
+.runner-hook {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 50px 25px;
+  min-height: 30vh;
+  background-color: #061237;
+  gap: 2rem;
+}
+
+.runner-hook-text {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 40px;
+  gap: 2rem;
+}
+
+.runner-hook-slant {
+  font-weight: bold;
+  font-size: 4rem;
+  color: white;
+  letter-spacing: 2px;
+}
+.runner-hook-sec-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: white;
+  letter-spacing: 2px;
+}
+.runner-hook-a-text {
+  font-size: 1rem;
+  color: white;
+  letter-spacing: 2px;
+}
+.runner-hook-a,
+.runner-hook-b,
+.runner-hook-c {
+  width: 33.3333%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.runner-hook-header {
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+  margin-bottom: 40px;
+  letter-spacing: 2px;
+  padding-bottom: 5px;
+  border-bottom: 2px goldenrod solid;
 }
 
 .runner-what {
-  background-color: #e6e7e8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 25px;
+  min-height: 50vh;
+  background-color: rgb(246, 246, 246);
   color: #001a70;
-  font-weight: bold;
+  gap: 2.5rem;
 }
 
-.runner-what-l {
-  text-align: justify;
-  padding: 20px;
-  width: 60%;
-}
-.runner-what-r {
+.runner-what-content {
   display: flex;
-  width: 40%;
-  align-items: center;
+  width: 75%;
+  height: 100%;
+  background-color: white;
+  border-radius: 0.75rem; /* 12px */
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .runner-mission {
@@ -263,15 +359,20 @@ header .container {
 }
 
 .runner-team {
-  background-color: #061237;
   display: flex;
   flex-direction: column;
-  color: aliceblue;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 25px;
+  min-height: 50vh;
+  background-color: #061237;
+  width: 100%;
 }
 
 .runner-team-box {
   display: flex;
   justify-content: space-around;
+  width: 100%;
 }
 
 .runner-service {
@@ -372,11 +473,6 @@ header .container {
   background-color: goldenrod;
   display: flex;
   flex-direction: column;
-}
-
-.runner-img {
-  width: 100%;
-  border-radius: 25px;
 }
 
 .team-img {
@@ -628,13 +724,11 @@ header .container {
   }
 
   .landing-showcase {
-    height: 2vh;
     border-bottom: rgb(141, 141, 141) solid 1px;
-
   }
   .carousel-item,
   .showcase-img {
-    max-height: 50vh;
+    max-height: 40vh;
     border-bottom: rgb(141, 141, 141) solid 1px;
   }
 
@@ -724,10 +818,18 @@ header .container {
   }
 
   .runner-team {
-    transform: scale(0.75);
+    width: 100%;
     flex-direction: column;
-    align-items: center;
-    padding: 100px 25px;
+  }
+
+  .runner-team-box {
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+  }
+
+  .team-member-card {
+    margin: 0%;
   }
 
   .runner-what,
@@ -802,7 +904,104 @@ header .container {
     text-align: center;
   }
 
+  .runner-hook {
+    padding: 30px 25px;
+    gap: 1rem;
+  }
 
+  .runner-hook-header {
+    margin-bottom: 20px;
+  }
+
+  .runner-hook-text {
+    width: 100%;
+    justify-content: center;
+    flex-direction: column;
+    gap: 3rem;
+    margin-bottom: 0%;
+  }
+
+  .runner-hook-a,
+  .runner-hook-b,
+  .runner-hook-c {
+    width: 100%;
+  }
+
+  .runner-hook-sec-text {
+  }
+
+  .runner-hook-slant {
+    display: none;
+  }
+  
+  .runner-hook-slick {
+    width: 100%;
+    height: 30vh;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .runner-what-content {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .runner-what-a {
+    width: 100%;
+    height: 40%;
+    margin: 1.5rem 1.5rem 0rem 1.5rem;
+    gap: 0.5rem;
+  }
+
+  .runner-what-b {
+    width: 100%;
+    height: 60%;
+  }
+
+  .runner-what-img {
+    border-radius: 0.75rem 0.75rem 0rem 0rem;
+  }
+
+  .runner-what-text {
+    width: 100%;
+    font-size: 12pt;
+    justify-content: flex-start;
+    margin-bottom: 0%;
+  }
+
+  .appt-return {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-items: center;
+  }
+
+  .runner-hook-small {
+    background-color: #061237;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 30vh;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .runner-hook-small-a,
+  .runner-hook-small-b,
+  .runner-hook-small-c{
+    width: 90%;
+    height: 30%;
+    background-color: white;
+    border-bottom: 4px goldenrod solid;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    text-align: center;
+    align-items: center;
+    font-size: 18px;
+    gap: 10px;
+  }
 }
 
 @media screen and (max-width: 1250px) {
