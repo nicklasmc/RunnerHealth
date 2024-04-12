@@ -8,19 +8,23 @@ import Logo from '../../pages/imgs/rh_logo_shadow.png';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
-import first from'../../pages/imgs/placeholder.png';
+import first from '../../pages/imgs/placeholder.png';
 import { VscAccount } from 'react-icons/vsc';
 import { IconButton } from '@mui/material';
 import FlyoutLink from './flyout.jsx';
 
-
 const Navi = () => {
-  
   const { logout } = UseLogout();
   const { adminLogout } = UseAdminLogout();
   const { doctorLogout } = UseDoctorLogout();
   const { patient, admin, doctor } = useAuthContext();
-  const navDropdownTitle = (<span className="bg-gray"><IconButton size="small"><VscAccount color="white"/></IconButton></span>);
+  const navDropdownTitle = (
+    <span className="bg-gray">
+      <IconButton size="small">
+        <VscAccount color="white" />
+      </IconButton>
+    </span>
+  );
 
   const handleClick = () => {
     logout();
@@ -80,23 +84,39 @@ const Navi = () => {
           {patient && (
             <div className="page-links top-navi">
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={RecordsContent}>
-                Records
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={RecordsContent}
+                >
+                  Records
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ScheduleContent}>
-                Appointments
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ScheduleContent}
+                >
+                  Appointments
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={InvoiceContent}>
-                Invoice
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={InvoiceContent}
+                >
+                  Invoice
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ProfileContent}>
-                {navDropdownTitle}
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ProfileContent}
+                >
+                  {navDropdownTitle}
                 </FlyoutLink>
               </div>
             </div>
@@ -104,23 +124,39 @@ const Navi = () => {
           {admin && (
             <div className="page-links top-navi">
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={RecordsContent}>
-                Records
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={RecordsContent}
+                >
+                  Records
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ScheduleContent}>
-                Appointments
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ScheduleContent}
+                >
+                  Appointments
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={InvoiceContent}>
-                Invoice
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={InvoiceContent}
+                >
+                  Invoice
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ProfileContent}>
-                {navDropdownTitle}
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ProfileContent}
+                >
+                  {navDropdownTitle}
                 </FlyoutLink>
               </div>
             </div>
@@ -128,23 +164,39 @@ const Navi = () => {
           {doctor && (
             <div className="page-links top-navi">
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={RecordsContent}>
-                Records
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={RecordsContent}
+                >
+                  Records
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ScheduleContent}>
-                Appointments
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ScheduleContent}
+                >
+                  Appointments
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={InvoiceContent}>
-                Invoice
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={InvoiceContent}
+                >
+                  Invoice
                 </FlyoutLink>
               </div>
               <div className="link-btn">
-                <FlyoutLink className="" href="#" FlyoutContent={ProfileContent}>
-                {navDropdownTitle}
+                <FlyoutLink
+                  className=""
+                  href="#"
+                  FlyoutContent={ProfileContent}
+                >
+                  {navDropdownTitle}
                 </FlyoutLink>
               </div>
             </div>
@@ -153,17 +205,15 @@ const Navi = () => {
             <div className="page-links top-navi gap-3">
               <div className="">
                 <Link to="/patient_login">
-                  <button 
-                  className="w-full bg-[goldenrod] text-[#003594] rounded-lg px-6 py-2 font-bold transition-colors hover:bg-[#001A70] hover:text-white">
-                  Login
+                  <button className="w-full bg-[goldenrod] text-[#003594] rounded-lg px-6 py-2 font-bold transition-colors hover:bg-[#001A70] hover:text-white">
+                    Login
                   </button>
                 </Link>
               </div>
               <div className="">
                 <Link to="/patient_signup">
-                  <button 
-                  className="w-full bg-[goldenrod] text-[#003594] rounded-lg px-4 py-2 font-bold transition-colors hover:bg-[#001A70] hover:text-white">
-                  Signup
+                  <button className="w-full bg-[goldenrod] text-[#003594] rounded-lg px-4 py-2 font-bold transition-colors hover:bg-[#001A70] hover:text-white">
+                    Signup
                   </button>
                 </Link>
               </div>
@@ -176,7 +226,6 @@ const Navi = () => {
 };
 
 const InvoiceContent = () => {
-
   const { logout } = UseLogout();
   const { adminLogout } = UseAdminLogout();
   const { doctorLogout } = UseDoctorLogout();
@@ -188,7 +237,9 @@ const InvoiceContent = () => {
     const getUserInfo = async () => {
       let response = null;
       if (patient) {
-        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+        response = await fetch(
+          `http://localhost:4000/patients/${patient.email}`
+        );
       } else if (doctor) {
         response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
       } else if (admin) {
@@ -200,39 +251,33 @@ const InvoiceContent = () => {
     };
     getUserInfo();
   }, [patient, doctor, admin]);
-  
+
   return (
     <>
-    {user ? (
-      user.map((user, index) => (
-        <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
-          <div className="space-y-3">
-            <Link to="" className="block text-l hover:underline">
-              <a href="#">
-                Pay Balance
-              </a>
-            </Link>
-            <div className="flex-1 border-t-2 border-gray-200"/>
-            <Link to="" className="block text-l hover:underline">
-              <a href="#">
-                Send Invoice
-              </a>
-            </Link>
-            <div className="flex-1 border-t-2 border-gray-200"/>
-            <Link to="" className="block text-l hover:underline">
-              <a href="#">
-                View Invoices
-              </a>
-            </Link>
+      {user ? (
+        user.map((user, index) => (
+          <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
+            <div className="space-y-3">
+              <Link to="/invoice" className="block text-l hover:underline">
+                <a href="#">Pay Balance</a>
+              </Link>
+              <div className="flex-1 border-t-2 border-gray-200" />
+              <Link to="/invoice" className="block text-l hover:underline">
+                <a href="#">Send Invoice</a>
+              </Link>
+              <div className="flex-1 border-t-2 border-gray-200" />
+              <Link to="/invoice" className="block text-l hover:underline">
+                <a href="#">View Invoices</a>
+              </Link>
+            </div>
           </div>
-        </div>
-      )) 
+        ))
       ) : (
-      <h1>Gathering Data...</h1>
-    )}
+        <h1>Gathering Data...</h1>
+      )}
     </>
-    );
-  };
+  );
+};
 
 const ProfileContent = () => {
   const { logout } = UseLogout();
@@ -246,146 +291,9 @@ const ProfileContent = () => {
     const getUserInfo = async () => {
       let response = null;
       if (patient) {
-        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
-      } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
-      } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
-      }
-
-      const data = await response.json();
-      setUser(data);
-    };
-    getUserInfo();
-  }, [patient, doctor, admin]);
-
-  const handleClick = () => {
-    logout();
-  };
-
-  const handleAdminClick = () => {
-    adminLogout();
-  };
-
-  const handleDoctorClick = () => {
-    doctorLogout();
-  };
-
-  return (
-    <>
-    {user ? (
-      user.map((user, index) => (
-        <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
-          <div className="space-y-3">
-            <img src={first} className="h-44 w-44 rounded-full border-2"></img>
-            <h3 className="font-bold text-xl">{user.fname} {user.lname}</h3>
-            <h3 className="font-bold text-xl">{user.email}</h3>
-            <div className="flex-1 border-t-2 border-gray-200"/>
-            <Link to={`/user_settings/${user._id}`} className="block hover:underline text-bold text-xl">
-              <a href="#">
-                Profile Settings
-              </a>
-            </Link>
-            <div className="flex-1 border-t-2 border-gray-200"/>
-            <button 
-            className="w-full rounded-lg border-2 border-neutral-950 px-4 py-2 font-semibold transition-colors hover:bg-neutral-950 hover:text-white"
-            onClick={handleClick}>
-            Logout
-            </button>
-          </div>
-        </div>
-      )) 
-    ) : (
-    <h1>Gathering Data...</h1>
-  )}
-  </>
-  );
-};
-
-const RecordsContent = () => {
-  const { logout } = UseLogout();
-  const { adminLogout } = UseAdminLogout();
-  const { doctorLogout } = UseDoctorLogout();
-  const { patient, admin, doctor } = useAuthContext();
-
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      let response = null;
-      if (patient) {
-        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
-      } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
-      } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
-      }
-
-      const data = await response.json();
-      setUser(data);
-    };
-    getUserInfo();
-  }, [patient, doctor, admin]);
-
-  const handleClick = () => {
-    logout();
-  };
-
-  const handleAdminClick = () => {
-    adminLogout();
-  };
-
-  const handleDoctorClick = () => {
-    doctorLogout();
-  };
-
-return (
-  <>
-  {user ? (
-      user.map((user, index) => (
-        <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
-          <div className="space-y-3">
-          <Link to="/appointment" className="block text-l hover:underline">
-          <a href="#">
-              Medical Records
-          </a>
-          </Link>
-          <div className="flex-1 border-t-2 border-gray-200"/>
-          <Link to={`/myappointments/${user._id}`} className="block text-l hover:underline">
-          <a href="#">
-              Electronic Health Records
-          </a>
-          </Link>
-          <div className="flex-1 border-t-2 border-gray-200"/>
-          <Link to={`/myappointments/${user._id}`} className="block text-l hover:underline">
-          <a href="#">
-              Personal Health Information (PHI)
-          </a>
-          </Link>
-          </div>
-      </div>
-    )) 
-  ) : (
-  <h1>Gathering Data...</h1>
-)}
-</>
-);
-};
-
-const ScheduleContent = () => {
-  const { logout } = UseLogout();
-  const { adminLogout } = UseAdminLogout();
-  const { doctorLogout } = UseDoctorLogout();
-  const { patient, admin, doctor } = useAuthContext();
-  const [apptList, setApptList] = useState([]);
-  
-  const [user, setUser] = useState([]);
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      let response = null;
-      if (patient) {
-        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+        response = await fetch(
+          `http://localhost:4000/patients/${patient.email}`
+        );
       } else if (doctor) {
         response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
       } else if (admin) {
@@ -413,63 +321,268 @@ const ScheduleContent = () => {
   return (
     <>
       {user ? (
-          user.map((user, index) => (
-            <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
-              <div className="space-y-3">
-              {!patient && !doctor && !admin && (
+        user.map((user, index) => (
+          <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
+            <div className="space-y-3">
+              <img
+                src={first}
+                className="h-44 w-44 rounded-full border-2"
+              ></img>
+              <h3 className="font-bold text-xl">
+                {user.fname} {user.lname}
+              </h3>
+              <h3 className="font-bold text-xl">{user.email}</h3>
+              <div className="flex-1 border-t-2 border-gray-200" />
+              <Link
+                to={`/user_settings/${user._id}`}
+                className="block hover:underline text-bold text-xl"
+              >
+                <a href="#">Profile Settings</a>
+              </Link>
+              <div className="flex-1 border-t-2 border-gray-200" />
+              <button
+                className="w-full rounded-lg border-2 border-neutral-950 px-4 py-2 font-semibold transition-colors hover:bg-neutral-950 hover:text-white"
+                onClick={handleClick}
+              >
+                Logout
+              </button>
+            </div>
+          </div>
+        ))
+      ) : (
+        <h1>Gathering Data...</h1>
+      )}
+    </>
+  );
+};
+
+const RecordsContent = () => {
+  const { logout } = UseLogout();
+  const { adminLogout } = UseAdminLogout();
+  const { doctorLogout } = UseDoctorLogout();
+  const { patient, admin, doctor } = useAuthContext();
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      let response = null;
+      if (patient) {
+        response = await fetch(
+          `http://localhost:4000/patients/${patient.email}`
+        );
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+    };
+    getUserInfo();
+  }, [patient, doctor, admin]);
+
+  const handleClick = () => {
+    logout();
+  };
+
+  const handleAdminClick = () => {
+    adminLogout();
+  };
+
+  const handleDoctorClick = () => {
+    doctorLogout();
+  };
+
+  return (
+    <>
+      {user ? (
+        user.map((user, index) => (
+          <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
+            <div className="space-y-3">
+              {admin && (
                 <>
-                  <Link to="/appointment" className="block text-l hover:underline">
-                  <a href="#">
-                      Schedule
-                  </a>
+                  <Link
+                    to="/appointment"
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Medical Records</a>
                   </Link>
-                  <div className="flex-1 border-t-2 border-gray-200"/>
-                  <Link to={`/myappointments/${user._id}`} className="block text-l hover:underline">
-                  <a href="#">
-                      My Appointments
-                  </a>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/myappointments/${user._id}`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Electronic Health Records</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/myappointments/${user._id}`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Personal Health Information (PHI)</a>
                   </Link>
                 </>
               )}
               {patient && (
                 <>
-                  <Link to="/appointment" className="block text-l hover:underline">
-                  <a href="#">
-                      Schedule
-                  </a>
+                  <Link to="/records" className="block text-l hover:underline">
+                    <a href="#">Medical Records</a>
                   </Link>
-                  <div className="flex-1 border-t-2 border-gray-200"/>
-                  <Link to={`/myappointments/${user._id}`} className="block text-l hover:underline">
-                  <a href="#">
-                      My Appointments
-                  </a>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/records`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Electronic Health Records</a>
                   </Link>
-                </>
-              )}
-              {admin && (
-                <>
-                  <Link to="/appointment/dashboard/" className="block text-l hover:underline">
-                  <a href="#">
-                      Appointment Dashboard
-                  </a>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/records`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Personal Health Information (PHI)</a>
                   </Link>
                 </>
               )}
               {doctor && (
                 <>
-                  <Link to="/appointment/dashboard/" className="block text-l hover:underline">
-                  <a href="#">
-                      Appointment Dashboard
-                  </a>
+                  <Link to="/drecords" className="block text-l hover:underline">
+                    <a href="#">Medical Records</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/drecords`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Electronic Health Records</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/drecords`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Personal Health Information (PHI)</a>
                   </Link>
                 </>
               )}
-              </div>
+            </div>
           </div>
-        )) 
+        ))
       ) : (
-      <h1>Gathering Data...</h1>
-    )}
+        <h1>Gathering Data...</h1>
+      )}
+    </>
+  );
+};
+
+const ScheduleContent = () => {
+  const { logout } = UseLogout();
+  const { adminLogout } = UseAdminLogout();
+  const { doctorLogout } = UseDoctorLogout();
+  const { patient, admin, doctor } = useAuthContext();
+  const [apptList, setApptList] = useState([]);
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      let response = null;
+      if (patient) {
+        response = await fetch(
+          `http://localhost:4000/patients/${patient.email}`
+        );
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+    };
+    getUserInfo();
+  }, [patient, doctor, admin]);
+
+  const handleClick = () => {
+    logout();
+  };
+
+  const handleAdminClick = () => {
+    adminLogout();
+  };
+
+  const handleDoctorClick = () => {
+    doctorLogout();
+  };
+
+  return (
+    <>
+      {user ? (
+        user.map((user, index) => (
+          <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
+            <div className="space-y-3">
+              {!patient && !doctor && !admin && (
+                <>
+                  <Link
+                    to="/appointment"
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Schedule</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/myappointments/${user._id}`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">My Appointments</a>
+                  </Link>
+                </>
+              )}
+              {patient && (
+                <>
+                  <Link
+                    to="/appointment"
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Schedule</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link
+                    to={`/myappointments/${user._id}`}
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">My Appointments</a>
+                  </Link>
+                </>
+              )}
+              {admin && (
+                <>
+                  <Link
+                    to="/appointment/dashboard/"
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Appointment Dashboard</a>
+                  </Link>
+                </>
+              )}
+              {doctor && (
+                <>
+                  <Link
+                    to="/appointment/dashboard/"
+                    className="block text-l hover:underline"
+                  >
+                    <a href="#">Appointment Dashboard</a>
+                  </Link>
+                </>
+              )}
+            </div>
+          </div>
+        ))
+      ) : (
+        <h1>Gathering Data...</h1>
+      )}
     </>
   );
 };

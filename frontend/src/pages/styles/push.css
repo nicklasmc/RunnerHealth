@@ -1,0 +1,328 @@
+.form-can {
+  width: 500px;
+  margin: 0 auto;
+  background-color: whitesmoke;
+  padding: 50px;
+  border: 1px #111 solid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px #222;
+}
+
+.img-big-can {
+  width: 80%;
+  margin: 25px auto;
+  padding: 10px 0 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.img-can {
+  width: 30%;
+  min-width: 270px;
+  height: 225px;
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: #111 solid 1px;
+  border-radius: 5px;
+  background-color: #111;
+  box-shadow: #222 3px 3px 3px;
+}
+
+.rec-bottom-half {
+  display: flex;
+  height: 20%;
+}
+
+.rec-btn-opt {
+  min-width: 85px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.doc-rec-btn-opt {
+  min-width: 85px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doc-img-big-can {
+  width: 100%;
+  margin: 25px auto;
+  padding: 10px 0 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.rec-delete-opt {
+  width: 30%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.trash-icon {
+  color: #222;
+}
+
+.trash-icon:hover {
+  color: rgb(230, 91, 75);
+}
+
+.view-btn-opt {
+  padding: 3px 6px;
+}
+
+.file-title {
+  height: 100%;
+  width: 100%;
+  border-top: #111 1px solid;
+  display: flex;
+  justify-content: space-between;
+  background-color: whitesmoke;
+  align-items: center;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.file-input-box {
+  width: 80%;
+  border: #111 solid 1px;
+  background-color: whitesmoke;
+}
+
+.submit-btn {
+  background-color: goldenrod !important ;
+  width: 100%;
+}
+
+.submit-btn:hover {
+  background-color: rgb(128, 128, 128) !important;
+  width: 100%;
+}
+
+.upload-header {
+  margin: 0 0 25px;
+}
+
+.patient-list-header {
+  font-size: 15pt;
+  text-decoration: underline 1px;
+}
+
+.upload-prev {
+  width: 100%;
+  height: 80%;
+  object-fit: cover;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.no-pics {
+  min-width: 80%;
+  min-height: 250px;
+  border: #b3b3b3 5px dashed;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.phi-header {
+  text-align: center;
+  padding-top: 25px;
+}
+
+.patientIDs {
+  font-size: 8pt;
+}
+
+.patient-tag {
+  width: 30%;
+  background-color: whitesmoke;
+  box-shadow: 2px 2px 2px #222;
+  border: #111 1px solid;
+  border-radius: 5px;
+  margin: 10px auto;
+  padding: 10px;
+}
+
+@media screen and (max-width: 600px) {
+  .form-can {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .img-can {
+    width: 95%;
+  }
+}
+
+.the-experiment {
+  display: flex;
+  width: 50%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.client-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.doctor-records-view {
+  min-width: 80%;
+  min-height: 250px;
+  border: #b3b3b3 5px dashed;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.invoice-cards-can {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.invoice-cards {
+  background-color: whitesmoke;
+  margin: 25px auto;
+  min-width: 350px;
+  width: 32%;
+}
+
+.invoice-section-header {
+  font-size: 35pt;
+  margin: 50px 0;
+  padding-top: 25px;
+  font-weight: 600;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+  background-color: whitesmoke;
+}
+
+.cta-can {
+  display: flex;
+}
+
+.cta-btn {
+  color: #111;
+  border: #111 solid 1pt;
+  background-color: goldenrod;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.cta-btn:hover {
+  background-color: #061237;
+}
+
+.card-text {
+  margin: 15px 0;
+}
+
+.inv-meta-can {
+  display: flex;
+  flex-direction: column;
+}
+
+.invoice-date-can {
+  display: flex;
+  justify-content: space-between;
+}
+
+.invoice-header-can {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inv-link-btn {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #222;
+  border: #222 solid 1px;
+}
+
+.hr-divider-can {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin: 50px auto;
+}
+
+.hr-divider-line {
+  width: 90%;
+  margin-right: 10px;
+}
+
+.hr-divider-line-solo {
+  width: 100%;
+  margin: 75px auto 0;
+}
+
+.no-pics {
+  margin: 50px auto;
+  min-width: 80%;
+  min-height: 250px;
+  border: #b3b3b3 5px dashed;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message-form-can {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: 370px;
+  max-width: 900px;
+  width: 80%;
+  background-color: whitesmoke;
+  box-shadow: #222 3px 3px 3px;
+  border-radius: 5px;
+  padding: 25px;
+}
+
+.message-form-can > select,
+.message-form-can > input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  background-color: #ccc;
+  border-radius: 5px;
+}
+
+.msg-txt-area {
+  min-height: 150px;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+
+.msg-submit-btn,
+.msg-clear-btn {
+  background-color: #222;
+  margin: 10px 0;
+}
+
+.invoice-create-hdr {
+  text-align: center;
+}

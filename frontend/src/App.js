@@ -17,8 +17,11 @@ import DoctorSignup from './pages/DoctorSignup';
 import DoctorHome from './pages/DoctorHome';
 import DoctorLogin from './pages/DoctorLogin';
 import Inventory from './pages/Inventory';
+import Invoice from './pages/Invoice';
+import Records from './pages/Records';
+import DoctorRecords from './pages/DoctorRecords';
 import NotFoundPage from './pages/NotFoundPage';
-import UserSettings from './pages/UserSettings.js'
+import UserSettings from './pages/UserSettings.js';
 import Navi from './components/navbar/Navi';
 import MNavi from './components/mobile-footy/MobileNav.jsx';
 import Footer from './components/footer/Footer.jsx';
@@ -40,6 +43,24 @@ function App() {
           <div className="pages">
             <Routes>
               <Route path="/" element={<Landing />} />
+              <Route
+                path="/inventory"
+                element={admin ? <Inventory /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/records"
+                element={patient ? <Records /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/drecords"
+                element={doctor ? <DoctorRecords /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/invoice"
+                element={
+                  patient || doctor || admin ? <Invoice /> : <Navigate to="/" />
+                }
+              />
               <Route
                 path="/inventory"
                 element={admin ? <Inventory /> : <Navigate to="/" />}
@@ -106,31 +127,19 @@ function App() {
               <Route
                 path="/appointment"
                 element={
-                  patient ? (
-                    <ApptDocList />
-                  ) : (
-                    <Navigate to="/patient_login" />
-                  )
+                  patient ? <ApptDocList /> : <Navigate to="/patient_login" />
                 }
               />
-                <Route
-                path="/myappointments/:id" 
+              <Route
+                path="/myappointments/:id"
                 element={
-                  patient ? (
-                    <ApptPatient />
-                  ) : (
-                    <Navigate to="/patient_login" />
-                  )
+                  patient ? <ApptPatient /> : <Navigate to="/patient_login" />
                 }
               />
               <Route
                 path="/appointment/:id"
                 element={
-                  patient ? (
-                    <ApptCreation />
-                  ) : (
-                    <Navigate to="/patient_login" />
-                  )
+                  patient ? <ApptCreation /> : <Navigate to="/patient_login" />
                 }
               />
               <Route
