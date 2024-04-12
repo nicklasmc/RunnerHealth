@@ -144,7 +144,7 @@ header .container {
 .showcase-img {
   object-fit: cover;
   object-position: center;
-  height: 40vh;
+  height: 30vh;
   overflow: hidden;
 }
 
@@ -264,7 +264,7 @@ header .container {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 50px 25px;
+  padding: 40px 25px;
   min-height: 30vh;
   background-color: #061237;
   gap: 2rem;
@@ -728,7 +728,7 @@ header .container {
   }
   .carousel-item,
   .showcase-img {
-    max-height: 40vh;
+    max-height: 30vh;
     border-bottom: rgb(141, 141, 141) solid 1px;
   }
 
@@ -832,14 +832,10 @@ header .container {
     margin: 0%;
   }
 
-  .runner-what,
-  .runner-mission,
-  .runner-service,
-  .runner-review,
-  .runner-contact {
+  .runner-what {
     flex-direction: column;
     align-items: center;
-    padding: 100px 25px;
+    padding: 60px 25px;
   }
 
   .runner-what-l {
