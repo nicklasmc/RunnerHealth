@@ -2,30 +2,31 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
-const crypto = require('crypto');
 const patientRoutes = require('./routes/patients.js');
 const adminRoutes = require('./routes/admins');
 const doctorRoutes = require('./routes/doctors');
 const appointmnetRoutes = require('./routes/appointments');
+const invoiceRoutes = require('./routes/invoices');
+const recordRoutes = require('./routes/records');
+const recordModel = require('./models/recordModel.js');
+const orgModel = require('./models/orgModel.js');
+const notificationModel = require('./models/notificationModel.js');
+const invoiceModel = require('./models/invoiceModel.js');
+const Patient = require('./models/patientModel.js');
+const bodyParser = require('body-parser');
 const path = require('path');
 const multer = require('multer');
-const { GridFsStorage } = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
-const methodOverride = require('method-override');
-const bodyParser = require('body-parser');
 const morgan = require('morgan');
 
 const app = express();
 
 // middleware
-app.set('view engine', 'ejs');
-app.use(express.json());
-app.use(bodyParser.json());
-app.use(methodOverride('_method'));
 app.use(cors());
-app.use(express.static('public'));
 app.use(morgan('dev'));
+app.use(express.json());
+app.use(express.static('public'));
 app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   console.log(
     '***********************************',
@@ -42,123 +43,130 @@ app.use((req, res, next) => {
 });
 
 // Routes
-/*
-app.get('/', (req, res) => {
-  res.send('Hello my good friend!');
-});
-*/
-
 app.use('/patients', patientRoutes);
 app.use('/admins', adminRoutes);
 app.use('/doctors', doctorRoutes);
 app.use('/appointments', appointmnetRoutes);
+app.use('/invoices', invoiceRoutes);
+app.use('/records', recordRoutes);
 
-const conn = mongoose.createConnection(process.env.URI);
-let gfs;
-conn.once('open', () => {
-  gfs = Grid(conn.db, mongoose.mongo);
-  gfs.collection('records');
-});
-
-// Create storage engine
-const storage = new GridFsStorage({
-  url: process.env.URI,
-  file: (req, file) => {
-    return new Promise((resolve, reject) => {
-      crypto.randomBytes(16, (err, buf) => {
-        if (err) {
-          return reject(err);
-        }
-        const filename = buf.toString('hex') + path.extname(file.originalname);
-        const fileInfo = {
-          filename: filename,
-          bucketName: 'records',
-        };
-        resolve(fileInfo);
-      });
-    });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'public/Images');
+  },
+  filename: (req, file, cb) => {
+    cb(
+      null,
+      file.fieldname + '_' + Date.now() + path.extname(file.originalname)
+    );
   },
 });
-const record = multer({ storage });
 
-// @route GET /
-// @desc Loads form
-app.get('/', (req, res) => {
-  res.render('index');
+const upload = multer({
+  storage: storage,
 });
 
-// @route POST /upload
-// @desc  Uploads file to DB
-app.post('/upload', record.single('file'), (req, res) => {
-  //res.json({ file: req.file });
-  res.redirect('/');
+app.post('/upload', upload.single('file'), (req, res) => {
+  const { patientID, title } = req.body;
+
+  recordModel
+    .create({ image: req.file.filename, patientID: patientID, title: title })
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
 });
 
-// @route GET /files
-// @desc  Display all files in JSON
-app.get('/files', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    // Check if files
-    if (!files || files.length === 0) {
-      return res.status(404).json({
-        err: 'No files exist',
-      });
-    }
-
-    // Files exist
-    return res.json(files);
-  });
+app.post('/dupload', upload.single('file'), (req, res) => {
+  const { patientID, doctorID, title } = req.body;
+  recordModel
+    .create({
+      image: req.file.filename,
+      patientID: patientID,
+      doctorID: doctorID,
+      title: title,
+    })
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
 });
 
-// @route GET /files/:filename
-// @desc  Display single file object
-app.get('/files/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists',
-      });
-    }
-    // File exists
-    return res.json(file);
-  });
+app.get('/get_images', (req, res) => {
+  recordModel
+    .find()
+    .then((records) => res.json(records))
+    .catch((err) => console.log(err));
 });
 
-// @route GET /image/:filename
-// @desc Display Image
-app.get('/image/:filename', (req, res) => {
-  gfs.files.findOne({ filename: req.params.filename }, (err, file) => {
-    // Check if file
-    if (!file || file.length === 0) {
-      return res.status(404).json({
-        err: 'No file exists',
-      });
-    }
-
-    // Check if image
-    if (file.contentType === 'image/jpeg' || file.contentType === 'image/png') {
-      // Read output to browser
-      const readstream = gfs.createReadStream(file.filename);
-      readstream.pipe(res);
-    } else {
-      res.status(404).json({
-        err: 'Not an image',
-      });
-    }
-  });
+// create an invoice
+app.post('/invoice', upload.single('file'), (req, res) => {
+  const {
+    origin,
+    recipient,
+    dateSent,
+    dateDue,
+    subject,
+    message,
+    link,
+    createdBy,
+  } = req.body;
+  invoiceModel
+    .create({
+      createdBy: createdBy,
+      sender: origin,
+      receiver: recipient,
+      dateSent: dateSent,
+      dateDue: dateDue,
+      subject: subject,
+      message: message,
+      link: link,
+    })
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
 });
 
-// @route DELETE /files/:id
-// @desc  Delete file
-app.delete('/files/:id', (req, res) => {
-  gfs.remove({ _id: req.params.id, root: 'uploads' }, (err, gridStore) => {
-    if (err) {
-      return res.status(404).json({ err: err });
-    }
+app.post('/messenger', (req, res) => {
+  const { mtitle, ugroup, uemail, mcontent } = req.body;
+  notificationModel
+    .create({
+      sender: '65d696de8305820100ef32c4',
+      senderGroup: 'doctors',
+      title: mtitle,
+      receiverGroup: ugroup,
+      receiver: uemail,
+      message: mcontent,
+    })
+    .then((result) => res.json(result))
+    .catch((err) => console.log(err));
+});
 
-    res.redirect('/');
-  });
+app.get('/get_notys/:email', (req, res) => {
+  const { email } = req.params;
+  notificationModel
+    .find({ receiver: email })
+    .then((records) => res.json(records))
+    .catch((err) => console.log(err));
+});
+
+app.get('/orgs/', (req, res) => {
+  orgModel
+    .find({})
+    .then((orgs) => res.json(orgs))
+    .catch((err) => console.log(err));
+});
+
+app.get('/orgs/:id', (req, res) => {
+  const { id } = req.params;
+
+  orgModel
+    .find({ _id: id })
+    .then((orgs) => res.json(orgs))
+    .catch((err) => console.log(err));
+});
+
+app.get('/orgs/patients/:id', (req, res) => {
+  const { id } = req.params;
+
+  Patient.find({ org: id })
+    .then((orgs) => res.json(orgs))
+    .catch((err) => console.log(err));
 });
 
 mongoose
