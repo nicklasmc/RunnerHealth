@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import ListGroup from 'react-bootstrap/ListGroup';
 import { FaGithubSquare, FaLinkedin, FaPortrait } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+import { VscCalendar, VscKey, VscFolder } from 'react-icons/vsc';
 
 /*images*/
 import first from './imgs/doctors-patient.jpg';
@@ -23,91 +26,117 @@ import fourteen from './imgs/healthcare-worker.jpg';
 import fifteen from './imgs/patient.jpg';
 
 function Landing() {
+  const isBreakpoint = useMediaQuery(800)
+
   return (
-    <div className="page-contents landing-page">
-      <Carousel className="landing-showcase">
-        <Carousel.Item>
-          <img src={first} className="showcase-img" alt="..." />
-          <Carousel.Caption>
-            <h3 className="carousel-header">Better Healthcare</h3>
-            <p>Runner Health helps to improve the quality of healthcare.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={second} className="showcase-img" alt="..." />
-          <Carousel.Caption>
-            <h3 className="carousel-header">Electronic Health Records</h3>
-            <p>
-              Store medical records more efficiently by utilizing the cloud.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img src={third} className="showcase-img" alt="..." />
-          <Carousel.Caption>
-            <h3 className="carousel-header">Faster Response Times</h3>
-            <p>
-              Improve response times with EHRs and automating administrative
-              tasks.
-            </p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+    <div className="landing-page">
+      <div className="landing-showcase">
+        <Carousel>
+          <Carousel.Item>
+            <img src={first} className="showcase-img" alt="..." />
+            <Carousel.Caption>
+              <h3 className="carousel-header">Better Healthcare</h3>
+              <p>Runner Health helps to improve the quality of healthcare.</p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={second} className="showcase-img" alt="..." />
+            <Carousel.Caption>
+              <h3 className="carousel-header">Electronic Health Records</h3>
+              <p>
+                Store medical records more efficiently by utilizing the cloud.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+          <Carousel.Item>
+            <img src={third} className="showcase-img" alt="..." />
+            <Carousel.Caption>
+              <h3 className="carousel-header">Faster Response Times</h3>
+              <p>
+                Improve response times with EHRs and automating administrative
+                tasks.
+              </p>
+            </Carousel.Caption>
+          </Carousel.Item>
+        </Carousel>
+      </div>
       <div className="rh-landing-bit">
-        <div className="runner-what container-fluid">
-          <div className="runner-what-l">
-            <h1 className="subsec-title">Runner Health</h1>
-            <p className="runner-overflow">
-              Runner Health is a hospital management application that uses
-              electronic health records (EHR) to help transition medical
-              facilities into a digital cloud-based system for healthcare. There
-              is a significant benefit for healthcare facilities to transition
-              to a fully digital system for managing patient health information.{' '}
-            </p>
-            <p className="runner-overflow">
-              EHRs will allow facilities to have streamlined access to records
-              and reduce the clutter that physical records bring to the
-              workspace. It will also facilitate the management of appointments,
-              invoices, and other administrative tasks while reducing daily
-              costs and improving the quality of care that a patient receives.
-              Physicians will be able to respond to a patient's request for
-              medical records at a faster rate.
-            </p>
-            <p className="runner-overflow">
-              With the implementation of EHRs, a complete medical history can be
-              maintained and stored securely for as long as the patient
-              requires. With the advancements being made in technology, an EHR
-              is an essential asset for all healthcare providers.
-            </p>
+        { isBreakpoint ? (
+          <div className="runner-hook-small">
+            <div className="runner-hook-small-a">
+              <VscCalendar color="goldenrod" fontSize="1.0em"/>
+              <p className="runner-hook-small-sec">Schedule Appointments</p>
+            </div>
+            <div className="runner-hook-small-b">
+              <VscFolder color="goldenrod" fontSize="1.0em"/>
+              <p className="runner-hook-small-sec">Store Medical Records</p>
+            </div>
+            <div className="runner-hook-small-c">
+              <VscKey color="goldenrod" fontSize="1.0em"/>
+              <p className="runner-hook-small-sec">Seamless Payment</p>
+            </div>
           </div>
-          <div className="runner-what-r">
-            <img src={fourth} className="runner-img" />
+        ) : (
+          <div className="runner-hook">
+            <p className="runner-hook-header">
+              Explore Our Services
+            </p>
+            <div className="runner-hook-text">
+              <div className="runner-hook-a">
+                <p className="runner-hook-sec-text">Schedule Appointments</p>
+                <p className="runner-hook-a-text">
+                  Setup healthcare appointments with a provider
+                </p>
+              </div>
+              <p className="runner-hook-slant">/</p>
+              <div className="runner-hook-b">
+                <p className="runner-hook-sec-text">Store Medical Records</p>
+                <p className="runner-hook-a-text">
+                  Upload and retrieve medical health records
+                </p>
+              </div>
+              <p className="runner-hook-slant">/</p>
+              <div className="runner-hook-c">
+                <p className="runner-hook-sec-text">Seamless Payment</p>
+                <p className="runner-hook-a-text">
+                  Pay and review invoices from appointments
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="runner-what">
+          <div className="runner-what-content">
+            <div className="runner-what-a">
+              <p className="runner-what-title">TIRED OF WAITING?</p>
+              <div className="runner-what-text">
+                <p className="runner-what-hook">
+                  Make Healthcare easy with Runner Health. 
+                </p>
+                <p className="runner-what-paragraph">
+                We know Doctor's visits can be frustrating. The team at Runner Health is
+                dedicated to providing an easy to use Electronic Health 
+                Record service that works with your providers to safely
+                and securely store your information. Access your health
+                records and schedule your appointments with Runner Health
+                Today!
+                </p>
+              </div>
+              <Link to="/patient_login" className="appt-return">
+                <button className="appt-button">
+                  Explore with us
+                </button>
+              </Link>
+            </div>
+            <div className="runner-what-b">
+              <img src={fourth} className="runner-what-img" />
+            </div>
           </div>
         </div>
-        <div className="runner-mission">
-          <div className="runner-mission-l">
-            <img src={fifth} className="runner-img" />
-          </div>
-          <div className="runner-mission-r">
-            <h1 className="subsec-title">Our Mission</h1>
-            <p className="runner-mission-statement">
-              Runner Health is committed to assisting healthcare providers in
-              the transition from paper-based records to electronic health
-              record systems. We understand the importance of securely managing
-              your confidential information with care and haste. The team at 
-              Runner Health is not only trying to preserve your health records
-              for your use, but also trying to create an easy to understand
-              environment for your health providers. Accessing your health
-              records does not have to be hard, and that is why bringing the 
-              most accessible EHR service is our team's biggest 
-              driving force in our quest to advance the medical industry to 
-              the digital age.
-            </p>
-          </div>
-        </div>
-        <div className="runner-team container-fluid">
-          <h1 className="subsec-title">Team Members</h1>
-          <div className="runner-team-box container-fluid">
+       
+        <div className="runner-team">
+          <h1 className="subsec-title">The Runner Health Team</h1>
+          <div className="runner-team-box">
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={seven} />
               <Card.Body>
@@ -248,34 +277,35 @@ function Landing() {
             </Card>
           </div>
         </div>
-        <div className="runner-service container-fluid">
-          <h1 className="subsec-title">Services</h1>
-          <div className="all-services-can">
-            <div className="services-can">
-              <div className="service-img-can">
-                <img className="service-img" alt=".." src={ten} />
-              </div>
-              <div className="service-desc">Store Medical Records</div>
-            </div>
-            <div className="service-divider"></div>
-            <div className="services-can">
-              <div className="service-img-can">
-                <img className="service-img" alt=".." src={elle} />
-              </div>
-              <div className="service-desc">Schedule Appointments</div>
-            </div>
-            <div className="service-divider"></div>
-            <div className="services-can">
-              <div className="service-img-can">
-                <img className="service-img" alt=".." src={twelve} />
-              </div>
-              <div className="service-desc">Make Payments</div>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
 }
+
+
+const useMediaQuery = (width) => {
+  const [targetReached, setTargetReached] = useState(false);
+
+  const updateTarget = useCallback((e) => {
+    if (e.matches) {
+      setTargetReached(true);
+    } else {
+      setTargetReached(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const media = window.matchMedia(`(max-width: ${width}px)`);
+    media.addEventListener("change", updateTarget);
+
+    if (media.matches) {
+      setTargetReached(true);
+    }
+
+    return () => media.removeEventListener("change", updateTarget);
+  }, []);
+
+  return targetReached;
+};
 
 export default Landing;
