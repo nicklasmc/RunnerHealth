@@ -19,7 +19,6 @@ import DoctorLogin from './pages/DoctorLogin';
 import Inventory from './pages/Inventory';
 import Invoice from './pages/Invoice';
 import Records from './pages/Records';
-import DoctorRecords from './pages/DoctorRecords';
 import NotFoundPage from './pages/NotFoundPage';
 import UserSettings from './pages/UserSettings.js';
 import Navi from './components/navbar/Navi';
@@ -50,10 +49,6 @@ function App() {
               <Route
                 path="/records"
                 element={patient ? <Records /> : <Navigate to="/" />}
-              />
-              <Route
-                path="/drecords"
-                element={doctor ? <DoctorRecords /> : <Navigate to="/" />}
               />
               <Route
                 path="/invoice"
