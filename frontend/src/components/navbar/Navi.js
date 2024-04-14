@@ -127,9 +127,9 @@ const Navi = () => {
                 <FlyoutLink
                   className=""
                   href="#"
-                  FlyoutContent={RecordsContent}
+                  FlyoutContent={InventoryContent}
                 >
-                  Records
+                  Inventory
                 </FlyoutLink>
               </div>
               <div className="link-btn">
@@ -167,9 +167,9 @@ const Navi = () => {
                 <FlyoutLink
                   className=""
                   href="#"
-                  FlyoutContent={RecordsContent}
+                  FlyoutContent={InventoryContent}
                 >
-                  Records
+                  Inventory
                 </FlyoutLink>
               </div>
               <div className="link-btn">
@@ -225,6 +225,52 @@ const Navi = () => {
   );
 };
 
+const InventoryContent = () => {
+  const { logout } = UseLogout();
+  const { adminLogout } = UseAdminLogout();
+  const { doctorLogout } = UseDoctorLogout();
+  const { patient, admin, doctor } = useAuthContext();
+
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    const getUserInfo = async () => {
+      let response = null;
+      if (patient) {
+        response = await fetch(
+          `http://localhost:4000/patients/${patient.email}`
+        );
+      } else if (doctor) {
+        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+      } else if (admin) {
+        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+      }
+
+      const data = await response.json();
+      setUser(data);
+    };
+    getUserInfo();
+  }, [patient, doctor, admin]);
+
+  return (
+    <>
+      {user ? (
+        user.map((user, index) => (
+          <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
+            <div className="space-y-3">
+              <Link to="/*" className="block text-l hover:underline">
+                <a href="#">Website Inventory</a>
+              </Link>
+            </div>
+          </div>
+        ))
+      ) : (
+        <h1>Gathering Data...</h1>
+      )}
+    </>
+  );
+};
+
 const InvoiceContent = () => {
   const { logout } = UseLogout();
   const { adminLogout } = UseAdminLogout();
@@ -258,17 +304,39 @@ const InvoiceContent = () => {
         user.map((user, index) => (
           <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
             <div className="space-y-3">
-              <Link to="/invoice" className="block text-l hover:underline">
-                <a href="#">Pay Balance</a>
-              </Link>
-              <div className="flex-1 border-t-2 border-gray-200" />
-              <Link to="/invoice" className="block text-l hover:underline">
-                <a href="#">Send Invoice</a>
-              </Link>
-              <div className="flex-1 border-t-2 border-gray-200" />
-              <Link to="/invoice" className="block text-l hover:underline">
-                <a href="#">View Invoices</a>
-              </Link>
+            {patient && (
+              <>
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">Pay Balance</a>
+                </Link>
+                <div className="flex-1 border-t-2 border-gray-200" />
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">View Invoices</a>
+                </Link>
+              </>
+            )}
+            {doctor && (
+              <>
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">Send Invoice</a>
+                </Link>
+                <div className="flex-1 border-t-2 border-gray-200" />
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">View Invoices</a>
+                </Link>
+              </>
+            )}
+            {admin && (
+              <>
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">Send Invoice</a>
+                </Link>
+                <div className="flex-1 border-t-2 border-gray-200" />
+                <Link to="/invoice" className="block text-l hover:underline">
+                  <a href="#">View Invoices</a>
+                </Link>
+              </>
+            )}
             </div>
           </div>
         ))
@@ -409,40 +477,15 @@ const RecordsContent = () => {
                   >
                     <a href="#">Medical Records</a>
                   </Link>
-                  <div className="flex-1 border-t-2 border-gray-200" />
-                  <Link
-                    to={`/myappointments/${user._id}`}
-                    className="block text-l hover:underline"
-                  >
-                    <a href="#">Electronic Health Records</a>
-                  </Link>
-                  <div className="flex-1 border-t-2 border-gray-200" />
-                  <Link
-                    to={`/myappointments/${user._id}`}
-                    className="block text-l hover:underline"
-                  >
-                    <a href="#">Personal Health Information (PHI)</a>
-                  </Link>
                 </>
               )}
               {patient && (
                 <>
-                  <Link to="/records" className="block text-l hover:underline">
-                    <a href="#">Medical Records</a>
-                  </Link>
-                  <div className="flex-1 border-t-2 border-gray-200" />
                   <Link
                     to={`/records`}
                     className="block text-l hover:underline"
                   >
                     <a href="#">Electronic Health Records</a>
-                  </Link>
-                  <div className="flex-1 border-t-2 border-gray-200" />
-                  <Link
-                    to={`/records`}
-                    className="block text-l hover:underline"
-                  >
-                    <a href="#">Personal Health Information (PHI)</a>
                   </Link>
                 </>
               )}
