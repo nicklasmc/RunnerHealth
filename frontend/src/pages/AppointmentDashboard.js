@@ -114,89 +114,90 @@ const AppointmentDashboard = () => {
   // ----------------------------------- //
 
   return (
-    <div>
-      <div className="appt-main-container">
-        <h1 className="text-center mb-4 text-4xl font-semibold">
-          Appointment Dashboard
-        </h1>
-        {appointment &&
-          appointment.map((appointments, index) => (
-            <div>
-              <div key={index} className="appt-cells min-h-150">
-                <div className="appt-cell-one">
-                  <p>
-                    <span className="text-red-500" id={`${index}`}>
-                      Requested Time:{" "}
-                    </span>
-                    {convertClockTime(appointments.time)}
-                  </p>
-                  <p>
-                    <span className="text-red-500">Requested Date: </span>
-                    {new Date(appointments.preferredDate).toDateString()}
-                  </p>
-                </div>
-                <div className="appt-cell-two">
-                  <p>
-                    <span className="text-red-500">Patient: </span>
-                    {appointments.patientFirstName}{" "}
-                    {appointments.patientLastName}
-                  </p>
-                  <p>
-                    <span className="text-red-500">Provider: </span>
-                    {appointments.doctor.fname} {appointments.doctor.lname}
-                  </p>
-                </div>
-                <div className="appt-cell-three">
-                  <p>
-                    <span className="text-red-500">Appointment Type: </span>
-                    {appointments.apptReason}
-                  </p>
-                </div>
-                <div className="appt-cell-four flex-col">
-                  <p>
-                    <span className="text-red-500">Status: </span>
-                    {appointments.status}
-                  </p>
-
-                  {appointments.editMode ? (
-                    <div>Editting Form...</div>
-                  ) : (
-                    <div className="appt-cell-five mt-2">
-                      <button
-                        className="appt-update-btn"
-                        onClick={() => toggleFormDropdown(index)}
-                      >
-                        {appointments.formDropdown ? "Collapse" : "Expand"}
-                      </button>
-                      <button
-                        className="appt-update-btn ml-5"
-                        onClick={() => toggleEditMode(index)}
-                      >
-                        Edit
-                      </button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              {appointments.editMode || appointments.formDropdown ? (
-                <AppointmentDashForm
-                  appointment={appointment}
-                  appointments={appointments}
-                  providers={providers}
-                  index={index}
-                  toggleFormDropdown={toggleFormDropdown}
-                  toggleEditMode={toggleEditMode}
-                  setAppointment={setAppointment}
-                  user={user}
-                  updated={updated}
-                  setUpdated={setUpdated}
-                />
-              ) : (
-                <div></div>
-              )}
-            </div>
-          ))}
+    <div className="appt-dash-can h-full min-h-screen">
+    <div className="appt-main-container">
+      <div className=" settings-top-row flex flex-col">
+        <div className="top-bar" />
+        <h1 className="settings-top-header">Appointment Dashboard</h1>
       </div>
+      {appointment &&
+        appointment.map((appointments, index) => (
+          <div>
+            <div key={index} className="appt-cells min-h-150">
+              <div className="appt-cell-one">
+                <p>
+                  <span className="text-red-500" id={`${index}`}>
+                    Requested Time:{" "}
+                  </span>
+                  {convertClockTime(appointments.time)}
+                </p>
+                <p>
+                  <span className="text-red-500">Requested Date: </span>
+                  {new Date(appointments.preferredDate).toDateString()}
+                </p>
+              </div>
+              <div className="appt-cell-two">
+                <p>
+                  <span className="text-red-500">Patient: </span>
+                  {appointments.patientFirstName}{" "}
+                  {appointments.patientLastName}
+                </p>
+                <p>
+                  <span className="text-red-500">Provider: </span>
+                  {appointments.doctor.fname} {appointments.doctor.lname}
+                </p>
+              </div>
+              <div className="appt-cell-three">
+                <p>
+                  <span className="text-red-500">Appointment Type: </span>
+                  {appointments.apptReason}
+                </p>
+              </div>
+              <div className="appt-cell-four flex-col">
+                <p>
+                  <span className="text-red-500">Status: </span>
+                  {appointments.status}
+                </p>
+
+                {appointments.editMode ? (
+                  <div>Editting Form...</div>
+                ) : (
+                  <div className="appt-cell-five mt-2">
+                    <button
+                      className="appt-update-btn"
+                      onClick={() => toggleFormDropdown(index)}
+                    >
+                      {appointments.formDropdown ? "Collapse" : "Expand"}
+                    </button>
+                    <button
+                      className="appt-update-btn ml-5"
+                      onClick={() => toggleEditMode(index)}
+                    >
+                      Edit
+                    </button>
+                  </div>
+                )}
+              </div>
+            </div>
+            {appointments.editMode || appointments.formDropdown ? (
+              <AppointmentDashForm
+                appointment={appointment}
+                appointments={appointments}
+                providers={providers}
+                index={index}
+                toggleFormDropdown={toggleFormDropdown}
+                toggleEditMode={toggleEditMode}
+                setAppointment={setAppointment}
+                user={user}
+                updated={updated}
+                setUpdated={setUpdated}
+              />
+            ) : (
+              <div></div>
+            )}
+          </div>
+        ))}
+    </div>
     </div>
   );
 };
