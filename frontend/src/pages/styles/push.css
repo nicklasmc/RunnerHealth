@@ -1,14 +1,99 @@
+.records-page {
+  width: 50%;
+  background-color: white;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  overflow-y: scroll;
+  gap: 2rem;
+}
+
+.records-patient-page {
+  width: 50%;
+  background-color: white;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  overflow-y: scroll;
+  gap: 2rem;
+}
+
+.records-records-section {
+  width: 100%;
+  background-color: white;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  overflow-y: scroll;
+  gap: 2rem;
+}
+
+.records-patient-section {
+  width: 80%;
+  background-color: white;
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  overflow-y: scroll;
+  gap: 2rem;
+}
+
+.records-page-header {
+  width: 100%;
+  border-bottom: 2px solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+
+.records-header-text {
+  text-align: start;
+  font-size: 2.25rem; /* 36px */
+  line-height: 2.5rem; /* 40px */
+  font-weight: 500;
+  margin: 1rem;
+} 
+
+.dhome-records-container {
+  display: flex;
+  width: 91.666667%;
+  justify-content: center;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.records-horizon-con {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 2rem;
+}
+
+.records-page-content {
+  display: flex;
+  width: 100%;
+  flex-direction: row-reverse;
+}
+
 .form-can {
-  width: 500px;
-  margin: 0 auto;
-  background-color: whitesmoke;
-  padding: 50px;
-  border: 1px #111 solid;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 10px;
-  box-shadow: 3px 3px 3px #222;
+  justify-content: center;
+  gap: 0.75rem;
 }
 
 .img-big-can {
@@ -32,7 +117,7 @@
   border: #111 solid 1px;
   border-radius: 5px;
   background-color: #111;
-  box-shadow: #222 3px 3px 3px;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .rec-bottom-half {
@@ -60,6 +145,10 @@
   flex-wrap: wrap;
   justify-content: space-around;
   align-items: center;
+}
+
+.doc-img-no-can {
+  display: none;
 }
 
 .rec-delete-opt {
@@ -95,19 +184,34 @@
 
 .file-input-box {
   width: 80%;
-  border: #111 solid 1px;
-  background-color: whitesmoke;
+  border: goldenrod solid 1px;
+  background-color: white;
+  margin-bottom: 0%;
 }
 
-.submit-btn {
-  background-color: goldenrod !important ;
-  width: 100%;
+.file-image-upload {
+  width: 80%;
+  margin-bottom: 0%;
+  border: goldenrod solid 1px;
 }
 
-.submit-btn:hover {
-  background-color: rgb(128, 128, 128) !important;
-  width: 100%;
+.records-patient-button {
+  color: #FFF;
+  background-color: #003594;
+  border-color: #003594;
+  padding: 4px 20px 4px 20px;
+  display: inline-block;
+  font-size: 1.125rem; /* 18px */
+  line-height: 1.75rem; /* 28px */
+  font-weight: bold;
+  border-radius: 0.25rem;
 }
+
+.records-patient-button:hover{
+  background-color: goldenrod;
+  color: #003594;
+}
+
 
 .upload-header {
   margin: 0 0 25px;
@@ -147,31 +251,20 @@
 
 .patient-tag {
   width: 30%;
-  background-color: whitesmoke;
-  box-shadow: 2px 2px 2px #222;
-  border: #111 1px solid;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  border: 1px solid;
+  --tw-border-opacity: 1;
+  border-color: goldenrod;
   border-radius: 5px;
   margin: 10px auto;
   padding: 10px;
 }
 
-@media screen and (max-width: 600px) {
-  .form-can {
-    width: 90%;
-    margin: 0 auto;
-  }
-
-  .img-can {
-    width: 95%;
-  }
-}
-
 .the-experiment {
   display: flex;
-  width: 50%;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
+  width: 95%;
+  height: 100%;
+  margin: 0px auto;
   flex-direction: column;
 }
 
@@ -189,18 +282,33 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  display: none;
+}
+
+.all-invoices {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 0 24px;
+  gap: 2rem;
 }
 
 .invoice-cards-can {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  overflow-y: scroll;
 }
 
 .invoice-cards {
-  background-color: whitesmoke;
-  margin: 25px auto;
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   min-width: 350px;
-  width: 32%;
+  width: 100%;
+  border-radius: 0px;
+  border-bottom: 2px solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
 }
 
 .invoice-section-header {
@@ -208,16 +316,32 @@
   margin: 50px 0;
   padding-top: 25px;
   font-weight: 600;
+  background-color: white;
+}
+
+.each-card-header-can {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.each-card-header {
+  font-size: 18px;
+  font-weight: bold;
+  width: 50%;
 }
 
 .card-body {
   display: flex;
   flex-direction: column;
-  background-color: whitesmoke;
+  background-color: white;
+  border-radius: 0px;
 }
 
 .cta-can {
   display: flex;
+  margin-top: 16px;
 }
 
 .cta-btn {
@@ -233,7 +357,16 @@
 }
 
 .card-text {
-  margin: 15px 0;
+  margin: 16px 0;
+}
+
+.card-title {
+  margin: 16px 0;
+  font-size: 20px;
+}
+
+.card-text:last-child {
+  margin-bottom: 16px;
 }
 
 .inv-meta-can {
@@ -243,7 +376,36 @@
 
 .invoice-date-can {
   display: flex;
+  align-items: flex-start;
   justify-content: space-between;
+  border-bottom: 2px solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+
+.invoice-date {
+  width: 50%;
+}
+
+.invoice-page-can {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  border-bottom: 2px solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+
+.invoice-page-title {
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.invoice-page-message {
+  width: 100%;
+  margin-top: 16px;
+  margin-bottom: 16px;
 }
 
 .invoice-header-can {
@@ -252,11 +414,14 @@
   justify-content: space-between;
 }
 
-.inv-link-btn {
-  width: 80%;
-  margin: 0 auto;
-  background-color: #222;
-  border: #222 solid 1px;
+.mark-paid-btn {
+  background-color: #003594;
+  color: white;
+}
+
+.mark-paid-btn:hover {
+  background-color: goldenrod;
+  color: #003594;
 }
 
 .hr-divider-can {
@@ -288,16 +453,47 @@
   justify-content: center;
 }
 
+.invoice-can {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+.invoice-page-section {
+  width: 90%;
+  background-color: white;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+.invoice-page-header {
+  width: 100%;
+  border-bottom: 2px solid;
+  --tw-border-opacity: 1;
+  border-color: rgba(229, 231, 235, var(--tw-border-opacity));
+}
+
+.create-invoice-label {
+  font-weight: normal;
+  font-size: large;
+}
+
+.create-invoice-input {
+
+}
+
 .message-form-can {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   margin: 0 auto;
   min-width: 370px;
   max-width: 900px;
-  width: 80%;
-  background-color: whitesmoke;
-  box-shadow: #222 3px 3px 3px;
-  border-radius: 5px;
+  width: 100%;
   padding: 25px;
 }
 
@@ -317,12 +513,125 @@
   padding: 10px;
 }
 
+.create-invoice-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inv-link-btn {
+  gap: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  font-size: 16px;
+  color: #FFF;
+  padding: 8px 16px;
+  background-color: #003594;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #003594;
+  text-align: center;
+  width: 100%;
+}
+
+.inv-link-btn:hover {
+  background-color: goldenrod;
+  color: #003594;
+  font-weight: bold;
+}
+
 .msg-submit-btn,
 .msg-clear-btn {
-  background-color: #222;
-  margin: 10px 0;
+    gap: 5px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: none;
+    font-size: 16px;
+    color: #FFF;
+    padding: 8px 16px;
+    background-color: #003594;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #003594;
+    text-align: center;
+    width: 100%;
+}
+
+.msg-submit-btn:hover,
+.msg-clear-btn:hover {
+    background-color: goldenrod;
+    color: #003594;
+    font-weight: bold;
 }
 
 .invoice-create-hdr {
   text-align: center;
+}
+
+@media screen and (max-width: 800px) {
+  .form-can {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .img-can {
+    width: 95%;
+  }
+
+  .img-big-can {
+    margin: 15px 15px;
+    width: 90%;
+    justify-content: center;
+  }
+
+  .records-patient-page {
+    width: 80%;
+  }
+
+  .all-invoices {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+  }
+
+  .invoice-page-section {
+    width: 90%;
+  }
+
+  .cta-can {
+    justify-content: center;
+  }
+
+  .message-form-can {
+    margin: 0;
+    justify-content: center;
+    padding: 0;
+  }
+
+  .records-patient-section {
+    width: 90%;
+  }
+
+  .records-patient-page {
+    width: 90%;
+  }
+
+  .card-body {
+    width: 100%;
+  }
+
+  .invoice-cards-can {
+    overflow-x: hidden;
+  }
+
+  .inv-link-btn {
+    width: 80%;
+  }
 }

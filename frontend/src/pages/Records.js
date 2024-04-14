@@ -56,82 +56,94 @@ const Records = () => {
   }, [image]);
 
   return (
-    <div className="records page-contents container-fluid">
-      <h2 className="phi-header container-fluid text-2xl">
-        Personal Health Information
-      </h2>
+    <div className="home-page">
+      <div className="records-patient-page">
+        <div className="records-page-header">
+          <div className="top-bar"/>
+          <h2 className="records-header-text">
+            Upload Records
+          </h2>
+        </div>
+        <div className="form-can">
+            <input
+              type="file"
+              id="myImage"
+              name="myImage"
+              className="file-image-upload"
+              onChange={(e) => setFile(e.target.files[0])}
+            />
+            <input
+              type="text"
+              id="myTitle"
+              name="myTitle"
+              placeholder="Enter a Title"
+              className="file-input-box"
+              value={title}
+              onInput={(e) => setTitle(e.target.value)}
+              required
+            />
+            <button
+              type="submit"
+              className="records-patient-button"
+              onClick={handleUpload}
+            >
+              Submit
+            </button>
+            <img
+              src={`${process.env.REACT_APP_SERVER_URL}/Images/` + image}
+              alt=""
+            />
+          </div>
+        </div>
 
-      <div className="img-big-can">
-        {image && image.length > 0 ? (
-          image.map(({ image, index, _id, title }) => (
-            <div className="img-can" key={image.file}>
-              <embed
-                src={`${process.env.REACT_APP_SERVER_URL}/Images/` + image}
-                alt=""
-                className="upload-prev rec-top-half"
-              />
-              <div className="rec-bottom-half">
-                <div className="file-title container">
-                  {title}
-                  <div className="rec-btn-opt">
-                    <a
-                      href={
-                        `${process.env.REACT_APP_SERVER_URL}/Images/` + image
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="rec-view-opt"
-                    >
-                      <button className="btn btn-dark view-btn-opt">
-                        view
+      <div className="records-patient-section">
+        <div className="records-page-header">
+          <div className="top-bar"/>
+          <h2 className="records-header-text">
+            Patient Records
+          </h2>
+        </div>
+        <div className="img-big-can">
+          {image && image.length > 0 ? (
+            image.map(({ image, index, _id, title }) => (
+              <div className="img-can" key={image.file}>
+                <embed
+                  src={`${process.env.REACT_APP_SERVER_URL}/Images/` + image}
+                  alt=""
+                  className="upload-prev rec-top-half"
+                />
+                <div className="rec-bottom-half">
+                  <div className="file-title container">
+                    {title}
+                    <div className="rec-btn-opt">
+                      <a
+                        href={
+                          `${process.env.REACT_APP_SERVER_URL}/Images/` + image
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="rec-view-opt"
+                      >
+                        <button className="btn btn-dark view-btn-opt">
+                          view
+                        </button>
+                      </a>
+                      <button onClick={() => handleClick(_id)}>
+                        <FaTrashAlt className="trash-icon" />
                       </button>
-                    </a>
-                    <button onClick={() => handleClick(_id)}>
-                      <FaTrashAlt className="trash-icon" />
-                    </button>
+                    </div>
                   </div>
                 </div>
               </div>
+            ))
+          ) : (
+            <div className="no-pics">
+              <h1>Upload Records</h1>
             </div>
-          ))
-        ) : (
-          <div className="no-pics">
-            <h1>Upload Records</h1>
-          </div>
-        )}
+          )}
+        </div>
       </div>
-      <br></br>
-      <div className="form-can">
-        <h3 className="upload-header">Upload Files</h3>
-        <input
-          type="file"
-          id="myImage"
-          name="myImage"
-          className="file-input-box"
-          onChange={(e) => setFile(e.target.files[0])}
-          required
-        />
-        <input
-          type="text"
-          id="myTitle"
-          name="myTitle"
-          placeholder="Enter a Title"
-          className="file-input-box"
-          value={title}
-          onInput={(e) => setTitle(e.target.value)}
-          required
-        />
-        <br></br>
-        <button
-          type="submit"
-          className="btn btn-dark submit-btn"
-          onClick={handleUpload}
-        >
-          Submit
-        </button>
-        <br></br>
         {error && <div className="error">{error}</div>}
-      </div>
     </div>
   );
 };
