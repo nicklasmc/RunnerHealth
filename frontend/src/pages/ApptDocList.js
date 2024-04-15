@@ -42,17 +42,17 @@ const ApptDocList = () => {
     <div className ="doc-list-page">
         <div className="select-content">
           {doctors.map((doctor) => (
-            <div key={doctor.email} className="card-wrapper">
-              <div className ="card">
+            <div key={doctor.email} className="doc-card-wrapper">
+              <div className ="doc-card">
                 <div className ="image-content">
                   <span className="overlay"></span>
 
-                  <div className="card-image">
+                  <div className="doc-card-image">
                     <img src= {require(`../../public/imgs/${doctor._id}.png`)} alt="placeholder" className="card-img"></img>
                   </div> 
                 </div>
 
-                <div className="card-content">
+                <div className="doc-card-content">
                   <h2 className="name">{doctor.fname} {doctor.lname}</h2>
                   <p className="description">Specialty: </p>
 

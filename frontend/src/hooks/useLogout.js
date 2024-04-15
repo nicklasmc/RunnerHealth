@@ -7,6 +7,8 @@ export const UseLogout = () => {
   const logout = () => {
     // remove patient from storage
     localStorage.removeItem('patient');
+    localStorage.removeItem('userID');
+    localStorage.removeItem('orgID');
 
     // dispatch logout action
     dispatch({ type: 'PATIENT_LOGOUT' });

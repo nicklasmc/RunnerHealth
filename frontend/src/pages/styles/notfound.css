@@ -1,6 +1,7 @@
 .space-can {
   width: 50%;
-  margin: 50px auto;
+  margin: 0px auto;
+  padding-top: 50px;
   display: flex;
   flex-direction: column;
 }
