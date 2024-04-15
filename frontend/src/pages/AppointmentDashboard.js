@@ -122,7 +122,7 @@ const AppointmentDashboard = () => {
       </div>
       {appointment &&
         appointment.map((appointments, index) => (
-          <div>
+          <div key={index}>
             <div key={index} className="appt-cells min-h-150">
               <div className="appt-cell-one">
                 <p>

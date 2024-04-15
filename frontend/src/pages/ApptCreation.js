@@ -18,9 +18,9 @@ const ApptCreation = () => {
   const [user, setUser] = useState({});
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState();
-  const [visitReason, setVisitReason] = useState(); // needed for react-select
+  const [visitReason, setVisitReason] = useState(null); // needed for react-select
+  const [creationComments, setCreationComments] = useState(null);
   const [apptTime, setApptTime] = useState();
-  // const [existingAppts, setExistingAppts] = useState();
   const [timeOptions, setTimeOptions] = useState([]);
 
   const apptOptions = [
@@ -33,13 +33,18 @@ const ApptCreation = () => {
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
+    if (document.getElementById("creation-comments").value){
+      setCreationComments(document.getElementById("creation-comments").value);
+    } else {
+      setCreationComments("N/A");
+    }
 
     try {
       console.log(visitReason);
       const formData = {
         doctor: id,
         patientId: user[0]._id,
-        apptComments: document.getElementById("appt-comments").value,
+        apptComments: creationComments,
         apptReason: visitReason,
         patientFirstName: document.getElementById("patient-first-name").value,
         patientLastName: document.getElementById("patient-last-name").value,
@@ -56,6 +61,7 @@ const ApptCreation = () => {
       const appointmentId = response.data._id;
       navigate(`/appointment/${id}/${appointmentId}`);
     } catch (error) {
+      window.alert("Please fill out all fields!");
       console.error(error, "error, missing input");
     }
   };
