@@ -311,11 +311,11 @@ textarea {
 }
 
 
-.card-wrapper {
+.doc-card-wrapper {
     width: 100%;
 }
 
-.card {
+.doc-card {
     width: 100%;
     border-radius: 25px;
     background-color: #FFF;
@@ -323,7 +323,7 @@ textarea {
 }
 
 .image-content,
-.card-content {
+.doc-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -362,7 +362,7 @@ textarea {
     background-color: #FFF;
 }
 
-.card-image {
+.doc-card-image {
     position: relative;
     height: 150px;
     width: 150px;
@@ -371,7 +371,7 @@ textarea {
     padding: 3px;
 }
 
-.card-image .card-img {
+.doc-card-image .card-img {
     height: 100%;
     width: 100%;
     object-fit: cover;

@@ -1,4 +1,3 @@
-import { useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { useAuthContext } from '../hooks/useAuthContext';
 import { Link } from 'react-router-dom';
@@ -92,7 +91,7 @@ const Home = () => {
           <div className="content-section">
             <div className="top-bar" />
             {user.map((user, index) => (
-              <Link to="/">
+              <Link to="/records">
                 <p className="content-header">Records</p>
               </Link>
             ))}
@@ -101,7 +100,7 @@ const Home = () => {
             <p className="content-text">
               Upload, Store and View your medical records.
             </p>
-            <Link to="/" className="records-button-link">
+            <Link to="/records" className="records-button-link">
               <button className="records-button">
                 View Records
                 <LiaAddressBook className="" />
@@ -160,21 +159,20 @@ const Home = () => {
             <div className="top-bar" />
             {user.map((user, index) => (
               <Link to="/invoice">
-                <p className="content-header">Invoice</p>
+                <p className="content-header">Invoices</p>
               </Link>
             ))}
           </div>
-          <div className="invoices-home">
+          <div className="invoice-content">
             {invoices && invoices.length > 0 ? (
               invoices
                 .filter((invoice, index) => 5)
                 .map((invoice) => (
-                  <div className="idk-can" key={invoice._id}>
-                    <div className="idkyet-box1">
+                  <div className="each-invoice-can" key={invoice._id}>
+                    <div className="each-invoice-box1">
                       Subject: {invoice.subject}
-                      <div>{invoice.message}</div>
                     </div>
-                    <div className="idkyet-box2">
+                    <div className="each-invoice-box2">
                       {' '}
                       Date Due: {formatDate(invoice.dateDue)}
                     </div>
