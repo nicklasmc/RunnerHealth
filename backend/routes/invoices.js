@@ -10,6 +10,9 @@ const {
   showSenderInfo,
   markAsPaid,
   showSentPendingInvoices,
+  showSentPaidInvoices,
+  markAsConfirmed,
+  showReceiverInfo,
 } = require('../controllers/invoiceController');
 const cors = require('cors');
 
@@ -39,10 +42,10 @@ router.get('/sent_invoices/:id', showSender);
 router.get('/sent_invoices/unpaid/:id', showSentUnpaidInvoices);
 
 // Show sent pending invoices
-router.get('/sent_invoices/pending/:id', showSentUnpaidInvoices);
+router.get('/sent_invoices/pending/:id', showSentPendingInvoices);
 
 // Show sent paid invoices
-router.get('/sent_invoices/paid/:id', showSentPendingInvoices);
+router.get('/sent_invoices/paid/:id', showSentPaidInvoices);
 //////////////////////////////////////////////////////////////////////////////
 
 // Get Sender Info
@@ -50,5 +53,11 @@ router.get('/patient_invoices/sender/:id', showSenderInfo);
 
 // Mark Invoice as paid
 router.patch('/patient_invoices/:id', markAsPaid);
+
+// Mark Invoice as confirmed
+router.patch('/patient_invoices/confirm/:id', markAsConfirmed);
+
+// Get Receiver Info
+router.get('/patient_invoices/receiver/:id', showReceiverInfo);
 
 module.exports = router;

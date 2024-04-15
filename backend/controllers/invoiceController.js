@@ -28,7 +28,21 @@ const showMyInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ receiver: id })
+    .aggregate([
+      {
+        $match: {
+          receiver: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -42,7 +56,22 @@ const showMyUnpaidInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ receiver: id, paid: false })
+    .aggregate([
+      {
+        $match: {
+          receiver: new mongoose.Types.ObjectId(id),
+          paid: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -56,7 +85,23 @@ const showMyPendingInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ receiver: id, paid: true, paymentConfirmation: false })
+    .aggregate([
+      {
+        $match: {
+          receiver: new mongoose.Types.ObjectId(id),
+          paid: true,
+          paymentConfirmation: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -70,7 +115,23 @@ const showMyPaidInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ receiver: id, paid: true, paymentConfirmation: true })
+    .aggregate([
+      {
+        $match: {
+          receiver: new mongoose.Types.ObjectId(id),
+          paid: true,
+          paymentConfirmation: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -84,7 +145,21 @@ const showSender = async (req, res) => {
   }
 
   invoiceModel
-    .find({ sender: id })
+    .aggregate([
+      {
+        $match: {
+          sender: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -98,7 +173,22 @@ const showSentUnpaidInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ createdBy: id, paid: false })
+    .aggregate([
+      {
+        $match: {
+          createdBy: new mongoose.Types.ObjectId(id),
+          paid: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
@@ -112,12 +202,58 @@ const showSentPendingInvoices = async (req, res) => {
   }
 
   invoiceModel
-    .find({ createdBy: id, paid: true, paymentConfirmation: false })
+    .aggregate([
+      {
+        $match: {
+          createdBy: new mongoose.Types.ObjectId(id),
+          paid: true,
+          paymentConfirmation: false,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
     .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
 
-// Get Sender Info
+// Show sent paid invoices
+const showSentPaidInvoices = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'No such doctor' });
+  }
+
+  invoiceModel
+    .aggregate([
+      {
+        $match: {
+          createdBy: new mongoose.Types.ObjectId(id),
+          paid: true,
+          paymentConfirmation: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
+    .then((invoices) => res.json(invoices))
+    .catch((err) => console.log(err));
+};
+
+// Get Sender Info in the invoice
 const showSenderInfo = async (req, res) => {
   const { id } = req.params;
 
@@ -125,8 +261,51 @@ const showSenderInfo = async (req, res) => {
     return res.status(404).json({ error: 'No such doctor' });
   }
 
-  Doctor.find({ _id: id })
-    .then((info) => res.json(info))
+  invoiceModel
+    .aggregate([
+      {
+        $match: {
+          sender: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: 'doctors',
+          localField: 'sender',
+          foreignField: '_id',
+          as: 'senders',
+        },
+      },
+    ])
+    .then((invoices) => res.json(invoices))
+    .catch((err) => console.log(err));
+};
+
+// Get receiver Info in the invoice
+const showReceiverInfo = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'No such doctor' });
+  }
+
+  invoiceModel
+    .aggregate([
+      {
+        $match: {
+          sender: new mongoose.Types.ObjectId(id),
+        },
+      },
+      {
+        $lookup: {
+          from: 'patients',
+          localField: 'receiver',
+          foreignField: '_id',
+          as: 'receivers',
+        },
+      },
+    ])
+    .then((invoices) => res.json(invoices))
     .catch((err) => console.log(err));
 };
 
@@ -135,11 +314,25 @@ const markAsPaid = async (req, res) => {
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: 'No such doctor' });
+    return res.status(404).json({ error: 'No such invoice' });
   }
 
   invoiceModel
     .findByIdAndUpdate(id, { paid: true })
+    .then((invoice) => res.json(invoice))
+    .catch((err) => console.log(err));
+};
+
+// Confirm payment
+const markAsConfirmed = async (req, res) => {
+  const { id } = req.params;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: 'No such invoice' });
+  }
+
+  invoiceModel
+    .findByIdAndUpdate(id, { paymentConfirmation: true })
     .then((invoice) => res.json(invoice))
     .catch((err) => console.log(err));
 };
@@ -155,4 +348,7 @@ module.exports = {
   showSenderInfo,
   markAsPaid,
   showSentPendingInvoices,
+  showSentPaidInvoices,
+  markAsConfirmed,
+  showReceiverInfo,
 };
