@@ -61,7 +61,7 @@
   line-height: 2.5rem; /* 40px */
   font-weight: 500;
   margin: 1rem;
-} 
+}
 
 .dhome-records-container {
   display: flex;
@@ -196,7 +196,7 @@
 }
 
 .records-patient-button {
-  color: #FFF;
+  color: #fff;
   background-color: #003594;
   border-color: #003594;
   padding: 4px 20px 4px 20px;
@@ -207,11 +207,10 @@
   border-radius: 0.25rem;
 }
 
-.records-patient-button:hover{
+.records-patient-button:hover {
   background-color: goldenrod;
   color: #003594;
 }
-
 
 .upload-header {
   margin: 0 0 25px;
@@ -483,7 +482,6 @@
 }
 
 .create-invoice-input {
-
 }
 
 .message-form-can {
@@ -526,7 +524,7 @@
   justify-content: center;
   border: none;
   font-size: 16px;
-  color: #FFF;
+  color: #fff;
   padding: 8px 16px;
   background-color: #003594;
   border-radius: 0.25rem;
@@ -545,32 +543,55 @@
 
 .msg-submit-btn,
 .msg-clear-btn {
-    gap: 5px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    border: none;
-    font-size: 16px;
-    color: #FFF;
-    padding: 8px 16px;
-    background-color: #003594;
-    border-radius: 0.25rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background-color: #003594;
-    text-align: center;
-    width: 100%;
+  gap: 5px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  padding: 8px 16px;
+  background-color: #003594;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background-color: #003594;
+  text-align: center;
+  width: 100%;
 }
 
 .msg-submit-btn:hover,
 .msg-clear-btn:hover {
-    background-color: goldenrod;
-    color: #003594;
-    font-weight: bold;
+  background-color: goldenrod;
+  color: #003594;
+  font-weight: bold;
 }
 
 .invoice-create-hdr {
   text-align: center;
+}
+
+.invoices-home {
+  height: 100%;
+}
+
+.idk-can {
+  display: flex;
+  justify-content: space-around;
+  border: #ccc 1px solid;
+  padding: 10px;
+  height: 25%;
+  margin: 2px;
+}
+
+.idkyet-box1 {
+  width: 65%;
+  padding: 5px;
+}
+
+.idkyet-box2 {
+  width: 35%;
+  padding: 5px;
 }
 
 @media screen and (max-width: 800px) {

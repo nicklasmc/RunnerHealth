@@ -6,12 +6,14 @@ import { format } from 'date-fns';
 import first from './imgs/placeholder.png';
 import { SlArrowRightCircle } from 'react-icons/sl';
 import { LiaAddressBook } from 'react-icons/lia';
+import '../pages/styles/push.css';
 import '../pages/styles/patienthome.css';
 
 const Home = () => {
   const [apptList, setApptList] = useState([]); // represents ALL appts
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [invoices, setInvoices] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +32,12 @@ const Home = () => {
           );
           const apptData = await response2.json();
           setApptList(apptData);
+
+          const response3 = await fetch(
+            `http://localhost:4000/invoices/patient_invoices/${userData[0]._id}`
+          );
+          const invoiceData = await response3.json();
+          setInvoices(invoiceData);
         } else {
           console.log('first else');
         }
@@ -151,10 +159,32 @@ const Home = () => {
           <div className="content-section">
             <div className="top-bar" />
             {user.map((user, index) => (
-              <Link to="/">
+              <Link to="/invoice">
                 <p className="content-header">Invoice</p>
               </Link>
             ))}
+          </div>
+          <div className="invoices-home">
+            {invoices && invoices.length > 0 ? (
+              invoices
+                .filter((invoice, index) => 5)
+                .map((invoice) => (
+                  <div className="idk-can" key={invoice._id}>
+                    <div className="idkyet-box1">
+                      Subject: {invoice.subject}
+                      <div>{invoice.message}</div>
+                    </div>
+                    <div className="idkyet-box2">
+                      {' '}
+                      Date Due: {formatDate(invoice.dateDue)}
+                    </div>
+                  </div>
+                ))
+            ) : (
+              <div>
+                <p>Hmm... Strange.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
