@@ -76,183 +76,185 @@ const UserSettings = () => {
     setDob(randomDob);
   }, [user]);
   return (
-    <div className="settings-main-container">
-      {user && (
-        <>
-          <div className="max-h-fit">
-            {/* top-row content */}
-            <div className="top-row flex-col border-b-4 border-black">
-              <h1 className="text-4xl text-runnerblue">Personal Information</h1>
-              <span className="text-sm text-red-500">
-                Contact your provider's office to update your information
-              </span>
-            </div>
-            {/* first row content - contact details */}
-            <h1 className="py-4 text-2xl font-semibold">Identification</h1>
-            <div className="settings-1">
-              <div className="flex-col min-w-33%">
-                <div className="flex">
-                  <label
-                    htmlFor="fname"
-                    className="flex-shrink-0 my-auto text-md"
-                  >
-                    First Name
-                  </label>
-                  <input
-                    type="text"
-                    id="patient-first-name"
-                    name="fname"
-                    value={user.fname}
-                    disabled
-                    className="disabled-input my-auto mx-3"
-                  />
-                </div>
-                <div className="flex mt-4">
-                  <label
-                    htmlFor="fname"
-                    className="flex-shrink-0 my-auto text-md"
-                  >
-                    Last Name
-                  </label>
-                  <input
-                    type="text"
-                    id="patient-last-name"
-                    name="lname"
-                    value={user.lname}
-                    disabled
-                    className="disabled-input my-auto mx-3"
-                  />
-                </div>
+    <div className="settings-page-can">
+      <div className="settings-main-container">
+        {user && (
+          <>
+              {/* top-row content */}
+              <div className=" settings-top-row flex flex-col">
+                <div className="top-bar" />
+                <h1 className="settings-top-header">Personal Information</h1>
+                <p className = "text-sm text-red-500">Contact your provider's office to update your DoB</p>
               </div>
+              <div className="settings-content">
+                {/* first row content - contact details */}
+                <h1 className="settings-header">Identification</h1>
+                <div className="settings-1">
+                  <div className="flex-col min-w-33%">
+                    <div className="flex">
+                      <label
+                        htmlFor="fname"
+                        className="flex-shrink-0 my-auto text-md"
+                      >
+                        First Name
+                      </label>
+                      <input
+                        type="text"
+                        id="patient-first-name"
+                        name="fname"
+                        value="hi"
+                        disabled
+                        className="disabled-input my-auto mx-3"
+                      />
+                    </div>
+                    <div className="flex mt-4">
+                      <label
+                        htmlFor="fname"
+                        className="flex-shrink-0 my-auto text-md"
+                      >
+                        Last Name
+                      </label>
+                      <input
+                        type="text"
+                        id="patient-last-name"
+                        name="lname"
+                        value="hi"
+                        disabled
+                        className="disabled-input my-auto mx-3"
+                      />
+                    </div>
+                  </div>
 
-              <div className="flex-col min-w-33%">
-                <div className="settings-1-section-2">
-                  <div className="settings-dob">
-                    <label
-                      htmlFor="fname"
-                      className="items-center justify-center text-md min-w-50"
-                    >
-                      DoB
-                    </label>
-                    <input
-                      type="text"
-                      id="patient-last-name"
-                      name="lname"
-                      value={dob}
-                      disabled
-                      className="settings-dob-input disabled-input"
-                    />
+                  <div className="flex-col min-w-33%">
+                    <div className="settings-1-section-2">
+                      <div className="settings-dob">
+                        <label
+                          htmlFor="fname"
+                          className="items-center justify-center text-md min-w-50"
+                        >
+                          DoB
+                        </label>
+                        <input
+                        type="text"
+                        id="patient-last-name"
+                        name="lname"
+                        value={dob}
+                        disabled
+                        className="settings-dob-input disabled-input"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            {/* Second Row - Contact Information */}
-            <h1 className="py-4 text-2xl font-semibold">Contact Information</h1>
-            <div className="settings-2">
-              <div className="flex-col min-w-33%">
-                <div className="flex">
-                  <label
-                    htmlFor="phone"
-                    className="flex-shrink-0 my-auto text-md min-w-50"
-                  >
-                    Phone
-                  </label>
-                  <input
-                    type="text"
-                    id="patient-phone"
-                    name="phone"
-                    value={phone}
-                    disabled
-                    className="disabled-input my-auto mx-3"
-                  />
-                </div>
-                <div className="flex mt-4">
-                  <label
-                    htmlFor="email"
-                    className="flex-shrink-0 my-auto text-md min-w-50"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="text"
-                    id="patient-email"
-                    name="email"
-                    value={user.email}
-                    disabled
-                    className="disabled-input my-auto mx-3"
-                  />
-                </div>
-              </div>
-
-              <div className="flex-col min-w-33%">
-                <div className="flex min-h-50%">
-                  <div className="flex-shrink-0 my-auto">
-                    <label
-                      htmlFor="workPhone"
-                      className=" text-md max-w-50 min-w-50"
-                    >
-                      Work Phone
-                    </label>
+                {/* Second Row - Contact Information */}
+                <h1 className="settings-header">Contact Information</h1>
+                <div className="settings-2">
+                  <div className="flex-col min-w-33%">
+                    <div className="flex">
+                      <label
+                        htmlFor="phone"
+                        className="flex-shrink-0 my-auto text-md min-w-50"
+                      >
+                        Phone
+                      </label>
+                      <input
+                        type="text"
+                        id="patient-phone"
+                        name="phone"
+                        value={phone}
+                        disabled
+                        className="disabled-input my-auto mx-3"
+                      />
+                    </div>
+                    <div className="flex mt-4">
+                      <label
+                        htmlFor="email"
+                        className="flex-shrink-0 my-auto text-md min-w-50"
+                      >
+                        Email
+                      </label>
+                      <input
+                        type="text"
+                        id="patient-email"
+                        name="email"
+                        value={user.email}
+                        disabled
+                        className="disabled-input my-auto mx-3"
+                      />
+                    </div>
                   </div>
-                  <input
-                    type="text"
-                    id="patient-workphone"
-                    name="workPhone"
-                    value="(661) 776-6573"
-                    disabled
-                    className="disabled-input mx-3"
-                  />
-                </div>
-                <div className="flex min-h-50%">
-                  <div className="flex-shrink-0 my-auto">
-                    <label
-                      htmlFor="address"
-                      className=" text-md max-w-50 min-w-50"
-                    >
-                      Address
-                    </label>
-                  </div>
-                  <input
-                    type="text"
-                    id="patient-address"
-                    name="address"
-                    value={address}
-                    disabled
-                    className="disabled-input mx-3"
-                  />
-                </div>
-              </div>
-            </div>
 
-            {/* Third Row - Additional Information */}
-            <h1 className="py-4 text-2xl font-semibold">
-              Additional Information
-            </h1>
-            <div className="settings-3">
-              <div className="flex-col min-w-33%">
-                <div className="flex">
-                  <label
-                    htmlFor="phone"
-                    className="flex-shrink-0 my-auto text-md min-w-50"
-                  >
-                    Preferred Pharmacy
-                  </label>
-                  <input
-                    type="text"
-                    id="patient-phone"
-                    name="phone"
-                    value={pharmacy}
-                    disabled
-                    className="disabled-input my-auto mx-3"
-                  />
+                  <div className="flex-col min-w-33%">
+                    <div className="flex min-h-50%">
+                      <div className="flex-shrink-0 my-auto">
+                        <label
+                          htmlFor="workPhone"
+                          className=" text-md max-w-50 min-w-50"
+                        >
+                          Work Phone
+                        </label>
+                      </div>
+                      <input
+                        type="text"
+                        id="patient-workphone"
+                        name="workPhone"
+                        value="(661) 776-6573"
+                        disabled
+                        className="disabled-input mx-3"
+                      />
+                    </div>
+                    <div className="flex min-h-50%">
+                      <div className="flex-shrink-0 my-auto">
+                        <label
+                          htmlFor="address"
+                          className=" text-md max-w-50 min-w-50"
+                        >
+                          Address
+                        </label>
+                      </div>
+                      <input
+                        type="text"
+                        id="patient-address"
+                        name="address"
+                        value={address}
+                        disabled
+                        className="disabled-input mx-3"
+                      />
+                    </div>
+                      </div>
+                </div>
+
+                {/* Third Row - Additional Information */}
+                <h1 className="settings-header">Additional Information</h1>
+                <div className="settings-3">
+                  <div className="flex-col min-w-33%">
+                    <div className="flex">
+                      <label
+                        htmlFor="phone"
+                        className="flex-shrink-0 my-auto text-md min-w-50"
+                      >
+                        Preferred Pharmacy
+                      </label>
+                      <input
+                        type="text"
+                        id="patient-phone"
+                        name="phone"
+                        value="hi"
+                        disabled
+                        className="disabled-input my-auto mx-3"
+                      />
+                    </div>
+
+                  </div>
+                  <button className="update-settings-button">
+                    Update
+                  </button>
                 </div>
               </div>
-              <button className="update-settings-button">Update</button>
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

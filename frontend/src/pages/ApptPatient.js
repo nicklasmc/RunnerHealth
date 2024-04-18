@@ -105,11 +105,13 @@ const ApptPatient = () => {
 
   return (
       <div className="patient-appt-main-container">
-        <div className="top-bar"/>
-        <p className="patient-appt-header">
-          My Appointments
-        </p>
         <div className="patient-appt-content-container">
+          <div className="patient-appt-header-can">
+            <div className="top-bar"/>
+            <p className="patient-appt-header">
+              My Appointments
+            </p>
+          </div>
           {apptList.map((appts, index) => (
             <div
               key={index}

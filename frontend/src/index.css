@@ -70,7 +70,6 @@ header .container {
   font-size: 20px;
 }
 
-
 .logout-btn {
   max-width: 50px;
   padding: 3px 2px;
@@ -94,7 +93,7 @@ header .container {
 }
 
 .mnav-logout-btn {
-  background-color: #061237;
+  background-color: #003594;
 }
 
 .creds-btn {
@@ -394,14 +393,14 @@ header .container {
   width: 32%;
   border-radius: 30px;
   background-color: gainsboro;
-  border: 1px solid #061237;
+  border: 1px solid #003594;
   box-shadow: 3px 3px 3px #111;
 }
 
 .service-img-can {
   height: 60%;
   min-height: 275px;
-  border-bottom: #061237 3px solid;
+  border-bottom: #003594 3px solid;
 }
 
 .service-img {
@@ -439,7 +438,7 @@ header .container {
   width: 32%;
   background-color: whitesmoke;
   border-radius: 30px;
-  border: 1px solid #061237;
+  border: 1px solid #003594;
   box-shadow: 3px 3px 3px #111;
   min-height: 700px;
 }
@@ -447,7 +446,7 @@ header .container {
 .case-img-can {
   height: 60%;
   min-height: 275px;
-  border-bottom: #061237 3px solid;
+  border-bottom: #003594 3px solid;
 }
 
 .case-img {
@@ -617,7 +616,7 @@ header .container {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #061237;
+  background: #003594;
 }
 
 /* Handle on hover */
@@ -665,7 +664,7 @@ header .container {
     display: flex;
     width: 100%;
     min-height: 40px;
-    color: #061237;
+    color: #003594;
     text-decoration: none;
     align-items: center;
     justify-content: center;
@@ -677,7 +676,7 @@ header .container {
   }
 
   .profile-options-btn {
-    color: #061237;
+    color: #003594;
     background-color: #f8f9fa;
     padding: 0 12px;
   }

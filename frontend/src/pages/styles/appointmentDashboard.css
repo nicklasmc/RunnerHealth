@@ -1,19 +1,27 @@
-.appt-main-container {
-    width: 95%;         
-    margin: 90px auto;     
-    box-sizing: border-box; 
-    padding: 30px;     
-    border-radius: 10px; 
-    background-color: white;
-    overflow:auto;
+.appt-dash-can {
+    background-color: #F8F8F8;
+    margin: auto;
+    align-items: center;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
+    min-width: 350px;
+}
+
+.appt-main-container {
+    background-color: white;
+    margin: 25px auto;
+    width: 90%;
+    overflow: auto;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .appt-cells {
     display: flex;
     flex-direction: row;
-    border-top: 1px solid gray;
+    border-top: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
 }
 
 .appt-cell-one {
@@ -85,7 +93,7 @@
     padding: 5px;
     display: flex;
     align-items: center;
-    border-top: 3px dotted gray;
+    border-top: 3px dotted white;
 }
 .appt-edit {
     display: flex;

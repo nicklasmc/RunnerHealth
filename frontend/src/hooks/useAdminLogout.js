@@ -7,6 +7,8 @@ export const UseAdminLogout = () => {
   const adminLogout = () => {
     // remove admin from storage
     localStorage.removeItem('admin');
+    localStorage.removeItem('userID');
+    localStorage.removeItem('orgID');
 
     // dispatch logout action
     dispatch({ type: 'ADMIN_LOGOUT' });

@@ -3,6 +3,15 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.patient-appt-header-can {
+    width: 100%;
+    border-bottom: 2px solid;
+    --tw-border-opacity: 1;
+    border-color: rgba(229, 231, 235, var(--tw-border-opacity));
 }
 
 .top-bar {
@@ -25,17 +34,19 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin: 25px auto;
+    width: 90%;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 .patient-each-appt-container {
-    width: 90%;
+    width: 98%;
     height: 100%;
     border: 2px solid;
     --tw-border-opacity: 1;
     border-color: rgba(229, 231, 235, var(--tw-border-opacity));
     background-color: white;
-    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    border-radius: 0.375rem; /* 6px */
     overflow-y: scroll;
     margin: 16px;
 }
@@ -280,7 +291,7 @@ textarea {
     text-align: center;
 }
 
-.appt-main-container-btn:hover {
+.confirm-appt-container-btn:hover {
     background-color: goldenrod;
     color: #003594;
     font-weight: bold;
@@ -300,11 +311,11 @@ textarea {
 }
 
 
-.card-wrapper {
+.doc-card-wrapper {
     width: 100%;
 }
 
-.card {
+.doc-card {
     width: 100%;
     border-radius: 25px;
     background-color: #FFF;
@@ -312,7 +323,7 @@ textarea {
 }
 
 .image-content,
-.card-content {
+.doc-card-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -351,7 +362,7 @@ textarea {
     background-color: #FFF;
 }
 
-.card-image {
+.doc-card-image {
     position: relative;
     height: 150px;
     width: 150px;
@@ -360,7 +371,7 @@ textarea {
     padding: 3px;
 }
 
-.card-image .card-img {
+.doc-card-image .card-img {
     height: 100%;
     width: 100%;
     object-fit: cover;
