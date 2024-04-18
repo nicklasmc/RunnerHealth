@@ -85,7 +85,7 @@ const UserSettings = () => {
               <div className=" settings-top-row flex flex-col">
                 <div className="top-bar" />
                 <h1 className="settings-top-header">Personal Information</h1>
-                <p className = "text-sm text-red-500">Contact your provider's office to update your DoB</p>
+                <p className = "text-red-500 text-sm leading-3 mr-0 mb-4 ml-4">Contact your provider's office to update your DoB</p>
               </div>
               <div className="settings-content">
                 {/* first row content - contact details */}
