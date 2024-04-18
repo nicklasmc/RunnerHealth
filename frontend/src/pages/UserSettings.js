@@ -2,47 +2,43 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "../pages/styles/settingsPage.css";
 import Select from "react-select";
-// PI :
-// - Name (restricted)
-// - Pronouns
-// - Sex
-// - DoB (restricted)
-// - marital status
-// - Address info (subcontainer)
-// - - Address
-// - - City
-// - - ZIP
-// - - State
-
-// CI :
-// - Phone
-// - Phone 2
-// - Work phone
-// - email
-
-// other:
-// - preferred facility
-// - pcp
 
 const UserSettings = () => {
   const { patient } = useAuthContext();
   const { doctor } = useAuthContext();
   const { admin } = useAuthContext();
   const [user, setUser] = useState([]);
+  const [address, setAddress] = useState();
+  const [phone, setPhone] = useState();
+  const [pharmacy, setPharmacy] = useState();
+  const [dob, setDob] = useState();
 
-  const sexOptions = [
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-    { value: "Intersex", label: "Intersex" },
-    { value: "Other", label: "Other" },
-  ];
-  
-  const genderOptions = [
-    { value: "Male", label: "Male" },
-    { value: "Female", label: "Female" },
-    { value: "Intersex", label: "Intersex" },
-    { value: "Other", label: "Other" },
-  ];
+  const addressData = {
+    123: "123 Main St",
+    223: "5006 Python Rd",
+    323: "9775 Torvalds Ave",
+    423: "7273 Linux Rd",
+    523: "5543 Intel St",
+    623: "9827 Runner Rd",
+  };
+
+  const phoneData = {
+    123: "(661) 982-3214",
+    223: "(653) 321-7652",
+    323: "(877) 922-6544",
+    423: "(551) 223-2254",
+    523: "(667) 543-1385",
+    623: "(538) 642-6464",
+  };
+
+  const dobData = {
+    123: "10/21/2008",
+    223: "09/03/2006",
+    323: "02/18/2014",
+    423: "08/01/2001",
+    523: "08/14/2021",
+    623: "10/23/2002"
+  };
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -63,8 +59,21 @@ const UserSettings = () => {
     getUserInfo();
   }, [patient, doctor, admin]);
 
+
   useEffect(() => {
     console.log(user);
+
+    let values = Object.values(addressData);
+    const randomAddress = values[parseInt(Math.random() * values.length)];
+    const randomPharmacy = values[parseInt(Math.random() * values.length)];
+    values = Object.values(phoneData);
+    const randomPhone = values[parseInt(Math.random() * values.length)];
+    values = Object.values(dobData);
+    const randomDob = values[parseInt(Math.random() * values.length)];
+    setAddress(randomAddress);
+    setPhone(randomPhone);
+    setPharmacy(randomPharmacy);
+    setDob(randomDob);
   }, [user]);
   return (
     <div className="settings-main-container">
@@ -72,9 +81,11 @@ const UserSettings = () => {
         <>
           <div className="max-h-fit">
             {/* top-row content */}
-            <div className="top-row flex border-b-4 border-black">
+            <div className="top-row flex-col border-b-4 border-black">
               <h1 className="text-4xl text-runnerblue">Personal Information</h1>
-
+              <span className="text-sm text-red-500">
+                Contact your provider's office to update your information
+              </span>
             </div>
             {/* first row content - contact details */}
             <h1 className="py-4 text-2xl font-semibold">Identification</h1>
@@ -91,7 +102,7 @@ const UserSettings = () => {
                     type="text"
                     id="patient-first-name"
                     name="fname"
-                    value="hi"
+                    value={user.fname}
                     disabled
                     className="disabled-input my-auto mx-3"
                   />
@@ -107,7 +118,7 @@ const UserSettings = () => {
                     type="text"
                     id="patient-last-name"
                     name="lname"
-                    value="hi"
+                    value={user.lname}
                     disabled
                     className="disabled-input my-auto mx-3"
                   />
@@ -124,32 +135,14 @@ const UserSettings = () => {
                       DoB
                     </label>
                     <input
-                    type="text"
-                    id="patient-last-name"
-                    name="lname"
-                    value="hi"
-                    disabled
-                    className="settings-dob-input disabled-input"
+                      type="text"
+                      id="patient-last-name"
+                      name="lname"
+                      value={dob}
+                      disabled
+                      className="settings-dob-input disabled-input"
                     />
                   </div>
-                  <p className = "text-sm text-red-500">Contact your provider's office to update your DoB</p>
-                </div>
-                
-                <div className="flex-shrink-0 mt-3">
-                  <label
-                    htmlFor="sex"
-                    className="flex-shrink-0 my-auto text-md min-w-50"
-                  >
-                    Sex
-                  </label>
-
-                  <select name="sex" id="sex-select" className="my-auto mx-3">
-                    <option value="">--Sex--</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="intersex">Intersex</option>
-                    <option value="Other">Other</option>
-                  </select>
                 </div>
               </div>
             </div>
@@ -169,7 +162,7 @@ const UserSettings = () => {
                     type="text"
                     id="patient-phone"
                     name="phone"
-                    value="hi"
+                    value={phone}
                     disabled
                     className="disabled-input my-auto mx-3"
                   />
@@ -185,7 +178,7 @@ const UserSettings = () => {
                     type="text"
                     id="patient-email"
                     name="email"
-                    value="hi"
+                    value={user.email}
                     disabled
                     className="disabled-input my-auto mx-3"
                   />
@@ -206,7 +199,7 @@ const UserSettings = () => {
                     type="text"
                     id="patient-workphone"
                     name="workPhone"
-                    value="hi"
+                    value="(661) 776-6573"
                     disabled
                     className="disabled-input mx-3"
                   />
@@ -224,17 +217,18 @@ const UserSettings = () => {
                     type="text"
                     id="patient-address"
                     name="address"
-                    value="hi"
+                    value={address}
                     disabled
                     className="disabled-input mx-3"
                   />
                 </div>
-                
               </div>
             </div>
 
-             {/* Third Row - Additional Information */}
-             <h1 className="py-4 text-2xl font-semibold">Additional Information</h1>
+            {/* Third Row - Additional Information */}
+            <h1 className="py-4 text-2xl font-semibold">
+              Additional Information
+            </h1>
             <div className="settings-3">
               <div className="flex-col min-w-33%">
                 <div className="flex">
@@ -248,16 +242,13 @@ const UserSettings = () => {
                     type="text"
                     id="patient-phone"
                     name="phone"
-                    value="hi"
+                    value={pharmacy}
                     disabled
                     className="disabled-input my-auto mx-3"
                   />
                 </div>
-
               </div>
-              <button className="update-settings-button">
-                Update
-              </button>
+              <button className="update-settings-button">Update</button>
             </div>
           </div>
         </>
