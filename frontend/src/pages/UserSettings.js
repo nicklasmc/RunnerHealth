@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "../hooks/useAuthContext";
 import "../pages/styles/settingsPage.css";
-import Select from "react-select";
 
 const UserSettings = () => {
   const { patient } = useAuthContext();
@@ -74,7 +73,9 @@ const UserSettings = () => {
     setPhone(randomPhone);
     setPharmacy(randomPharmacy);
     setDob(randomDob);
+
   }, [user]);
+
   return (
     <div className="settings-page-can">
       <div className="settings-main-container">
@@ -102,7 +103,7 @@ const UserSettings = () => {
                         type="text"
                         id="patient-first-name"
                         name="fname"
-                        value="hi"
+                        value={user.fname}
                         disabled
                         className="disabled-input my-auto mx-3"
                       />
@@ -118,7 +119,7 @@ const UserSettings = () => {
                         type="text"
                         id="patient-last-name"
                         name="lname"
-                        value="hi"
+                        value={user.lname}
                         disabled
                         className="disabled-input my-auto mx-3"
                       />
@@ -199,7 +200,7 @@ const UserSettings = () => {
                         type="text"
                         id="patient-workphone"
                         name="workPhone"
-                        value="(661) 776-6573"
+                        value={phone}
                         disabled
                         className="disabled-input mx-3"
                       />
@@ -240,7 +241,7 @@ const UserSettings = () => {
                         type="text"
                         id="patient-phone"
                         name="phone"
-                        value="hi"
+                        value={pharmacy}
                         disabled
                         className="disabled-input my-auto mx-3"
                       />
