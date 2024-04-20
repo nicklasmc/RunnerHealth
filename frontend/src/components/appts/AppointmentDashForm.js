@@ -43,7 +43,6 @@ const AppointmentDashForm = ({
   }, [startDate, appointments.doctor]);
 
   const handleTimeChange = (e) => {
-    console.log(apptTime);
     setApptTime(e.value);
   };
 
