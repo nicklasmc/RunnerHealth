@@ -332,12 +332,6 @@
   width: 50%;
 }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 0px;
-}
 
 .cta-can {
   display: flex;

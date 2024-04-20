@@ -211,7 +211,7 @@ header .container {
   color: black;
   font-family: "Heebo";
   width: 50%;
-  margin: 2.5rem 0rem 0rem 2.5rem;
+  margin: 2.0rem 0rem 0rem 2.5rem;
   gap: 1.5rem;
 }
 
@@ -370,7 +370,7 @@ header .container {
 
 .runner-team-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   width: 100%;
 }
 
@@ -508,7 +508,7 @@ header .container {
 
 .team-member-card {
   margin: 25px;
-  width: 10rem;
+  width: 50rem;
   border: goldenrod 1px solid;
   background-color: gainsboro;
   box-shadow: 5px 3px 3px #111;
@@ -999,6 +999,21 @@ header .container {
   }
 }
 
+@media screen and (max-width: 1350px) {
+  .runner-team-box {
+    flex-wrap: wrap;
+  }
+
+  .team-member-card {
+    width: 25rem;
+  }
+
+  .runner-what-a {
+    margin: 1.5rem 0 0 1.5rem
+  }
+  
+}
+
 @media screen and (max-width: 1250px) {
   .case-desc {
     min-height: 50px;
@@ -1032,5 +1047,9 @@ header .container {
     margin-right: 5px;
     padding-left: 25px;
     padding-right: 25px;
+  }
+
+  .team-member-card {
+    width: 20rem;
   }
 }

@@ -122,8 +122,8 @@ function Landing() {
                 Today!
                 </p>
               </div>
-              <Link to="/patient_login" className="appt-return">
-                <button className="appt-button">
+              <Link to="/patient_login" className="">
+                <button className="appt-button mb-4">
                   Explore with us
                 </button>
               </Link>
@@ -175,7 +175,6 @@ function Landing() {
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={sixth} />
               <Card.Body>
-                <Card.Text></Card.Text>
                 <ListGroup variant="flush" className="team-member-info-can">
                   <ListGroup.Item>
                     <Card.Title className="team-member-name">
@@ -210,8 +209,6 @@ function Landing() {
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={eight} />
               <Card.Body>
-                <Card.Title className="team-member-name"></Card.Title>
-                <Card.Text></Card.Text>
                 <ListGroup variant="flush" className="team-member-info-can">
                   <ListGroup.Item>
                     <Card.Title className="team-member-name">
