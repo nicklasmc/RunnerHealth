@@ -27,18 +27,23 @@ const MNavi = () => {
     const getUserInfo = async () => {
       let response = null;
       if (patient) {
-        response = await fetch(`http://localhost:4000/patients/${patient.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
+        );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       if (response) {
         const data = await response.json();
         setUser(data);
-      }
-      else {
+      } else {
         setUser(null);
       }
     };
@@ -68,32 +73,34 @@ const MNavi = () => {
             <IoDocumentText />
           </Link>
           <div className="bttm-link-btn">
-            {user && user.map((user, index) => (
-            <>
-            <DropdownButton
-              drop={'up'}
-              title=<FaUserCircle className="bttm-link-btn profile-options-btn" />
-              variant="dark"
-              className="dd-profile-btn">
-              <Dropdown.Item eventKey="4">
-                <Button
-                  onClick={handleClick}
-                  className="btn mnav-logout-btn"
-                  variant="secondary"
-                >
-                  LOGOUT
-                </Button>
-              </Dropdown.Item>
-              <Dropdown.Divider />
-                <Dropdown.Item eventKey="1">
-                  <Link to={`/user_settings/${user._id}`}>
-                    Profile Settings
-                  </Link>
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
-            </DropdownButton>
-            </>
-            ))}
+            {user &&
+              user.map((user, index) => (
+                <>
+                  <DropdownButton
+                    drop={'up'}
+                    title=<FaUserCircle className="bttm-link-btn profile-options-btn" />
+                    variant="dark"
+                    className="dd-profile-btn"
+                  >
+                    <Dropdown.Item eventKey="4">
+                      <Button
+                        onClick={handleClick}
+                        className="btn mnav-logout-btn"
+                        variant="secondary"
+                      >
+                        LOGOUT
+                      </Button>
+                    </Dropdown.Item>
+                    <Dropdown.Divider />
+                    <Dropdown.Item eventKey="1">
+                      <Link to={`/user_settings/${user._id}`}>
+                        Profile Settings
+                      </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
+                  </DropdownButton>
+                </>
+              ))}
           </div>
           <Link to="/appointment" className="bttm-link-btn">
             <BsCalendar2DateFill />

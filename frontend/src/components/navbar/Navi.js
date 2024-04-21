@@ -238,12 +238,16 @@ const InventoryContent = () => {
       let response = null;
       if (patient) {
         response = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       const data = await response.json();
@@ -284,12 +288,16 @@ const InvoiceContent = () => {
       let response = null;
       if (patient) {
         response = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       const data = await response.json();
@@ -304,39 +312,39 @@ const InvoiceContent = () => {
         user.map((user, index) => (
           <div className="flex text-center justify-center w-64 bg-white p-6 shadow-xl">
             <div className="space-y-3">
-            {patient && (
-              <>
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">Pay Balance</a>
-                </Link>
-                <div className="flex-1 border-t-2 border-gray-200" />
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">View Invoices</a>
-                </Link>
-              </>
-            )}
-            {doctor && (
-              <>
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">Send Invoice</a>
-                </Link>
-                <div className="flex-1 border-t-2 border-gray-200" />
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">View Invoices</a>
-                </Link>
-              </>
-            )}
-            {admin && (
-              <>
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">Send Invoice</a>
-                </Link>
-                <div className="flex-1 border-t-2 border-gray-200" />
-                <Link to="/invoice" className="block text-l hover:underline">
-                  <a href="#">View Invoices</a>
-                </Link>
-              </>
-            )}
+              {patient && (
+                <>
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">Pay Balance</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">View Invoices</a>
+                  </Link>
+                </>
+              )}
+              {doctor && (
+                <>
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">Send Invoice</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">View Invoices</a>
+                  </Link>
+                </>
+              )}
+              {admin && (
+                <>
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">Send Invoice</a>
+                  </Link>
+                  <div className="flex-1 border-t-2 border-gray-200" />
+                  <Link to="/invoice" className="block text-l hover:underline">
+                    <a href="#">View Invoices</a>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         ))
@@ -360,12 +368,16 @@ const ProfileContent = () => {
       let response = null;
       if (patient) {
         response = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       const data = await response.json();
@@ -437,12 +449,16 @@ const RecordsContent = () => {
       let response = null;
       if (patient) {
         response = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       const data = await response.json();
@@ -534,12 +550,16 @@ const ScheduleContent = () => {
       let response = null;
       if (patient) {
         response = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
       } else if (doctor) {
-        response = await fetch(`http://localhost:4000/doctors/${doctor.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/doctors/${doctor.email}`
+        );
       } else if (admin) {
-        response = await fetch(`http://localhost:4000/admins/${admin.email}`);
+        response = await fetch(
+          `${process.env.REACT_APP_SERVER_URL}/admins/${admin.email}`
+        );
       }
 
       const data = await response.json();
