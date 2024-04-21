@@ -251,7 +251,6 @@ const UserSettings = () => {
                     />
                   </div>
                 </div>
-                <button className="update-settings-button">Update</button>
               </div>
             </div>
           </>
