@@ -1,12 +1,12 @@
-import React from "react";
-import Select from "react-select";
-import "../../pages/styles/appointmentDashboard.css";
-import convertMilitaryToTimeslot from "../../utils/convertTime.js";
-import axios from "axios";
-import { useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import extractTimes from "../../utils/extractTimes";
+import React from 'react';
+import Select from 'react-select';
+import '../../pages/styles/appointmentDashboard.css';
+import convertMilitaryToTimeslot from '../../utils/convertTime.js';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import extractTimes from '../../utils/extractTimes';
 
 const AppointmentDashForm = ({
   appointments,
@@ -22,7 +22,9 @@ const AppointmentDashForm = ({
   const [statusChanged, setStatusChanged] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(appointments);
   const [facilityOptions, setFacilityOptions] = useState();
-  const [startDate, setStartDate] = useState(new Date(selectedAppointment.preferredDate));
+  const [startDate, setStartDate] = useState(
+    new Date(selectedAppointment.preferredDate)
+  );
   const [timeOptions, setTimeOptions] = useState([]);
   const [apptTime, setApptTime] = useState();
 
@@ -31,7 +33,7 @@ const AppointmentDashForm = ({
     const fetchAvailability = async () => {
       const availResponse = await axios.get(
         // use /:date/:id
-        `http://localhost:4000/appointments/getApptsByDate/${startDate}/${appointments.doctor._id}`
+        `${process.env.REACT_APP_SERVER_URL}/appointments/getApptsByDate/${startDate}/${appointments.doctor._id}`
       );
       let timeOps = extractTimes(availResponse);
       setTimeOptions(timeOps);
@@ -70,7 +72,7 @@ const AppointmentDashForm = ({
   // specific to react-select
   const handleSelectChange = (name, e) => {
     setSelectedAppointment((values) => ({ ...values, [name]: e.value }));
-    if (name === "status") {
+    if (name === 'status') {
       setStatusChanged(true);
     }
   };
@@ -89,7 +91,7 @@ const AppointmentDashForm = ({
     let res;
 
     try {
-      if (tempAppt.status === "Approved") {
+      if (tempAppt.status === 'Approved') {
         try {
           const confirmedApptData = {
             apptDay: tempAppt.preferredDate,
@@ -99,15 +101,15 @@ const AppointmentDashForm = ({
           };
 
           res = await axios.post(
-            `http://localhost:4000/appointments/confirmAppt`,
+            `${process.env.REACT_APP_SERVER_URL}/appointments/confirmAppt`,
             confirmedApptData
           );
           console.log(res.data.message);
-          if (res.data.message === "false") {
-            window.alert("Date and time already booked");
+          if (res.data.message === 'false') {
+            window.alert('Date and time already booked');
           } else {
             const appointmentResponse = await axios.patch(
-              `http://localhost:4000/appointments/updateAppointment/${id}`,
+              `${process.env.REACT_APP_SERVER_URL}/appointments/updateAppointment/${id}`,
               tempAppt
             );
 
@@ -118,26 +120,26 @@ const AppointmentDashForm = ({
         }
       }
       if (
-        (tempAppt.status === "Cancelled" ||
-          tempAppt.status === "Complete" ||
-          tempAppt.status === "NO-SHOW" ||
-          tempAppt.status === "Pending" ||
-          tempAppt.status === "Denied") && { statusChanged }
+        (tempAppt.status === 'Cancelled' ||
+          tempAppt.status === 'Complete' ||
+          tempAppt.status === 'NO-SHOW' ||
+          tempAppt.status === 'Pending' ||
+          tempAppt.status === 'Denied') && { statusChanged }
       ) {
         try {
           // delete in the date reservation
           await axios.patch(
-            `http://localhost:4000/appointments/removeDate/${tempAppt._id}/${tempAppt.preferredDate}`,
+            `${process.env.REACT_APP_SERVER_URL}/appointments/removeDate/${tempAppt._id}/${tempAppt.preferredDate}`,
             { timeSlot: timeSlot }
           );
           // update info
           await axios.patch(
-            `http://localhost:4000/appointments/updateAppointment/${tempAppt._id}`,
+            `${process.env.REACT_APP_SERVER_URL}/appointments/updateAppointment/${tempAppt._id}`,
             tempAppt
           );
           setSelectedAppointment(tempAppt2);
         } catch (error) {
-          console.log("Could not update appt:", error.message);
+          console.log('Could not update appt:', error.message);
         }
       }
       // !!
@@ -161,8 +163,8 @@ const AppointmentDashForm = ({
       // default options
       setFacilityOptions([
         {
-          value: "Bakersfield",
-          label: "Bakersfield",
+          value: 'Bakersfield',
+          label: 'Bakersfield',
         },
       ]);
     }
@@ -174,12 +176,12 @@ const AppointmentDashForm = ({
   // ];
 
   const processOptions = [
-    { value: "Denied", label: "Deny" },
-    { value: "Approved", label: "Approve" },
-    { value: "Pending", label: "Set Pending" },
-    { value: "Cancelled", label: "Cancel" },
-    { value: "Complete", label: "Complete" },
-    { value: "NO-SHOW", label: "NO-SHOW" },
+    { value: 'Denied', label: 'Deny' },
+    { value: 'Approved', label: 'Approve' },
+    { value: 'Pending', label: 'Set Pending' },
+    { value: 'Cancelled', label: 'Cancel' },
+    { value: 'Complete', label: 'Complete' },
+    { value: 'NO-SHOW', label: 'NO-SHOW' },
   ];
 
   const providerOptions = providers;
@@ -210,7 +212,7 @@ const AppointmentDashForm = ({
                   id="appt-time"
                   options={timeOptions}
                   isOptionDisabled={(option) => option.disabled}
-                  placeholder={"Time"}
+                  placeholder={'Time'}
                   onChange={(e) => handleTimeChange(e)}
                 />
               </div>
@@ -271,9 +273,9 @@ const AppointmentDashForm = ({
                   <Select
                     name="facility"
                     options={facilityOptions}
-                    placeholder={appointments.facility || "Select Facility..."}
+                    placeholder={appointments.facility || 'Select Facility...'}
                     isDisabled={!appointments.editMode}
-                    onChange={(e) => handleSelectChange("facility", e)}
+                    onChange={(e) => handleSelectChange('facility', e)}
                   />
                 </div>
               </div>
@@ -300,9 +302,9 @@ const AppointmentDashForm = ({
                   <Select
                     name="status"
                     options={processOptions}
-                    placeholder={"Status..."}
+                    placeholder={'Status...'}
                     isDisabled={!appointments.editMode}
-                    onChange={(e) => handleSelectChange("status", e)}
+                    onChange={(e) => handleSelectChange('status', e)}
                   />
                 </div>
               </div>
@@ -333,7 +335,7 @@ const AppointmentDashForm = ({
               </div>
             </div>
           </div>
-          <div className = "appt-cell-five mt-4 py-4 px-3 border-t-2 border-dotted border-black">
+          <div className="appt-cell-five mt-4 py-4 px-3 border-t-2 border-dotted border-black">
             <p>
               <span className="text-red-500">Patient Comments: </span>
               {appointments.apptComments}
@@ -344,7 +346,7 @@ const AppointmentDashForm = ({
         <div>
           <div className="appt-edit-container">
             <div className="appt-cell-one appt-dropform">
-              <p className = "mb-2">
+              <p className="mb-2">
                 <span className="text-red-500">Appt ID: </span>
                 {appointments._id}
               </p>
@@ -355,11 +357,11 @@ const AppointmentDashForm = ({
               <br></br>
             </div>
             <div className="appt-cell-two appt-dropform">
-              <p className = "mb-2">
+              <p className="mb-2">
                 <span className="text-red-500">Patient Phone #: </span>
                 {appointments.patientPhone}
               </p>
-              <p className = "mb-2">
+              <p className="mb-2">
                 <span className="text-red-500">Patient Email: </span>
                 {appointments.patientEmail}
               </p>
@@ -369,15 +371,15 @@ const AppointmentDashForm = ({
               </p>
             </div>
             <div className="appt-cell-three appt-dropform">
-              <p className = "mb-2 mt-3">
+              <p className="mb-2 mt-3">
                 <span className="text-red-500">Facility: </span>
                 {appointments.facility}
               </p>
-              <p className = "mb-2">
+              <p className="mb-2">
                 <span className="text-red-500">Provider: </span>
                 {appointments.doctor.fname} {appointments.doctor.lname}
               </p>
-              <p className = "mb-2">
+              <p className="mb-2">
                 <span className="text-red-500">Status: </span>
                 {appointments.status}
               </p>
