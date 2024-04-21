@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { useAuthContext } from "../hooks/useAuthContext";
-import "../pages/styles/appointments.css";
-import { DayPicker } from "react-day-picker";
-import "react-day-picker/dist/style.css";
-import Select from "react-select";
-import extractTimes from "../utils/extractTimes";
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useAuthContext } from '../hooks/useAuthContext';
+import '../pages/styles/appointments.css';
+import { DayPicker } from 'react-day-picker';
+import 'react-day-picker/dist/style.css';
+import Select from 'react-select';
+import extractTimes from '../utils/extractTimes';
 
 const ApptCreation = () => {
   // -----------------------------------------------
@@ -24,19 +24,19 @@ const ApptCreation = () => {
   const [timeOptions, setTimeOptions] = useState([]);
 
   const apptOptions = [
-    { value: "Followup", label: "Follow Up" },
-    { value: "Physical", label: "Physical" },
-    { value: "Labwork", label: "Lab Work" },
-    { value: "Other", label: "Other (Please explain below)" },
+    { value: 'Followup', label: 'Follow Up' },
+    { value: 'Physical', label: 'Physical' },
+    { value: 'Labwork', label: 'Lab Work' },
+    { value: 'Other', label: 'Other (Please explain below)' },
   ];
 
   const handleSubmit = async (e) => {
     e.stopPropagation();
     e.preventDefault();
-    if (document.getElementById("creation-comments").value){
-      setCreationComments(document.getElementById("creation-comments").value);
+    if (document.getElementById('creation-comments').value) {
+      setCreationComments(document.getElementById('creation-comments').value);
     } else {
-      setCreationComments("N/A");
+      setCreationComments('N/A');
     }
 
     try {
@@ -46,23 +46,23 @@ const ApptCreation = () => {
         patientId: user[0]._id,
         apptComments: creationComments,
         apptReason: visitReason,
-        patientFirstName: document.getElementById("patient-first-name").value,
-        patientLastName: document.getElementById("patient-last-name").value,
-        patientEmail: document.getElementById("email").value,
-        patientPhone: document.getElementById("phone").value,
-        languagePreference: document.getElementById("languagePreference").value,
+        patientFirstName: document.getElementById('patient-first-name').value,
+        patientLastName: document.getElementById('patient-last-name').value,
+        patientEmail: document.getElementById('email').value,
+        patientPhone: document.getElementById('phone').value,
+        languagePreference: document.getElementById('languagePreference').value,
         preferredDate: selectedDate,
         time: apptTime,
       };
       const response = await axios.post(
-        "http://localhost:4000/appointments",
+        `${process.env.REACT_APP_SERVER_URL}/appointments`,
         formData
       );
       const appointmentId = response.data._id;
       navigate(`/appointment/${id}/${appointmentId}`);
     } catch (error) {
-      window.alert("Please fill out all fields!");
-      console.error(error, "error, missing input");
+      window.alert('Please fill out all fields!');
+      console.error(error, 'error, missing input');
     }
   };
   // -----------------------------------------------
@@ -71,13 +71,13 @@ const ApptCreation = () => {
     const fetchData = async () => {
       try {
         const patientResponse = await axios.get(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
         const doctorResponse = await axios.get(
-          `http://localhost:4000/doctors/byId/${id}`
+          `${process.env.REACT_APP_SERVER_URL}/doctors/byId/${id}`
         );
         // const apptDocAppts = await axios.get(
-        //   `http://localhost:4000/appointments/doctor/${id}`
+        //   `${process.env.REACT_APP_SERVER_URL}/appointments/doctor/${id}`
         // );
         setDoctors(doctorResponse.data);
         setUser(patientResponse.data);
@@ -90,7 +90,7 @@ const ApptCreation = () => {
     fetchData();
   }, [id, patient.email]);
 
-  const handleTimeChange = (e) => {;
+  const handleTimeChange = (e) => {
     setApptTime(e.value);
   };
 
@@ -99,15 +99,15 @@ const ApptCreation = () => {
     const fetchAvailability = async () => {
       const availResponse = await axios.get(
         // use /:date/:id
-        `http://localhost:4000/appointments/getApptsByDate/${selectedDate}/${id}`
+        `${process.env.REACT_APP_SERVER_URL}/appointments/getApptsByDate/${selectedDate}/${id}`
       );
       let timeOps = extractTimes(availResponse);
       setTimeOptions(timeOps);
     };
-    if (selectedDate) { // only do if there is actually a date selected
+    if (selectedDate) {
+      // only do if there is actually a date selected
       fetchAvailability();
     }
-
   }, [selectedDate]);
 
   if (loading) {
@@ -120,10 +120,12 @@ const ApptCreation = () => {
         <button onClick={() => navigate(-1)} className="creation-backbtn">
           &#x25c0; Back
         </button>
-        <h1 className="creation-greeting font-extrabold text-xl">Schedule Your Appointment</h1>
+        <h1 className="creation-greeting font-extrabold text-xl">
+          Schedule Your Appointment
+        </h1>
         <p className="creation-physician font-extrabold">
-            Physician - {doctors.fname} {doctors.lname}
-          </p>
+          Physician - {doctors.fname} {doctors.lname}
+        </p>
         <div className="creation-sub-container">
           {/* Speciality not currently a field in actual database, will add later but will not cause errors here */}
           <p className="creation-static">{doctors.speciality}</p>
@@ -138,7 +140,7 @@ const ApptCreation = () => {
                       id="creation-reason"
                       name="appt-reason"
                       options={apptOptions}
-                      placeholder={"Reason for visit..."}
+                      placeholder={'Reason for visit...'}
                       onChange={(e) => setVisitReason(e.value)}
                     />
                   </div>
@@ -157,7 +159,9 @@ const ApptCreation = () => {
                 </div>
 
                 <div className="creation-form-section-middle">
-                  <h2 className="creation-form-section-middle-header">Contact Information:</h2>
+                  <h2 className="creation-form-section-middle-header">
+                    Contact Information:
+                  </h2>
 
                   <div>
                     {user ? (
@@ -200,7 +204,9 @@ const ApptCreation = () => {
                     name="phone"
                     placeholder="e.g (123) 456-7890"
                   />
-                  <label htmlFor="languagePreference">Language Preference</label>
+                  <label htmlFor="languagePreference">
+                    Language Preference
+                  </label>
                   <select name="languagePreference" id="languagePreference">
                     <option value="English">English</option>
                     <option value="Spanish">Spanish</option>
@@ -209,7 +215,9 @@ const ApptCreation = () => {
               </div>
 
               <div className="creation-form-section-right">
-                <h2 className="creation-form-right-header">Appointment Time:</h2>
+                <h2 className="creation-form-right-header">
+                  Appointment Time:
+                </h2>
                 <DayPicker
                   className="creation-form-date-picker"
                   showOutsideDays // show days outside of the month for accessibility purposes
@@ -223,8 +231,8 @@ const ApptCreation = () => {
                   name="creation-time"
                   id="appt-time"
                   options={timeOptions}
-                  isOptionDisabled = {(option) => option.disabled}
-                  placeholder={"Time"}
+                  isOptionDisabled={(option) => option.disabled}
+                  placeholder={'Time'}
                   onChange={(e) => handleTimeChange(e)}
                 />
                 <p className="creation-form-right-note mt-4 text-red-500">

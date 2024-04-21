@@ -16,16 +16,18 @@ const ApptConfirmation = () => {
   const formatDate = (dateProp) => {
     console.log(dateProp);
     try {
-      return format(new Date(dateProp), "MM/dd/yyyy");
+      return format(new Date(dateProp), 'MM/dd/yyyy');
     } catch {
-      console.log("Invalid date/Unable to format");
+      console.log('Invalid date/Unable to format');
       return dateProp;
     }
   };
 
   useEffect(() => {
     const getAppointmentInfo = async () => {
-      const res = await axios.get(`http://localhost:4000/appointments/${id}`);
+      const res = await axios.get(
+        `${process.env.REACT_APP_SERVER_URL}/appointments/${id}`
+      );
       setApptData(res.data);
       let formattedDate = formatDate(res.data.preferredDate);
       let formattedTime = convertClockTime(res.data.time);
@@ -38,8 +40,8 @@ const ApptConfirmation = () => {
 
   return (
     <div>
-      { isLoading ? (
-        <div className = "confirm-main-container">
+      {isLoading ? (
+        <div className="confirm-main-container">
           <h1 className="confirm-title">Appointment Request Received!</h1>
 
           <div className="confirm-appt-msg">
@@ -65,7 +67,7 @@ const ApptConfirmation = () => {
               <div className="confirm-appt-content">
                 <div className="confirm-cell-1">
                   <p>
-                    <span className="confirm-appt-label">Date Received:</span>{" "}
+                    <span className="confirm-appt-label">Date Received:</span>{' '}
                     {formatDate(appt.createdAt)}
                   </p>
                   <p>
@@ -77,11 +79,11 @@ const ApptConfirmation = () => {
                 </div>
                 <div className="confirm-cell-2">
                   <p>
-                    <span className="confirm-appt-label">Reason:</span>{" "}
-                    {appt.apptReason}{" "}
+                    <span className="confirm-appt-label">Reason:</span>{' '}
+                    {appt.apptReason}{' '}
                   </p>
                   <p>
-                    <span className="confirm-appt-label">Provider:</span>{" "}
+                    <span className="confirm-appt-label">Provider:</span>{' '}
                     {appt.doctor.fname} {appt.doctor.lname}
                   </p>
                 </div>
@@ -98,7 +100,9 @@ const ApptConfirmation = () => {
             </button>
           </Link>
         </div>
-      ) : ( <div> Loading... </div>)}
+      ) : (
+        <div> Loading... </div>
+      )}
     </div>
   );
 };

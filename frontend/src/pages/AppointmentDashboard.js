@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import "./styles/appointmentDashboard.css";
-import AppointmentDashForm from "../components/appts/AppointmentDashForm";
-import { useAuthContext } from "../hooks/useAuthContext.js";
-import convertClockTime from "../utils/convertClockTime.js";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import './styles/appointmentDashboard.css';
+import AppointmentDashForm from '../components/appts/AppointmentDashForm';
+import { useAuthContext } from '../hooks/useAuthContext.js';
+import convertClockTime from '../utils/convertClockTime.js';
 // note there is a difference from appointments plural (used in .map)
 // and appointment singular (used for rendering specific appt in dropwdown)
 const AppointmentDashboard = () => {
@@ -47,9 +47,9 @@ const AppointmentDashboard = () => {
       try {
         let appointmentResponse;
 
-          appointmentResponse = await axios.get(
-            `http://localhost:4000/appointments/getApptAndDoctor`
-          );
+        appointmentResponse = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/appointments/getApptAndDoctor`
+        );
 
         // append variables to each appointment
         for (var i = 0; i < appointmentResponse.data.length; i++) {
@@ -57,7 +57,9 @@ const AppointmentDashboard = () => {
           appointmentResponse.data[i].editMode = false;
         }
 
-        const doctorResponse = await axios.get(`http://localhost:4000/doctors`);
+        const doctorResponse = await axios.get(
+          `${process.env.REACT_APP_SERVER_URL}/doctors`
+        );
         const doctors = doctorResponse.data;
 
         const mappedDoctors = doctors.map((doctor) => ({
@@ -115,89 +117,89 @@ const AppointmentDashboard = () => {
 
   return (
     <div className="appt-dash-can h-full min-h-screen">
-    <div className="appt-main-container">
-      <div className=" settings-top-row flex flex-col">
-        <div className="top-bar" />
-        <h1 className="settings-top-header">Appointment Dashboard</h1>
-      </div>
-      {appointment &&
-        appointment.map((appointments, index) => (
-          <div key={index}>
-            <div key={index} className="appt-cells min-h-150">
-              <div className="appt-cell-one">
-                <p>
-                  <span className="text-red-500" id={`${index}`}>
-                    Requested Time:{" "}
-                  </span>
-                  {convertClockTime(appointments.time)}
-                </p>
-                <p>
-                  <span className="text-red-500">Requested Date: </span>
-                  {new Date(appointments.preferredDate).toDateString()}
-                </p>
-              </div>
-              <div className="appt-cell-two">
-                <p>
-                  <span className="text-red-500">Patient: </span>
-                  {appointments.patientFirstName}{" "}
-                  {appointments.patientLastName}
-                </p>
-                <p>
-                  <span className="text-red-500">Provider: </span>
-                  {appointments.doctor.fname} {appointments.doctor.lname}
-                </p>
-              </div>
-              <div className="appt-cell-three">
-                <p>
-                  <span className="text-red-500">Appointment Type: </span>
-                  {appointments.apptReason}
-                </p>
-              </div>
-              <div className="appt-cell-four flex-col">
-                <p>
-                  <span className="text-red-500">Status: </span>
-                  {appointments.status}
-                </p>
+      <div className="appt-main-container">
+        <div className=" settings-top-row flex flex-col">
+          <div className="top-bar" />
+          <h1 className="settings-top-header">Appointment Dashboard</h1>
+        </div>
+        {appointment &&
+          appointment.map((appointments, index) => (
+            <div key={index}>
+              <div key={index} className="appt-cells min-h-150">
+                <div className="appt-cell-one">
+                  <p>
+                    <span className="text-red-500" id={`${index}`}>
+                      Requested Time:{' '}
+                    </span>
+                    {convertClockTime(appointments.time)}
+                  </p>
+                  <p>
+                    <span className="text-red-500">Requested Date: </span>
+                    {new Date(appointments.preferredDate).toDateString()}
+                  </p>
+                </div>
+                <div className="appt-cell-two">
+                  <p>
+                    <span className="text-red-500">Patient: </span>
+                    {appointments.patientFirstName}{' '}
+                    {appointments.patientLastName}
+                  </p>
+                  <p>
+                    <span className="text-red-500">Provider: </span>
+                    {appointments.doctor.fname} {appointments.doctor.lname}
+                  </p>
+                </div>
+                <div className="appt-cell-three">
+                  <p>
+                    <span className="text-red-500">Appointment Type: </span>
+                    {appointments.apptReason}
+                  </p>
+                </div>
+                <div className="appt-cell-four flex-col">
+                  <p>
+                    <span className="text-red-500">Status: </span>
+                    {appointments.status}
+                  </p>
 
-                {appointments.editMode ? (
-                  <div>Editting Form...</div>
-                ) : (
-                  <div className="appt-cell-five mt-2">
-                    <button
-                      className="appt-update-btn"
-                      onClick={() => toggleFormDropdown(index)}
-                    >
-                      {appointments.formDropdown ? "Collapse" : "Expand"}
-                    </button>
-                    <button
-                      className="appt-update-btn ml-5"
-                      onClick={() => toggleEditMode(index)}
-                    >
-                      Edit
-                    </button>
-                  </div>
-                )}
+                  {appointments.editMode ? (
+                    <div>Editting Form...</div>
+                  ) : (
+                    <div className="appt-cell-five mt-2">
+                      <button
+                        className="appt-update-btn"
+                        onClick={() => toggleFormDropdown(index)}
+                      >
+                        {appointments.formDropdown ? 'Collapse' : 'Expand'}
+                      </button>
+                      <button
+                        className="appt-update-btn ml-5"
+                        onClick={() => toggleEditMode(index)}
+                      >
+                        Edit
+                      </button>
+                    </div>
+                  )}
+                </div>
               </div>
+              {appointments.editMode || appointments.formDropdown ? (
+                <AppointmentDashForm
+                  appointment={appointment}
+                  appointments={appointments}
+                  providers={providers}
+                  index={index}
+                  toggleFormDropdown={toggleFormDropdown}
+                  toggleEditMode={toggleEditMode}
+                  setAppointment={setAppointment}
+                  user={user}
+                  updated={updated}
+                  setUpdated={setUpdated}
+                />
+              ) : (
+                <div></div>
+              )}
             </div>
-            {appointments.editMode || appointments.formDropdown ? (
-              <AppointmentDashForm
-                appointment={appointment}
-                appointments={appointments}
-                providers={providers}
-                index={index}
-                toggleFormDropdown={toggleFormDropdown}
-                toggleEditMode={toggleEditMode}
-                setAppointment={setAppointment}
-                user={user}
-                updated={updated}
-                setUpdated={setUpdated}
-              />
-            ) : (
-              <div></div>
-            )}
-          </div>
-        ))}
-    </div>
+          ))}
+      </div>
     </div>
   );
 };

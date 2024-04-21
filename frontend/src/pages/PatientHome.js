@@ -18,7 +18,7 @@ const Home = () => {
     const fetchData = async () => {
       try {
         const response1 = await fetch(
-          `http://localhost:4000/patients/${patient.email}`
+          `${process.env.REACT_APP_SERVER_URL}/patients/${patient.email}`
         );
         const userData = await response1.json();
 
@@ -27,13 +27,13 @@ const Home = () => {
           localStorage.setItem('userID', userData[0]._id);
           localStorage.setItem('orgID', userData[0].org);
           const response2 = await fetch(
-            `http://localhost:4000/appointments/patient/${userData[0]._id}`
+            `${process.env.REACT_APP_SERVER_URL}/appointments/patient/${userData[0]._id}`
           );
           const apptData = await response2.json();
           setApptList(apptData);
 
           const response3 = await fetch(
-            `http://localhost:4000/invoices/patient_invoices/${userData[0]._id}`
+            `${process.env.REACT_APP_SERVER_URL}/invoices/patient_invoices/${userData[0]._id}`
           );
           const invoiceData = await response3.json();
           setInvoices(invoiceData);
