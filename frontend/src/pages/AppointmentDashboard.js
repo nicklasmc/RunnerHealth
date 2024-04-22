@@ -15,10 +15,25 @@ const AppointmentDashboard = () => {
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filteringStatus, setFilteringStatus] = useState(false); // true if filtered
-  const [statusFilter, setStatusFilter] = useState("All");
+  const [statusFilter, setStatusFilter] = useState();
+  const [patientOptions, setPatientOptions] = useState([]);
   const { admin } = useAuthContext();
   const { doctor } = useAuthContext();
   const [user, setUser] = useState(null);
+
+  const extractPatients = () => {
+    let patientOptions = [];
+    patientOptions = appointment.map(({patientFirstName, patientLastName}) => ({
+      value: patientLastName,
+      label: patientFirstName + " " + patientLastName,
+    }));
+
+    let extractedPatients = [...new Set(patientOptions)];
+    console.log("ExtractedPatients ->", extractedPatients);
+    console.log("Patient Options ->", patientOptions);
+    setPatientOptions(patientOptions);
+  };
+
 
   useEffect(() => {
     if (admin) {
@@ -70,9 +85,10 @@ const AppointmentDashboard = () => {
 
         setStatusFilter("All");
         setProviders(mappedDoctors);
-        setAppointment(appointmentResponse.data);
         setAllAppointments(appointmentResponse.data);
         setFilteringStatus(false);
+        setAppointment(appointmentResponse.data);
+        extractPatients();
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -80,7 +96,6 @@ const AppointmentDashboard = () => {
     };
 
     fetchData();
-  
   }, [updated]);
 
   useEffect(() => {
@@ -104,6 +119,8 @@ const AppointmentDashboard = () => {
         setAppointment(filteredResponse);
       }
   }, [statusFilter]);
+
+
 
   const toggleFormDropdown = (index) => {
     const tempAppointments = [...appointment]; // copy of the appointments into a temporary one
@@ -147,16 +164,28 @@ const AppointmentDashboard = () => {
           <div className="top-bar" />
           <div className="flex justify-between">
             <h1 className="settings-top-header">Appointment Dashboard</h1>
+            <div className = "flex"> 
             <Select
               className = "leading-10 m-2"
               name="status-filter"
               id="status-filter"
-              options={statusFilterOptions}
-              placeholder={"Filter By..."}
+              options={patientOptions}
+              placeholder={"Patient"}
               onChange={(e) => handleStatusFilterChange(e)}
               menuPortalTarget={document.body}
               menuPosition={'fixed'} 
             />
+            <Select
+              className = "leading-10 mr-2 mt-2 mb-2"
+              name="status-filter"
+              id="status-filter"
+              options={statusFilterOptions}
+              placeholder={"Status"}
+              onChange={(e) => handleStatusFilterChange(e)}
+              menuPortalTarget={document.body}
+              menuPosition={'fixed'} 
+            />
+            </div>
           </div>
         </div>
         {appointment.length > 0 ? (
