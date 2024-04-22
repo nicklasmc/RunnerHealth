@@ -16,22 +16,28 @@ const AppointmentDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [filteringStatus, setFilteringStatus] = useState(false); // true if filtered
   const [statusFilter, setStatusFilter] = useState();
+  const [patientFilter, setPatientFilter] = useState();
   const [patientOptions, setPatientOptions] = useState([]);
   const { admin } = useAuthContext();
   const { doctor } = useAuthContext();
   const [user, setUser] = useState(null);
 
   const extractPatients = () => {
-    let patientOptions = [];
-    patientOptions = appointment.map(({patientFirstName, patientLastName}) => ({
+    let patientFullArray = [];
+    patientFullArray = appointment.map(({patientFirstName, patientLastName}) => ({
       value: patientLastName,
       label: patientFirstName + " " + patientLastName,
     }));
-
-    let extractedPatients = [...new Set(patientOptions)];
-    console.log("ExtractedPatients ->", extractedPatients);
-    console.log("Patient Options ->", patientOptions);
-    setPatientOptions(patientOptions);
+    console.log("patient options--->", patientFullArray);
+    let extractedPatients = patientFullArray.map(JSON.stringify);
+    let uniquePatients = [...new Set(extractedPatients)];
+    let uniquePatientsArray = Array.from(uniquePatients).map(JSON.parse);
+    console.log("uniquePatients ---->", uniquePatientsArray);
+    if(uniquePatientsArray.length === 0) {
+      setPatientOptions([{value: "No Patients Found", label: "No Patients Found"}]);
+    }
+    setPatientOptions(uniquePatientsArray);
+    console.log(patientOptions);
   };
 
 
@@ -88,7 +94,6 @@ const AppointmentDashboard = () => {
         setAllAppointments(appointmentResponse.data);
         setFilteringStatus(false);
         setAppointment(appointmentResponse.data);
-        extractPatients();
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -107,19 +112,39 @@ const AppointmentDashboard = () => {
       setAllAppointments(filteredResponse);
       setFilteringStatus(true);
     }
+
+    if (appointment) {
+      extractPatients();
+    }
   }, [user, appointment]);
 
-  useEffect(() => {
-      if (statusFilter == "All") {
-        setAppointment(allAppointments);
-      } else {
-        const filteredResponse = allAppointments.filter(
+  const applyFilter = () => {
+    if (statusFilter == "All") {
+      setAppointment(allAppointments);
+    } else {
+      let filteredResponse = [];
+      if (statusFilter) {
+        filteredResponse = allAppointments.filter(
           (item) => item.status === statusFilter
         );
-        setAppointment(filteredResponse);
+        console.log("First pass ->", filteredResponse);
       }
-  }, [statusFilter]);
+      if (patientFilter) {
+        filteredResponse = filteredResponse.filter(
+          (item) => item.patientLastName === patientFilter
+        );
+        console.log("Second pass ->", filteredResponse);
+      }
+      setAppointment(filteredResponse);
+    }
+  };
 
+  useEffect(() => {
+    if (patientOptions.length > 0){
+      console.log("UE PO->", patientOptions);
+    }
+
+  }, [patientOptions]);
 
 
   const toggleFormDropdown = (index) => {
@@ -138,6 +163,9 @@ const AppointmentDashboard = () => {
 
   const handleStatusFilterChange = (e) => {
     setStatusFilter(e.value);
+  };
+  const handlePatientFilterChange = (e) => {
+    setPatientFilter(e.value);
   };
 
 
@@ -167,11 +195,11 @@ const AppointmentDashboard = () => {
             <div className = "flex"> 
             <Select
               className = "leading-10 m-2"
-              name="status-filter"
-              id="status-filter"
+              name="patient-filter"
+              id="patient-filter"
               options={patientOptions}
               placeholder={"Patient"}
-              onChange={(e) => handleStatusFilterChange(e)}
+              onChange={(e) => handlePatientFilterChange(e)}
               menuPortalTarget={document.body}
               menuPosition={'fixed'} 
             />
@@ -185,6 +213,8 @@ const AppointmentDashboard = () => {
               menuPortalTarget={document.body}
               menuPosition={'fixed'} 
             />
+            <button className = "m-3 underline" onClick = {applyFilter}>
+              Apply Filter</button>
             </div>
           </div>
         </div>
