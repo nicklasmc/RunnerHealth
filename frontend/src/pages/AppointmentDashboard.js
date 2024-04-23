@@ -5,6 +5,7 @@ import AppointmentDashForm from "../components/appts/AppointmentDashForm";
 import { useAuthContext } from "../hooks/useAuthContext.js";
 import convertClockTime from "../utils/convertClockTime.js";
 import Select from 'react-select';
+import { isBefore, isAfter, isEqual, endOfDay, format} from "date-fns";
 // note there is a difference from appointments plural (used in .map)
 // and appointment singular (used for rendering specific appt in dropwdown)
 const AppointmentDashboard = () => {
@@ -14,14 +15,18 @@ const AppointmentDashboard = () => {
   const [appointment, setAppointment] = useState([]);
   const [providers, setProviders] = useState([]);
   const [loading, setLoading] = useState(true);
+
   const [filteringStatus, setFilteringStatus] = useState(null);
   const [statusFilter, setStatusFilter] = useState();
   const [patientFilter, setPatientFilter] = useState();
   const [typeFilter, setTypeFilter] = useState();
+  const [dateOne, setDateOne] = useState();
+  const [dateTwo, setDateTwo] = useState();
   const [selectedPatientFilter, setSelectedPatientFilter] = useState(null);
   const [selectedStatusFilter, setSelectedStatusFilter] = useState(null);
   const [selectedTypeFilter, setSelectedTypeFilter] = useState(null);
   const [patientOptions, setPatientOptions] = useState([]);
+
   const { admin } = useAuthContext();
   const { doctor } = useAuthContext();
   const [user, setUser] = useState(null);
@@ -32,18 +37,17 @@ const AppointmentDashboard = () => {
       value: patientLastName,
       label: patientFirstName + " " + patientLastName,
     }));
-    console.log("patient options--->", fullPatientArray);
+
     let tempArr = fullPatientArray.map(JSON.stringify);
     let uniquePatients = [...new Set(tempArr)];
     let uniquePatientsArray = Array.from(uniquePatients).map(JSON.parse);
-    console.log("uniquePatients ---->", uniquePatientsArray);
+
     if(uniquePatientsArray.length === 0) {
       setPatientOptions([{value: "No Patients Found", label: "No Patients Found"}]);
     }
-    console.log("uniquepatientarray->", uniquePatientsArray);
+
     let allPatientLabel = {value:"All Patients", label:"All Patients"};
     uniquePatientsArray.unshift(allPatientLabel);
-    console.log(uniquePatientsArray);
     setPatientOptions(uniquePatientsArray);
   };
 
@@ -131,59 +135,77 @@ const AppointmentDashboard = () => {
     }
   }, [allAppointments]);
 
+  const filterDate = (prop) => {
+    let tempArr = prop;
+    let tempDateOne = new Date(dateOne.replace(/-/g, '\/').replace(/T.+/, ''));
+
+    let tempDateTwo = new Date(dateTwo.replace(/-/g, '\/').replace(/T.+/, ''));
+ 
+
+    let finalArray = tempArr.filter(
+      (item) => (
+      ((isEqual((new Date(item.preferredDate.replace(/-/g, '\/').replace(/T.+/, ''))),(tempDateOne))) || (isAfter((new Date(item.preferredDate)),(tempDateOne))))
+       && 
+      ((isEqual((new Date(item.preferredDate.replace(/-/g, '\/').replace(/T.+/, ''))), (tempDateTwo))) || (isBefore((new Date(item.preferredDate)), (tempDateTwo))))
+      )
+    );
+    return finalArray;
+  }
+
 
   const applyFilter = () => {
-    console.log("Type filter ->", typeFilter);
-    let filteredResponse = [];
+    let filteredResponse = allAppointments;
     if (statusFilter === "Any Status" && patientFilter === "All Patients" && typeFilter === "All Types") { // show all
       setAppointment(allAppointments);
+      if (dateOne && dateTwo) {
+        setAppointment(filterDate(allAppointments));
+      }
     } else {
-      console.log("Checking...", typeFilter, statusFilter, patientFilter);
-      if (statusFilter && (statusFilter !== "Any Status") && ((patientFilter === null) || (patientFilter === "All Patients")) && ((typeFilter === null) || (typeFilter === "All Types"))) { // filter by status only
+      if (statusFilter && (statusFilter !== "Any Status") && 
+      ((patientFilter === null) || (patientFilter === "All Patients")) && 
+      ((typeFilter === null) || (typeFilter === "All Types"))) { // filter by status only
         filteredResponse = allAppointments.filter(
           (item) => item.status === statusFilter
         );
-        console.log("First pass ->", filteredResponse);
         setAppointment(filteredResponse);
-      } else if (patientFilter && (patientFilter !== "All Patients") && ((statusFilter === null) || (statusFilter === "Any Status")) && ((typeFilter === null) || (typeFilter === "All Types"))) { // filter by patient only
+
+      } else if (patientFilter && (patientFilter !== "All Patients") && 
+      ((statusFilter === null) || (statusFilter === "Any Status")) && 
+      ((typeFilter === null) || (typeFilter === "All Types"))) { // filter by patient only
         filteredResponse = allAppointments.filter(
           (item) => item.patientLastName === patientFilter
         );
-        console.log("Second pass ->", filteredResponse);
         setAppointment(filteredResponse);
-      } else if (typeFilter && (typeFilter !== "All Types") && ((statusFilter === null) || (statusFilter === "Any Status")) && ((patientFilter === null) || (patientFilter === "All Patients"))) {
-        console.log("Running here");
+
+      } else if (typeFilter && (typeFilter !== "All Types") && 
+      ((statusFilter === null) || (statusFilter === "Any Status")) && 
+      ((patientFilter === null) || (patientFilter === "All Patients"))) { // filter by type of appt only
         filteredResponse = allAppointments.filter(
           (item) => item.apptReason === typeFilter
         );
-        console.log("Second pass ->", filteredResponse);
         setAppointment(filteredResponse);
-      } else if (patientFilter || statusFilter || typeFilter) { // filter by both
-        console.log("Filtering Both");
+
+      } else if (patientFilter || statusFilter || typeFilter) { // filter by all
         filteredResponse = allAppointments;
-        console.log(patientFilter);
-        console.log(statusFilter);
-        console.log(typeFilter);
         if (patientFilter !== "All Patients" && patientFilter) {
-          console.log("Patient filter set ->", patientFilter);
           filteredResponse = allAppointments.filter(
             (item) => item.patientLastName === patientFilter
           );
         }
         if (statusFilter !== "Any Status" && statusFilter) {
-          console.log("Status filter set ->", statusFilter);
           filteredResponse = filteredResponse.filter(
             (item) => item.status === statusFilter
           );
         }
         if (typeFilter !== "All Types" && typeFilter) {
-          console.log("Type filter set ->", typeFilter);
           filteredResponse = filteredResponse.filter(
             (item) => item.apptReason === typeFilter
           );
         }
-        console.log("Done ->", filteredResponse);
         setAppointment(filteredResponse);
+      }
+      if (dateOne && dateTwo) {
+        setAppointment(filterDate(filteredResponse));
       }
 
     }
@@ -196,15 +218,14 @@ const AppointmentDashboard = () => {
     setSelectedPatientFilter(null);
     setSelectedStatusFilter(null);
     setSelectedTypeFilter(null);
+    document.getElementById("date-one").value = null;
+    document.getElementById("date-two").value = null;
+    setDateOne(null);
+    setDateTwo(null);
+
     setAppointment(allAppointments);
   };
 
-  useEffect(() => {
-    if (patientOptions.length > 0) {
-      console.log("UE PO->", patientOptions);
-    }
-
-  }, [patientOptions]);
 
 
   const toggleFormDropdown = (index) => {
@@ -235,6 +256,15 @@ const AppointmentDashboard = () => {
     setSelectedTypeFilter({value: e.value, label:e.value});
   };
 
+  const handleDateOneChange = (e) => {
+    let date = document.getElementById("date-one").value;
+    setDateOne(date);
+  };
+
+  const handleDateTwoChange = (e) => {
+    let date = document.getElementById("date-two").value;
+    setDateTwo(date);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -266,7 +296,13 @@ const AppointmentDashboard = () => {
           <div className="top-bar" />
           <div className="flex justify-between">
             <h1 className="settings-top-header">Appointment Dashboard</h1>
+
             <div className = "flex"> 
+            <div className="flex flex-grow-0 flex-shrink-0 m-3">
+              <input aria-label="Date" type="date" id = "date-one" onChange={handleDateOneChange}/>
+              <p className = "my-2.5 mx-2"> To </p>
+              <input aria-label="Date" type="date" id = "date-two" onChange={handleDateTwoChange} />
+            </div>
               <Select
                 className="leading-10 m-2"
                 name="patient-filter"
