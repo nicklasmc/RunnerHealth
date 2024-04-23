@@ -108,8 +108,28 @@ button.signup-button:disabled {
   color: darkgoldenrod;
 }
 
+.git-link {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.git-link-click {
+  color: goldenrod;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.git-link-click:hover {
+  color: darkgoldenrod;
+}
+
+
 /* Media query for mobile view */
 @media only screen and (max-width: 800px) {
+  .signup-container {
+    height: 100vh;
+  }
+
   .signup-form-container,
   .switch-section-container {
     max-width: 100%;
@@ -118,5 +138,9 @@ button.signup-button:disabled {
   .logo {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .mobile-display {
+    display: none;
   }
 }

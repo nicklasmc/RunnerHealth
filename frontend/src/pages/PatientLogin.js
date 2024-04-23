@@ -74,7 +74,7 @@ const Login = () => {
           </p>
         </div>
       </div>
-      <div className="switch-section-container mt-2">
+      <div className="mobile-display switch-section-container mt-2">
         <div className="switch-section">
           <p>
             Not a patient?{' '}Login as{' '}

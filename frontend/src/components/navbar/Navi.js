@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { UseLogout } from '../../hooks/useLogout';
 import { UseAdminLogout } from '../../hooks/useAdminLogout';
 import { UseDoctorLogout } from '../../hooks/useDoctorLogout';
@@ -18,6 +18,15 @@ const Navi = () => {
   const { adminLogout } = UseAdminLogout();
   const { doctorLogout } = UseDoctorLogout();
   const { patient, admin, doctor } = useAuthContext();
+
+  const location = useLocation();
+
+  const displayNavbar = () => {
+    const excludePathnames = ['/patient_login', '/patient_signup'];
+    return !excludePathnames.includes(location.pathname);
+  };
+
+
   const navDropdownTitle = (
     <span className="bg-gray">
       <IconButton size="small">
@@ -38,7 +47,7 @@ const Navi = () => {
     doctorLogout();
   };
 
-  return (
+  return displayNavbar() ? (
     <Navbar className="bg-[#003594]" sticky="top">
       <Container className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
@@ -222,7 +231,7 @@ const Navi = () => {
         </nav>
       </Container>
     </Navbar>
-  );
+  ) : null;
 };
 
 const InventoryContent = () => {

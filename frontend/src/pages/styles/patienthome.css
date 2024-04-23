@@ -387,7 +387,8 @@
     .each-appt {
         font-size: 1rem;
         flex-direction: column-reverse;
-        gap: 1.5rem;
+        gap: 1.25rem;
+        padding: 0.75rem;
     }
 
     .appt-button{

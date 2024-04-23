@@ -97,7 +97,11 @@ const MNavi = () => {
                         Profile Settings
                       </Link>
                     </Dropdown.Item>
-                    <Dropdown.Item eventKey="2">Notifications</Dropdown.Item>
+                    <Dropdown.Item eventKey="2">
+                      <Link to={`/myappointments/${user._id}`}>
+                        My Appointments
+                      </Link>
+                    </Dropdown.Item>
                   </DropdownButton>
                 </>
               ))}

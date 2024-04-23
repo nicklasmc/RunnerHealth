@@ -1,7 +1,15 @@
 import { FaGithubSquare, FaLinkedin } from 'react-icons/fa';
+import { useLocation } from 'react-router-dom';
 
 const Footer = () => {
-  return (
+  const location = useLocation();
+
+  const displayNavbar = () => {
+    const excludePathnames = ['/patient_login', '/patient_signup'];
+    return !excludePathnames.includes(location.pathname);
+  };
+
+  return displayNavbar() ? (
     <footer className="footy bg-[#003594] py-8">
       <div className="footy-container">
         {/* Footer top */}
@@ -39,7 +47,7 @@ const Footer = () => {
         </div>
       </div>
     </footer>
-  );
+  ) : null;
 };
 
 export default Footer;

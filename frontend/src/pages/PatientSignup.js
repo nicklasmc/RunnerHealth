@@ -76,6 +76,12 @@ const Signup = () => {
             {isLoading ? 'Signing Up...' : 'Sign Up'}
           </button>
 
+          <p className="git-link">Check out our 
+            <Link to="https://github.com/nicklasmc/RunnerHealth" className="git-link-click">
+            {' '}Github!
+            </Link>
+          </p>
+
           {error && <div className="error">{error}</div>}
         </form>
       </div>
@@ -89,7 +95,7 @@ const Signup = () => {
           </p>
         </div>
       </div>
-      <div className="switch-section-container mt-2">
+      <div className="mobile-display switch-section-container mt-2">
         <div className="switch-section">
           <p>
             Not a patient?{' '}Signup as{' '}

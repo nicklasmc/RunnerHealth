@@ -139,7 +139,7 @@ function Landing() {
           <div className="runner-team-box">
             <Card className="team-member-card">
               <Card.Img variant="top" className="team-img" src={seven} />
-              <Card.Body>
+              <Card.Body className="team-card-body">
                 <ListGroup variant="flush" className="team-member-info-can">
                   <ListGroup.Item>
                     <Card.Title className="team-member-name">

@@ -514,7 +514,7 @@ header .container {
   box-shadow: 5px 3px 3px #111;
 }
 
-.card-body {
+.team-card-body {
   background-color: gainsboro;
   border-radius: 15px;
 }
@@ -689,7 +689,7 @@ header .container {
   }
 
   .dropdown-menu[data-bs-popper] {
-    left: -70%;
+    left: -76%;
   }
 
   .mnav-logout-btn {
