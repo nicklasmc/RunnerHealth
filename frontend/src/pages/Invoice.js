@@ -160,7 +160,7 @@ export default function Invoice() {
       getDoctorList();
       console.log(allDoctors);
     }
-  }, [invoices, pending]);
+  }, []);
 
   return (
     <div className="home-page">
