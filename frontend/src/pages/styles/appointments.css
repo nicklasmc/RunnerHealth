@@ -98,12 +98,25 @@
 }
 
 .patient-appt-cancel {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.patient-appt-cancel:hover{
-    background: goldenrod;
-    color: #003594;
+.patient-cancel-link {
+    color: goldenrod;
+    text-decoration: none;
     font-weight: bold;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.patient-cancel-link:hover{
+    color: darkgoldenrod;
 }
 
 .confirm-main-container {
@@ -549,7 +562,7 @@ textarea {
 
     .cell-4 {
         width: 100%;
-        justify-content: center;
+        align-items: center;
     }
 
     .patient-each-appt-container {
