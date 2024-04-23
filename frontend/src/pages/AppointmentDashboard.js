@@ -294,7 +294,7 @@ const AppointmentDashboard = () => {
       <div className="appt-main-container">
         <div className=" settings-top-row flex flex-col">
           <div className="top-bar" />
-          <div className="flex justify-between">
+          <div className="flex flex-col">
             <h1 className="settings-top-header">Appointment Dashboard</h1>
 
             <div className = "flex"> 
@@ -336,8 +336,7 @@ const AppointmentDashboard = () => {
                 menuPortalTarget={document.body}
                 menuPosition={'fixed'}
               />
-
-              <div>
+              <div className = "flex flex-shrink-0">
                 <button className="mt-3 ml-3 mb-3 mr-1 underline" onClick={applyFilter}>
                   Apply Filter</button>
                 <button className="mt-3 mr-3 mb-3 ml-1 underline" onClick={resetFilter}>
