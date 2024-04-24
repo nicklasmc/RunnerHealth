@@ -22,7 +22,8 @@ const Navi = () => {
   const location = useLocation();
 
   const displayNavbar = () => {
-    const excludePathnames = ['/patient_login', '/patient_signup'];
+    const excludePathnames = 
+    ['/patient_login', '/patient_signup', '/doctor_login', '/doctor_signup', '/admin_login', '/admin_signup'];
     return !excludePathnames.includes(location.pathname);
   };
 
@@ -48,7 +49,7 @@ const Navi = () => {
   };
 
   return displayNavbar() ? (
-    <Navbar className="bg-[#003594]" sticky="top">
+    <Navbar className="bg-[#003594] container" sticky="top">
       <Container className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
           {patient && (
@@ -420,7 +421,6 @@ const ProfileContent = () => {
               <h3 className="font-bold text-xl">
                 {user.fname} {user.lname}
               </h3>
-              <h3 className="font-bold text-xl">{user.email}</h3>
               <div className="flex-1 border-t-2 border-gray-200" />
               <Link
                 to={`/user_settings/${user._id}`}

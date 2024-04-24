@@ -5,12 +5,13 @@ const Footer = () => {
   const location = useLocation();
 
   const displayNavbar = () => {
-    const excludePathnames = ['/patient_login', '/patient_signup'];
+    const excludePathnames = 
+    ['/patient_login', '/patient_signup', '/doctor_login', '/doctor_signup', '/admin_login', '/admin_signup'];
     return !excludePathnames.includes(location.pathname);
   };
 
   return displayNavbar() ? (
-    <footer className="footy bg-[#003594] py-8">
+    <footer className="footy container bg-[#003594] py-8">
       <div className="footy-container">
         {/* Footer top */}
         <div className="logo-text">
