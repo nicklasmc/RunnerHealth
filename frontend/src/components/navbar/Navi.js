@@ -50,7 +50,7 @@ const Navi = () => {
 
   return displayNavbar() ? (
     <Navbar className="bg-[#003594]" sticky="top">
-      <Container className="topnav-contents container">
+      <Container className="topnav-contents">
         <Navbar.Brand className="rh-topnav-logo">
           {patient && (
             <Link to="/patient_home">
