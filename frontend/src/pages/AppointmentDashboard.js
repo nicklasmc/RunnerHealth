@@ -297,14 +297,14 @@ const AppointmentDashboard = () => {
           <div className="flex flex-col">
             <h1 className="settings-top-header">Appointment Dashboard</h1>
 
-            <div className = "flex"> 
-            <div className="flex flex-grow-0 flex-shrink-0 m-3">
-              <input aria-label="Date" type="date" id = "date-one" onChange={handleDateOneChange}/>
-              <p className = "my-2.5 mx-2"> To </p>
-              <input aria-label="Date" type="date" id = "date-two" onChange={handleDateTwoChange} />
-            </div>
+            <div className = "flex flex-row"> 
+              <div className="flex flex-grow-0 flex-shrink-0 m-3 items-center justify-center">
+                <input aria-label="Date" type="date" id = "date-one"  className="flex items-center" onChange={handleDateOneChange}/>
+                <p className = "my-2.5 mx-2"> To </p>
+                <input aria-label="Date" type="date" id = "date-two" onChange={handleDateTwoChange} />
+              </div>
               <Select
-                className="leading-10 m-2"
+                className="leading-8 m-2 mt-3"
                 name="patient-filter"
                 id="patient-filter"
                 value={selectedPatientFilter}
@@ -315,7 +315,7 @@ const AppointmentDashboard = () => {
                 menuPosition={'fixed'}
               />
               <Select
-                className="leading-10 mr-2 mt-2 mb-2"
+                className="leading-8 m-2 mt-3"
                 name="type-filter"
                 id="type-filter"
                 value={selectedTypeFilter}
@@ -326,7 +326,7 @@ const AppointmentDashboard = () => {
                 menuPosition={'fixed'}
               />
               <Select
-                className="leading-10 mr-2 mt-2 mb-2"
+                className="leading-8 m-2 mt-3"
                 name="status-filter"
                 id="status-filter"
                 value={selectedStatusFilter}
@@ -336,15 +336,16 @@ const AppointmentDashboard = () => {
                 menuPortalTarget={document.body}
                 menuPosition={'fixed'}
               />
-              <div className = "flex flex-shrink-0">
-                <button className="mt-3 ml-3 mb-3 mr-1 underline" onClick={applyFilter}>
+              <div className = "flex flex-shrink-0 items-center">
+                <button className=" m-2 mt-3 underline" onClick={applyFilter}>
                   Apply Filter</button>
-                <button className="mt-3 mr-3 mb-3 ml-1 underline" onClick={resetFilter}>
+                <button className=" m-2 mt-3 underline" onClick={resetFilter}>
                   Reset Filter</button>
               </div>
             </div>
           </div>
         </div>
+
         {appointment.length > 0 ? (
           appointment.map((appointments, index) => (
             <div key={index}>
