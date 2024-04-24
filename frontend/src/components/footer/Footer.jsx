@@ -11,8 +11,8 @@ const Footer = () => {
   };
 
   return displayNavbar() ? (
-    <footer className="footy container bg-[#003594] py-8">
-      <div className="footy-container">
+    <footer className="footy bg-[#003594] py-8">
+      <div className="footy-container container">
         {/* Footer top */}
         <div className="logo-text">
           {/* Logo and Text */}
