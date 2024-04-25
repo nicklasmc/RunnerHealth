@@ -28,7 +28,7 @@ const extractTimes = (prop) => {
     }
     // 1:00 - 1300
     if (prop.data[0].time13.length === 0) {
-      tempArr.push({ value: "1300", label: "13:00 PM" });
+      tempArr.push({ value: "1300", label: "1:00 PM" });
     } else {
       tempArr.push({ value: "1300", label: "1:00 PM", disabled: true });
     }
