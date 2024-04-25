@@ -10,14 +10,26 @@ import { VscChevronRight } from 'react-icons/vsc';
 import axios from 'axios';
 import convertMilitaryToTimeslot from '../utils/convertTime.js';
 import convertClockTime from '../utils/convertClockTime.js';
-
+import Select from 'react-select';
 const ApptPatient = () => {
   const { id } = useParams();
   const [apptList, setApptList] = useState([]); // represents ALL appts
+  const [allAppointments, setAllAppointments] = useState([]); // for use with filter
   const [selectedAppt, setSelectedAppt] = useState([]);
+  const [statusFilter, setStatusFilter] = useState("All");
   const { patient } = useAuthContext();
   const [user, setUser] = useState([]);
   const [open, setOpen] = React.useState(false);
+  const statusFilterOptions = [
+    { value: "All", label: "Show All Appointments" },
+    { value: "Pending", label: "Pending Approval" },
+    { value: "Approved", label: "Approved" },
+    { value: "Denied", label: "Denied" },
+    { value: "Cancelled", label: "Cancelled" },
+    { value: "Complete", label: "Completed" },
+    { value: "NO-SHOW", label: "NO-SHOW" },
+  ];
+
   // const [selectedApptId, setSelectedApptId] = useState(null);
   const handleOpen = (index) => {
     console.log('My index------->', index);
@@ -51,11 +63,12 @@ const ApptPatient = () => {
       `${process.env.REACT_APP_SERVER_URL}/appointments/patient/${id}`
     );
     const data = await response.json();
-    console.log(data);
     setApptList(data);
+    setAllAppointments(data);
   };
 
   useEffect(() => {
+    setStatusFilter("All");
     getUserInfo();
     getApptInfo();
   }, [patient.email]);
@@ -67,6 +80,10 @@ const ApptPatient = () => {
       console.log('Invalid date/Unable to format');
       return dateProp;
     }
+  };
+
+  const handleStatusFilterChange = (e) => {
+    setStatusFilter(e.value);
   };
 
   const RenderStatus = (status) => {
@@ -102,100 +119,129 @@ const ApptPatient = () => {
     }
   };
 
+  useEffect(() => {
+    if (statusFilter) {
+      if (statusFilter == "All") {
+        setApptList(allAppointments);
+      } else {
+        const filteredResponse = allAppointments.filter(
+          (item) => item.status === statusFilter
+        );
+        setApptList(filteredResponse);
+      }
+    }
+  }, [statusFilter]);
+
   return (
     <div className="patient-appt-main-container">
       <div className="patient-appt-content-container">
         <div className="patient-appt-header-can">
           <div className="top-bar" />
           <p className="patient-appt-header">My Appointments</p>
+          <Select
+            className="leading-10 m-2"
+            name="status-filter"
+            id="status-filter"
+            options={statusFilterOptions}
+            placeholder={"Filter By..."}
+            onChange={(e) => handleStatusFilterChange(e)}
+            menuPortalTarget={document.body}
+            menuPosition={"fixed"}
+          />
         </div>
-        {apptList.map((appts, index) => (
-          <div key={index} className="patient-each-appt-container">
-            <div className="each-appt-content">
-              <div className="cell-1">
-                <p>
-                  <span className="patient-appt-label">Date Received:</span>{' '}
-                  {formatDate(appts.createdAt)}
-                </p>
-                <p>
+        {apptList.length > 0 ? (
+          apptList.map((appts, index) => (
+            <div key={index} className="patient-each-appt-container">
+              <div className="each-appt-content">
+                <div className="cell-1">
+                  <p>
+                    <span className="patient-appt-label">Date Received:</span>{" "}
+                    {formatDate(appts.createdAt)}
+                  </p>
+                  <p>
+                    <span className="patient-appt-label">
+                      Date/Time Requested:
+                    </span>{" "}
+                    {formatDate(appts.preferredDate)}{" "}
+                    {convertClockTime(appts.time)}
+                  </p>
+                </div>
+                <div className="cell-2">
+                  <p>
+                    <span className="patient-appt-label">Reason:</span>{" "}
+                    {appts.apptReason}{" "}
+                  </p>
+                  <p>
+                    <span className="patient-appt-label">Provider:</span>{" "}
+                    {appts.doctor.fname} {appts.doctor.lname}
+                  </p>
+                </div>
+                <div className="cell-3">
                   <span className="patient-appt-label">
-                    Date/Time Requested:
-                  </span>{' '}
-                  {formatDate(appts.preferredDate)}{' '}
-                  {convertClockTime(appts.time)}
-                </p>
-              </div>
-              <div className="cell-2">
-                <p>
-                  <span className="patient-appt-label">Reason:</span>{' '}
-                  {appts.apptReason}{' '}
-                </p>
-                <p>
-                  <span className="patient-appt-label">Provider:</span>{' '}
-                  {appts.doctor.fname} {appts.doctor.lname}
-                </p>
-              </div>
-              <div className="cell-3">
-                <span className="patient-appt-label">
-                  {RenderStatus(appts.status)}
-                </span>
-                {appts.status === 'Approved' || appts.status === 'Pending' ? (
-                  <div>
-                    <button
-                      className="patient-appt-cancel"
-                      onClick={() => handleOpen(index)}
-                    >
-                      <p className="patient-cancel-link">
+                    {RenderStatus(appts.status)}
+                  </span>
+                  {appts.status === "Approved" || appts.status === "Pending" ? (
+                    <div>
+                      <Button
+                        className="patient-appt-cancel"
+                        onClick={() => handleOpen(index)}
+                      >
                         Cancel
-                      </p>
-                    </button>
-                    <Modal
-                      open={open}
-                      onClose={handleClose}
-                      aria-labelledby="appointment-cancel-confirmation"
-                      aria-describedby="cancel-appointment"
-                    >
-                      <Box sx={style}>
-                        <Typography
-                          id="appointment-cancel-confirmation"
-                          variant="h6"
-                          component="h2"
-                        >
-                          Cancel your Appointment?
-                        </Typography>
-                        <Typography id="cancel-appointment" sx={{ mt: 2 }}>
-                          <div>
-                            <button onClick={() => handleCancelAppt()}>
-                              Confirm
-                            </button>
-                            <button onClick={handleClose}> Cancel </button>
-                          </div>
-                        </Typography>
-                      </Box>
-                    </Modal>
-                  </div>
-                ) : (
-                  <div></div>
-                )}
-              </div>
-              <div className="cell-4">
-                <div>
-                  <Link to={`/appointment/${id}/${appts._id}`} className="patient-appt-cancel">
-                    <p className="patient-cancel-link">View <span><VscChevronRight /></span></p>
-                  </Link>
+                      </Button>
+                      <Modal
+                        open={open}
+                        onClose={handleClose}
+                        aria-labelledby="appointment-cancel-confirmation"
+                        aria-describedby="cancel-appointment"
+                      >
+                        <Box sx={style}>
+                          <Typography
+                            id="appointment-cancel-confirmation"
+                            variant="h6"
+                            component="h2"
+                          >
+                            Cancel your Appointment?
+                          </Typography>
+                          <Typography id="cancel-appointment" sx={{ mt: 2 }}>
+                            <div>
+                              <Button onClick={() => handleCancelAppt()}>
+                                Confirm
+                              </Button>
+                              <Button onClick={handleClose}> Cancel </Button>
+                            </div>
+                          </Typography>
+                        </Box>
+                      </Modal>
+                    </div>
+                  ) : (
+                    <div></div>
+                  )}
+                </div>
+                <div className="cell-4">
+                  <Button className="patient-appt-cancel">
+                    <Link to={`/appointment/${id}/${appts._id}`}>
+                      View <VscChevronRight />
+                    </Link>
+                  </Button>
                 </div>
               </div>
+              <div className="cell-5">
+                <p className="patient-appt-label overflow-scroll">
+                  Additional Comments:
+                  <span className="text-gray-500 px-3 font-normal">
+                    {appts.apptComments}
+                  </span>
+                </p>
+              </div>
             </div>
-            <div className="cell-5">
-              <p className="patient-appt-label overflow-scroll">
-                Additional Comments:
-                <span className="text-gray-500 px-3 font-normal">
-                  {appts.apptComments}
-                </span>
-              </p>
-            </div>
+          ))
+        ) : (
+          <div className="min-h-fit">
+            <h1 className="text-center my-5 font-bold">
+              No Appointments Found
+            </h1>
           </div>
-        ))}
+        )}
       </div>
     </div>
   );
