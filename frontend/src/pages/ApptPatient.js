@@ -182,12 +182,14 @@ const ApptPatient = () => {
                   </span>
                   {appts.status === "Approved" || appts.status === "Pending" ? (
                     <div>
-                      <Button
+                      <button
                         className="patient-appt-cancel"
                         onClick={() => handleOpen(index)}
                       >
+                        <p className="patient-cancel-link">
                         Cancel
-                      </Button>
+                        </p>
+                      </button>
                       <Modal
                         open={open}
                         onClose={handleClose}
@@ -203,11 +205,11 @@ const ApptPatient = () => {
                             Cancel your Appointment?
                           </Typography>
                           <Typography id="cancel-appointment" sx={{ mt: 2 }}>
-                            <div>
-                              <Button onClick={() => handleCancelAppt()}>
+                            <div className="flex flex-row gap-6">
+                              <button onClick={() => handleCancelAppt()} className="patient-cancel-link">
                                 Confirm
-                              </Button>
-                              <Button onClick={handleClose}> Cancel </Button>
+                              </button>
+                              <button onClick={handleClose} className="patient-cancel-link"> Cancel </button>
                             </div>
                           </Typography>
                         </Box>
@@ -218,11 +220,11 @@ const ApptPatient = () => {
                   )}
                 </div>
                 <div className="cell-4">
-                  <Button className="patient-appt-cancel">
-                    <Link to={`/appointment/${id}/${appts._id}`}>
-                      View <VscChevronRight />
+                  <div>
+                    <Link to={`/appointment/${id}/${appts._id}`} className="patient-appt-cancel">
+                      <p className="patient-cancel-link">View <span><VscChevronRight/></span></p>
                     </Link>
-                  </Button>
+                  </div>
                 </div>
               </div>
               <div className="cell-5">
