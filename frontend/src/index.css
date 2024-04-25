@@ -681,7 +681,7 @@ code {
   }
 
   .dropdown-menu[data-bs-popper] {
-    left: -81%;
+    left: -90%;
   }
 
   .mnav-logout-btn {
