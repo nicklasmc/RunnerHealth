@@ -224,8 +224,13 @@ const ApptCreation = () => {
                   fixedWeeks // fixed to 6 week display, prevents resizing to ease up styling
                   mode="single" // single date selection only
                   onSelect={setSelectedDate}
-                  disabled={[{ dayOfWeek: [0, 6] }]} // gray out the weekends and taken dates
+                  disabled={[{ dayOfWeek: [0, 6] }, {before: new Date() }]} // gray out the weekends and taken dates
                 />
+                <div className="mb-2">
+                  {selectedDate && (
+                    <p>Selected Date: {selectedDate.toLocaleDateString()}</p>
+                  )}
+                </div>
                 <h2 className="creation-time-header">Preferred Time:</h2>
                 <Select
                   name="creation-time"
