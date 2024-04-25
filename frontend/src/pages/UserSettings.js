@@ -21,6 +21,15 @@ const UserSettings = () => {
     623: '9827 Runner Rd',
   };
 
+  const pharmacyAddressData = {
+    123: "4850 Algorithm Ave",
+    223: "6312 Java Ln",
+    323: "1745 Python Pl",
+    423: "2560 Git Grove",
+    523: "3987 Rust Rd",
+    623: "5001 Ruby Rd"
+  };
+
   const phoneData = {
     123: '(661) 982-3214',
     223: '(653) 321-7652',
@@ -67,6 +76,7 @@ const UserSettings = () => {
 
     let values = Object.values(addressData);
     const randomAddress = values[parseInt(Math.random() * values.length)];
+    values = Object.values(pharmacyAddressData);
     const randomPharmacy = values[parseInt(Math.random() * values.length)];
     values = Object.values(phoneData);
     const randomPhone = values[parseInt(Math.random() * values.length)];
